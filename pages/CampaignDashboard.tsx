@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Briefcase, Search, ArrowLeft, MoreHorizontal, PlusCircle, 
   ChevronLeft, ChevronRight, Filter, Link, Upload, Plus, History,
-  RotateCcw, MoreVertical, HelpCircle, X, Check, Calendar, Power
+  RotateCcw, MoreVertical, HelpCircle, X, Check, Calendar, Power,
+  BarChart, PieChart, TrendingUp, CheckCircle, Clock, Users
 } from 'lucide-react';
 import { Campaign, PanelMember, CampaignActivity } from '../types';
 import { PANEL_MEMBERS, CAMPAIGN_ACTIVITIES } from '../data';
@@ -259,6 +260,154 @@ const CampaignSettingsView = () => {
 
 // --- WIDGETS ---
 
+const KPIMetricsWidget = () => (
+  <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 space-y-8">
+    <div className="flex justify-between items-center border-b border-gray-100 pb-4">
+      <h3 className="font-bold text-gray-700 text-sm flex items-center gap-2">
+         <BarChart size={16} className="text-indigo-600"/> Campaign Performance Metrics
+      </h3>
+      <select className="text-xs border border-gray-200 rounded px-2 py-1 bg-white focus:outline-none text-gray-600">
+         <option>Last 30 Days</option>
+         <option>Last 7 Days</option>
+         <option>All Time</option>
+      </select>
+    </div>
+    
+    {/* 1. Sourcing Efficiency Metrics */}
+    <div>
+        <h4 className="text-xs font-bold text-gray-500 uppercase mb-4 flex items-center gap-2">
+            <PieChart size={14} /> Sourcing Efficiency
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Active vs Passive */}
+            <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
+                <p className="text-xs font-medium text-gray-500 mb-2">Active vs. Passive Mix</p>
+                <div className="flex items-center gap-2 mb-1">
+                    <span className="text-sm font-bold text-blue-600">45%</span>
+                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden flex">
+                        <div className="w-[45%] bg-blue-500"></div>
+                        <div className="w-[55%] bg-purple-500"></div>
+                    </div>
+                    <span className="text-sm font-bold text-purple-600">55%</span>
+                </div>
+                <div className="flex justify-between text-[10px] text-gray-400">
+                    <span>Inbound (Active)</span>
+                    <span>Outbound (Passive)</span>
+                </div>
+            </div>
+
+            {/* Source of Hire */}
+            <div className="bg-slate-50 rounded-lg p-4 border border-slate-100 flex items-center gap-4">
+                <div className="relative w-16 h-16 flex-shrink-0">
+                    <svg viewBox="0 0 36 36" className="w-full h-full rotate-[-90deg]">
+                       <path className="text-gray-200" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="4"/>
+                       <path className="text-blue-500" strokeDasharray="40, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="4" />
+                       <path className="text-green-500" strokeDasharray="30, 100" strokeDashoffset="-40" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="4" />
+                       <path className="text-orange-400" strokeDasharray="20, 100" strokeDashoffset="-70" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="4" />
+                    </svg>
+                </div>
+                <div className="flex-1 space-y-1">
+                    <div className="flex justify-between text-[10px]"><span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Job Boards</span> <span className="font-bold">40%</span></div>
+                    <div className="flex justify-between text-[10px]"><span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500"></span> Internal DB</span> <span className="font-bold">30%</span></div>
+                    <div className="flex justify-between text-[10px]"><span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-400"></span> Referrals</span> <span className="font-bold">20%</span></div>
+                </div>
+            </div>
+
+            {/* DB Utilization */}
+            <div className="bg-slate-50 rounded-lg p-4 border border-slate-100 flex flex-col justify-center">
+                <p className="text-xs font-medium text-gray-500 mb-2">Database Utilization Rate</p>
+                <div className="flex items-baseline gap-2">
+                    <span className="text-2xl font-bold text-green-600">68%</span>
+                    <span className="text-xs text-green-600 flex items-center"><TrendingUp size={10} className="mr-1"/> +12%</span>
+                </div>
+                <p className="text-[10px] text-gray-400 mt-1">Hires rediscovered from internal DB</p>
+            </div>
+        </div>
+    </div>
+
+    {/* 2. Candidate Quality Segmentation */}
+    <div>
+        <h4 className="text-xs font-bold text-gray-500 uppercase mb-4 flex items-center gap-2">
+            <Check size={14} /> Quality Segmentation (Skill-Based)
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+             <div className="lg:col-span-3 bg-white border border-gray-100 rounded-lg p-4">
+                <div className="flex items-end gap-4 h-32 px-4 pb-2 border-b border-gray-100">
+                    {/* Good */}
+                    <div className="flex-1 flex flex-col justify-end items-center gap-2 group">
+                        <span className="text-xs font-bold text-green-600 opacity-0 group-hover:opacity-100 transition-opacity">18</span>
+                        <div className="w-full bg-green-100 hover:bg-green-200 rounded-t h-[60%] relative transition-all"></div>
+                        <span className="text-[10px] font-medium text-gray-500">Good (80%+)</span>
+                    </div>
+                    {/* Okay */}
+                    <div className="flex-1 flex flex-col justify-end items-center gap-2 group">
+                        <span className="text-xs font-bold text-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity">42</span>
+                        <div className="w-full bg-yellow-100 hover:bg-yellow-200 rounded-t h-[85%] relative transition-all"></div>
+                        <span className="text-[10px] font-medium text-gray-500">Okay (60-79%)</span>
+                    </div>
+                    {/* Bad */}
+                    <div className="flex-1 flex flex-col justify-end items-center gap-2 group">
+                        <span className="text-xs font-bold text-red-600 opacity-0 group-hover:opacity-100 transition-opacity">12</span>
+                        <div className="w-full bg-red-100 hover:bg-red-200 rounded-t h-[30%] relative transition-all"></div>
+                        <span className="text-[10px] font-medium text-gray-500">Bad (&lt;60%)</span>
+                    </div>
+                </div>
+             </div>
+             
+             <div className="flex flex-col justify-center items-center bg-indigo-50 rounded-lg border border-indigo-100 p-4 text-center">
+                <div className="p-3 bg-indigo-100 text-indigo-600 rounded-full mb-2"><CheckCircle size={24} /></div>
+                <span className="text-3xl font-bold text-indigo-700">18</span>
+                <span className="text-xs text-indigo-600 font-medium">Qualified Candidates</span>
+                <span className="text-[9px] text-indigo-400 mt-1">Interview Ready</span>
+             </div>
+        </div>
+    </div>
+
+    {/* 3. Pipeline Health */}
+    <div>
+        <h4 className="text-xs font-bold text-gray-500 uppercase mb-4 flex items-center gap-2">
+            <Filter size={14} /> Pipeline Health & Drip Flow
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Yield Ratio */}
+            <div className="col-span-2 bg-slate-50 border border-slate-100 rounded-lg p-4">
+                <p className="text-xs font-medium text-gray-500 mb-4">Yield Ratio (Conversion)</p>
+                <div className="flex items-center gap-1">
+                    <div className="flex-1 relative h-10 bg-gray-200 flex items-center justify-center text-[10px] font-bold text-gray-600 pl-2 rounded-l-md">
+                        App (100%)
+                    </div>
+                    <div className="flex-1 relative h-10 bg-blue-200 flex items-center justify-center text-[10px] font-bold text-blue-800 pl-2 border-l border-white">
+                        Screen (65%)
+                    </div>
+                    <div className="flex-1 relative h-10 bg-indigo-200 flex items-center justify-center text-[10px] font-bold text-indigo-800 pl-2 border-l border-white">
+                        Intvw (40%)
+                    </div>
+                    <div className="flex-1 relative h-10 bg-green-200 flex items-center justify-center text-[10px] font-bold text-green-800 pl-2 border-l border-white rounded-r-md">
+                        Offer (10%)
+                    </div>
+                </div>
+            </div>
+
+            {/* Time Metrics */}
+            <div className="space-y-3">
+                <div className="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-center">
+                    <span className="text-xs text-gray-500">App Completion Rate</span>
+                    <span className="text-sm font-bold text-gray-800">82%</span>
+                </div>
+                <div className="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-center">
+                    <span className="text-xs text-gray-500">Submit-to-Interview</span>
+                    <span className="text-sm font-bold text-gray-800">1 : 1.5</span>
+                </div>
+                <div className="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-center">
+                    <span className="text-xs text-gray-500">Avg Time per Stage</span>
+                    <span className="text-sm font-bold text-gray-800">2.4 Days</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+);
+
 const PanelMembersWidget = () => (
   <div className="bg-white rounded-lg border border-gray-200 shadow-sm flex flex-col h-full">
      <div className="p-4 border-b border-gray-100 flex justify-between items-center">
@@ -412,6 +561,7 @@ const ActivitiesWidget = () => (
 
 export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign, activeTab: string }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [intelligenceSubView, setIntelligenceSubView] = useState<'OVERVIEW' | 'ACTIVITIES'>('OVERVIEW');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -436,21 +586,38 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
              </div>
           ) : activeTab === 'Intelligence' ? (
              <>
-               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                  <div className="lg:col-span-1 h-[350px]">
-                     <PanelMembersWidget />
-                  </div>
-                  <div className="lg:col-span-1 h-[350px]">
-                     <RemindersWidget />
-                  </div>
-                  <div className="lg:col-span-1 h-[350px]">
-                     <NotesWidget />
-                  </div>
+               {/* Toggle Sub-nav */}
+               <div className="flex items-center gap-4 mb-6 border-b border-gray-200">
+                  <button 
+                    onClick={() => setIntelligenceSubView('OVERVIEW')}
+                    className={`pb-2 text-sm font-medium transition-colors border-b-2 ${intelligenceSubView === 'OVERVIEW' ? 'border-green-600 text-green-700' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                  >
+                    Overview
+                  </button>
+                  <button 
+                    onClick={() => setIntelligenceSubView('ACTIVITIES')}
+                    className={`pb-2 text-sm font-medium transition-colors border-b-2 ${intelligenceSubView === 'ACTIVITIES' ? 'border-green-600 text-green-700' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                  >
+                    Activity Log
+                  </button>
                </div>
-               
-               <div className="w-full">
-                  <ActivitiesWidget />
-               </div>
+
+               {intelligenceSubView === 'OVERVIEW' ? (
+                   <div className="space-y-6">
+                       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                          <div className="lg:col-span-1 h-[350px]"><PanelMembersWidget /></div>
+                          <div className="lg:col-span-1 h-[350px]"><RemindersWidget /></div>
+                          <div className="lg:col-span-1 h-[350px]"><NotesWidget /></div>
+                       </div>
+                       <div className="w-full">
+                          <KPIMetricsWidget />
+                       </div>
+                   </div>
+               ) : (
+                   <div className="w-full">
+                      <ActivitiesWidget />
+                   </div>
+               )}
              </>
           ) : (
              <div className="p-8 text-center text-gray-500">

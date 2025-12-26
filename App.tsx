@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { 
   Users, Home as HomeIcon, Briefcase, BarChart2, MessageCircle, HelpCircle, ChevronRight,
-  ChevronLeft, FileText, Activity, Folder, ThumbsUp, Copy, CheckCircle, Brain, Search, GitBranch, Share2
+  ChevronLeft, FileText, Activity, Folder, ThumbsUp, Copy, CheckCircle, Brain, Search, GitBranch, Share2,
+  UserPlus, Building2, LogOut, Settings, Lock, UserCog, Phone, User, X
 } from 'lucide-react';
 import { Home } from './pages/Home';
 import { Campaigns } from './pages/Campaigns';
@@ -14,10 +15,59 @@ import { CANDIDATE } from './data';
 import { ToastProvider } from './components/Toast';
 import { Campaign } from './types';
 
+// --- MODALS ---
+
+const CreateProfileModal = ({ onClose }: { onClose: () => void }) => (
+  <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+     <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+           <h3 className="font-bold text-slate-800 text-lg flex items-center gap-2">
+              <UserPlus size={20} className="text-emerald-600" /> Create New Profile
+           </h3>
+           <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1 hover:bg-slate-200 rounded-full transition-colors"><X size={20}/></button>
+        </div>
+        <div className="p-6 space-y-4">
+           <div className="grid grid-cols-2 gap-4">
+              <div>
+                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">First Name</label>
+                 <input type="text" className="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" placeholder="John" />
+              </div>
+              <div>
+                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Last Name</label>
+                 <input type="text" className="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" placeholder="Doe" />
+              </div>
+           </div>
+           <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Email Address</label>
+              <input type="email" className="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" placeholder="john.doe@company.com" />
+           </div>
+           <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Phone Number</label>
+              <input type="tel" className="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" placeholder="+1 (555) 000-0000" />
+           </div>
+           
+           <div className="pt-2">
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Resume (Optional)</label>
+              <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:bg-slate-50 transition-colors cursor-pointer">
+                  <FileText size={24} className="mx-auto text-slate-400 mb-2" />
+                  <p className="text-sm text-slate-500">Drag & drop or <span className="text-emerald-600 font-medium">browse</span></p>
+              </div>
+           </div>
+
+           <div className="pt-4 flex justify-end gap-3 border-t border-slate-100 mt-2">
+              <button onClick={onClose} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg text-sm font-medium transition-colors">Cancel</button>
+              <button onClick={onClose} className="px-6 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 shadow-sm transition-colors">Create Profile</button>
+           </div>
+        </div>
+     </div>
+  </div>
+);
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'HOME' | 'CAMPAIGNS' | 'PROFILES' | 'METRICS' | 'CANDIDATE_PROFILE' | 'CAMPAIGN_DASHBOARD'>('HOME');
   const [profilesView, setProfilesView] = useState<'SEARCH' | 'FOLDERS' | 'TAGS'>('SEARCH');
   const [candidateTab, setCandidateTab] = useState('profile');
+  const [isCreateProfileOpen, setIsCreateProfileOpen] = useState(false);
   
   // Campaign Context State
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
@@ -31,6 +81,106 @@ export default function App() {
     >
       <Icon size={16} /> {label}
     </button>
+  );
+
+  const SidebarFooter = () => (
+    <div className="p-2 border-t border-slate-200 bg-white mt-auto space-y-1 shrink-0">
+        {/* Create Profile */}
+        <button 
+          onClick={() => setIsCreateProfileOpen(true)}
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-emerald-600 hover:bg-slate-50 rounded-md transition-colors group"
+        >
+            <UserPlus size={18} className="text-slate-400 group-hover:text-emerald-600" />
+            <span className="text-sm font-medium">Create Profile</span>
+        </button>
+  
+        {/* Switch Client */}
+        <div className="relative group/client">
+          <button className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-emerald-600 hover:bg-slate-50 rounded-md transition-colors group">
+              <Building2 size={18} className="text-slate-400 group-hover:text-emerald-600" />
+              <span className="text-sm font-medium truncate">TRC Talent Solutions</span>
+          </button>
+          
+          {/* Client List Popover */}
+          <div className="absolute left-full bottom-0 ml-2 w-64 bg-white border border-slate-200 rounded-lg shadow-xl hidden group-hover/client:block p-1 z-50 animate-in fade-in zoom-in-95 duration-200">
+              <div className="px-3 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-50 rounded-t mb-1">Switch Client</div>
+              <button className="w-full text-left px-3 py-2 text-sm text-slate-800 bg-slate-50 rounded flex items-center justify-between font-medium">
+                 TRC Talent Solutions <CheckCircle size={14} className="text-emerald-600"/>
+              </button>
+              <button className="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded hover:text-emerald-600 transition-colors">
+                 Amazon Warehouse Operations
+              </button>
+              <button className="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded hover:text-emerald-600 transition-colors">
+                 Google Staffing Services
+              </button>
+              <button className="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded hover:text-emerald-600 transition-colors">
+                 Microsoft HR Tech
+              </button>
+          </div>
+        </div>
+  
+        {/* User Account */}
+        <div className="relative group/account pt-2">
+           <button className="w-full flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 rounded-md transition-colors">
+               <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-300 shrink-0">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-full h-full object-cover" />
+               </div>
+               <div className="text-left flex-1 min-w-0">
+                   <p className="text-sm font-medium text-slate-700 truncate">Pratik</p>
+                   <p className="text-xs text-slate-400 truncate">My Account</p>
+               </div>
+           </button>
+  
+           {/* Account Popover */}
+           <div className="absolute left-full bottom-0 ml-4 w-72 bg-white border border-slate-200 rounded-lg shadow-xl hidden group-hover/account:block z-50 animate-in fade-in zoom-in-95 duration-200">
+               {/* Triangle */}
+               <div className="absolute bottom-6 -left-2 w-4 h-4 bg-white transform rotate-45 border-l border-b border-slate-200"></div>
+               
+               <div className="p-5 border-b border-slate-100 flex flex-col items-center text-center bg-white rounded-t-lg relative">
+                   <div className="w-16 h-16 rounded-full bg-slate-200 overflow-hidden border-4 border-white shadow-md mb-3">
+                      <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-full h-full object-cover" />
+                   </div>
+                   <h4 className="font-bold text-slate-800 text-lg">Pratik</h4>
+                   <p className="text-xs text-slate-500 mb-4">pratik.gaurav@trcdemo.com</p>
+                   
+                   <div className="w-full border-t border-slate-100 pt-3 space-y-2">
+                      <div className="flex items-center gap-3 text-sm text-slate-600 px-2">
+                          <User size={16} className="text-slate-400"/> 
+                          <span className="font-medium">Product Admin</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm text-slate-600 px-2">
+                          <Phone size={16} className="text-slate-400"/> 
+                          <span className="font-mono text-xs">+917004029399</span>
+                      </div>
+                   </div>
+               </div>
+               
+               <div className="py-2 bg-white rounded-b-lg">
+                   <div className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 cursor-pointer group/item">
+                      <div className="flex items-center gap-3 text-sm text-slate-600 group-hover/item:text-emerald-600 transition-colors">
+                        <User size={16} /> 
+                        <span className="font-medium">My Account</span>
+                      </div>
+                      <div className="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs font-bold hover:bg-slate-200 transition-colors cursor-help">?</div>
+                   </div>
+
+                   <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition-colors font-medium">
+                      <Settings size={16} /> Admin Settings
+                   </button>
+                   <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition-colors font-medium">
+                      <UserCog size={16} /> Product Admin Settings
+                   </button>
+                   <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition-colors font-medium">
+                      <Lock size={16} /> Change Password
+                   </button>
+                   <div className="border-t border-slate-100 my-1"></div>
+                   <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium">
+                      <LogOut size={16} /> Logout
+                   </button>
+               </div>
+           </div>
+        </div>
+    </div>
   );
 
   const renderSidebar = () => {
@@ -208,6 +358,8 @@ export default function App() {
   return (
     <ToastProvider>
       <div className="flex h-screen bg-slate-50 font-sans text-slate-600 overflow-hidden">
+          {isCreateProfileOpen && <CreateProfileModal onClose={() => setIsCreateProfileOpen(false)} />}
+          
           {/* SIDEBAR */}
           <aside className="w-64 bg-white border-r border-slate-200 flex-shrink-0 flex flex-col z-20">
               <div className="h-16 flex items-center px-6 border-b border-slate-100 shrink-0">
@@ -217,11 +369,7 @@ export default function App() {
               
               {renderSidebar()}
 
-              <div className="p-4 border-t border-slate-200 bg-slate-50/50 mt-auto">
-                  <button className="w-full flex items-center gap-3 px-3 py-2 text-slate-600 hover:text-slate-900 transition-colors">
-                      <HelpCircle size={18} /><span className="text-sm">Help & Support</span>
-                  </button>
-              </div>
+              <SidebarFooter />
           </aside>
 
           {/* MAIN CONTENT */}
