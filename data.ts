@@ -1,6 +1,6 @@
 
 import { 
-  FileText, Settings, Link, Mail, Video, MessageSquare, Split, HelpCircle, Megaphone, GitBranch, ListChecks, CheckCircle2, Pilcrow, MoveRight, Film, MapPin, Map, MinusCircle
+  FileText, Settings, Link, Mail, Video, MessageSquare, HelpCircle, Megaphone, GitBranch, ListChecks, CheckCircle2, Pilcrow, MoveRight, Film, MapPin, Map, MinusCircle
 } from 'lucide-react';
 import { Candidate, EngageNode, EngageEdge, Question, Campaign, PanelMember, CampaignActivity } from './types';
 
@@ -172,7 +172,6 @@ export const NODE_TYPES: any = {
   SCREENING: { color: "bg-blue-100 border-blue-300 text-blue-700", icon: FileText, label: "Screening" },
   INTERVIEW: { color: "bg-orange-100 border-orange-300 text-orange-700", icon: Video, label: "Interview" },
   SURVEY: { color: "bg-teal-100 border-teal-300 text-teal-700", icon: MessageSquare, label: "Survey" },
-  SPLIT: { color: "bg-gray-100 border-gray-400 text-gray-700", icon: Split, label: "Logic Split" },
 };
 
 export const INITIAL_NODES: EngageNode[] = [
@@ -198,10 +197,13 @@ export const INITIAL_NODES: EngageNode[] = [
   },
   { 
     id: '3', 
-    type: 'SPLIT', 
+    type: 'SCREENING', 
     title: 'Skill Check', 
     x: 650, y: 300, 
-    data: { desc: "Branch by Tech Stack" } 
+    data: { 
+        desc: "Branch by Tech Stack",
+        stats: { scheduled: 80, responded: 75 }
+    } 
   },
   { 
     id: '4a', 
