@@ -376,9 +376,9 @@ export default function App() {
     );
   };
 
-  const handleNavigateToCampaign = (campaign: Campaign) => {
+  const handleNavigateToCampaign = (campaign: Campaign, tab: string = 'Intelligence') => {
     setSelectedCampaign(campaign);
-    setCampaignTab('Intelligence');
+    setCampaignTab(tab);
     setCurrentPage('CAMPAIGN_DASHBOARD');
   };
 

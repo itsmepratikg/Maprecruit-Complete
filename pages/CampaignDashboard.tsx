@@ -4,7 +4,8 @@ import {
   Briefcase, Search, ArrowLeft, MoreHorizontal, PlusCircle, 
   ChevronLeft, ChevronRight, Filter, Link, Upload, Plus, History,
   RotateCcw, MoreVertical, HelpCircle, X, Check, Calendar, Power,
-  BarChart as BarChartIcon, PieChart as PieChartIcon, TrendingUp, CheckCircle, Clock, Users
+  BarChart as BarChartIcon, PieChart as PieChartIcon, TrendingUp, CheckCircle, Clock, Users,
+  AlertCircle
 } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell 
@@ -12,8 +13,95 @@ import {
 import { Campaign, PanelMember, CampaignActivity } from '../types';
 import { PANEL_MEMBERS, CAMPAIGN_ACTIVITIES } from '../data';
 import { CampaignSourceAI } from '../components/CampaignSourceAI';
+import { EngageWorkflow } from '../components/EngageWorkflow';
 
 // --- SUB-COMPONENTS ---
+
+const MatchAIPlaceholder = () => (
+  <div className="p-8 h-full flex flex-col items-center justify-center text-center">
+     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+        <CheckCircle size={40} className="text-green-600" />
+     </div>
+     <h2 className="text-2xl font-bold text-slate-800 mb-2">Match AI Analysis</h2>
+     <p className="text-slate-500 max-w-md mb-6">Our AI is analyzing candidate profiles against your job description to provide accurate match scores.</p>
+     <div className="flex gap-4">
+        <div className="p-4 bg-white border rounded-xl shadow-sm w-48">
+           <div className="text-3xl font-bold text-green-600 mb-1">98%</div>
+           <div className="text-xs text-slate-500">Top Match Score</div>
+        </div>
+        <div className="p-4 bg-white border rounded-xl shadow-sm w-48">
+           <div className="text-3xl font-bold text-blue-600 mb-1">12</div>
+           <div className="text-xs text-slate-500">Candidates Analyzed</div>
+        </div>
+     </div>
+  </div>
+);
+
+const EngageAIView = () => {
+  const [showBuilder, setShowBuilder] = useState(false);
+  
+  return (
+    <div className="p-8 h-full relative">
+       {showBuilder && <EngageWorkflow onClose={() => setShowBuilder(false)} />}
+       <div className="flex justify-between items-center mb-8">
+          <div>
+             <h2 className="text-2xl font-bold text-slate-800">Engage AI Workflow</h2>
+             <p className="text-slate-500">Design and manage your candidate engagement campaigns.</p>
+          </div>
+          <button 
+            onClick={() => setShowBuilder(true)}
+            className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition-colors"
+          >
+             Open Workflow Builder
+          </button>
+       </div>
+       <div className="bg-slate-100 border border-dashed border-slate-300 rounded-xl h-[400px] flex items-center justify-center">
+          <div className="text-center text-slate-400">
+             <p className="mb-2">Workflow Preview</p>
+             <div className="flex items-center justify-center gap-4 opacity-50">
+                <div className="w-32 h-20 bg-white rounded border border-slate-300"></div>
+                <div className="w-8 h-0.5 bg-slate-300"></div>
+                <div className="w-32 h-20 bg-white rounded border border-slate-300"></div>
+                <div className="w-8 h-0.5 bg-slate-300"></div>
+                <div className="w-32 h-20 bg-white rounded border border-slate-300"></div>
+             </div>
+          </div>
+       </div>
+    </div>
+  );
+};
+
+const RecommendedProfilesView = () => (
+  <div className="p-8 h-full">
+     <h2 className="text-2xl font-bold text-slate-800 mb-6">Recommended Profiles</h2>
+     <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+        <table className="w-full text-sm text-left">
+           <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
+              <tr>
+                 <th className="px-6 py-4">Candidate</th>
+                 <th className="px-6 py-4">Current Role</th>
+                 <th className="px-6 py-4">Match Reason</th>
+                 <th className="px-6 py-4">Action</th>
+              </tr>
+           </thead>
+           <tbody className="divide-y divide-slate-100">
+              <tr className="hover:bg-slate-50">
+                 <td className="px-6 py-4 font-medium text-slate-800">David Miller</td>
+                 <td className="px-6 py-4 text-slate-500">Senior Warehouse Lead</td>
+                 <td className="px-6 py-4 text-slate-500"><span className="bg-green-50 text-green-700 px-2 py-1 rounded text-xs">Skills Match</span></td>
+                 <td className="px-6 py-4"><button className="text-blue-600 hover:underline">View Profile</button></td>
+              </tr>
+              <tr className="hover:bg-slate-50">
+                 <td className="px-6 py-4 font-medium text-slate-800">Sarah Jenkins</td>
+                 <td className="px-6 py-4 text-slate-500">Logistics Coordinator</td>
+                 <td className="px-6 py-4 text-slate-500"><span className="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs">Experience Match</span></td>
+                 <td className="px-6 py-4"><button className="text-blue-600 hover:underline">View Profile</button></td>
+              </tr>
+           </tbody>
+        </table>
+     </div>
+  </div>
+);
 
 const CampaignHeader = ({ campaign, isScrolled }: { campaign: Campaign, isScrolled: boolean }) => {
   return (
@@ -597,6 +685,12 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
              </div>
           ) : isSourceAI ? (
              <CampaignSourceAI hideSidebar={true} activeView={sourceView} />
+          ) : activeTab === 'Match AI' ? (
+             <MatchAIPlaceholder />
+          ) : activeTab === 'Engage AI' ? (
+             <EngageAIView />
+          ) : activeTab === 'Recommended Profiles' ? (
+             <RecommendedProfilesView />
           ) : activeTab === 'Intelligence' ? (
              <>
                {/* Toggle Sub-nav */}

@@ -5,51 +5,8 @@ import {
   Heart, Share2, Network, ChevronRight, CheckCircle, PlusCircle, Users, Link, FileText, X
 } from 'lucide-react';
 import { GLOBAL_CAMPAIGNS } from '../data';
-import { EngageWorkflow } from '../components/EngageWorkflow';
 import { Campaign } from '../types';
 import { useToast } from '../components/Toast';
-import { CampaignSourceAI } from '../components/CampaignSourceAI';
-
-// --- SUB-VIEWS ---
-
-const SourceAIView = ({ campaignId, onClose }: { campaignId: number, onClose: () => void }) => {
-  return (
-    <div className="fixed inset-0 bg-white z-[60] flex flex-col animate-in fade-in duration-200">
-       {/* Header */}
-       <div className="h-16 border-b border-slate-200 flex justify-between items-center px-6 bg-white shrink-0 shadow-sm z-10">
-          <div className="flex items-center gap-3">
-             <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center border border-indigo-100 shadow-sm">
-               <Search size={20} />
-             </div>
-             <div>
-               <h2 className="text-lg font-bold text-slate-800">Source AI</h2>
-               <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-500">Campaign #{campaignId}</span>
-                  <span className="text-xs px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Active</span>
-               </div>
-             </div>
-          </div>
-          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors"><X size={24}/></button>
-       </div>
-
-       <div className="flex-1 flex overflow-hidden">
-          <CampaignSourceAI />
-       </div>
-    </div>
-  );
-}
-
-const RecommendedProfilesView = ({ campaignId, onClose }: { campaignId: number, onClose: () => void }) => (
-  <div className="fixed inset-0 bg-white z-50 flex flex-col animate-in slide-in-from-right duration-300">
-    <div className="p-4 border-b flex justify-between items-center bg-gray-50">
-      <h2 className="text-xl font-bold">Recommended Profiles</h2>
-      <button onClick={onClose} className="text-sm text-blue-600 hover:underline">Back to Campaign</button>
-    </div>
-    <div className="p-8">
-        <p className="text-gray-500">List of AI recommended profiles for Campaign ID: {campaignId}</p>
-    </div>
-  </div>
-);
 
 // --- MAIN COMPONENTS ---
 
@@ -159,35 +116,45 @@ const HoverMenu = ({ campaign, onAction }: { campaign: Campaign, onAction: (acti
            <h4 className="font-bold text-gray-800 text-sm truncate" title={campaign.name}>{campaign.name}</h4>
         </div>
         <div className="py-1">
-           <button className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors">
+           <button 
+             onClick={(e) => { e.stopPropagation(); onAction('INTELLIGENCE'); }}
+             className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"
+           >
               Intelligence
            </button>
            
            {/* Source AI Group */}
            <div className="group/submenu relative">
-             <button className="w-full text-left px-4 py-2 text-sm text-gray-600 group-hover/submenu:bg-sky-50 group-hover/submenu:text-green-600 transition-colors flex justify-between items-center">
+             <button 
+                onClick={(e) => e.stopPropagation()} 
+                className="w-full text-left px-4 py-2 text-sm text-gray-600 group-hover/submenu:bg-sky-50 group-hover/submenu:text-green-600 transition-colors flex justify-between items-center"
+             >
                 <span>Source AI</span>
                 <ChevronRight size={14} className="text-gray-400 group-hover/submenu:text-green-600" />
              </button>
              {/* Nested Menu for Source AI */}
              <div className="hidden group-hover/submenu:block absolute left-full top-0 w-48 bg-white rounded-lg shadow-xl border border-gray-100 ml-1 py-1">
-                <button onClick={() => onAction('ATTACH_PEOPLE')} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Attach People</button>
-                <button onClick={() => onAction('INTEGRATIONS')} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Integrations</button>
-                <button onClick={() => onAction('JOB_DESC')} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Job Description</button>
+                <button onClick={(e) => { e.stopPropagation(); onAction('ATTACH_PEOPLE'); }} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Attach People</button>
+                <button onClick={(e) => { e.stopPropagation(); onAction('ATTACHED_PROFILES'); }} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Attached Profiles</button>
+                <button onClick={(e) => { e.stopPropagation(); onAction('INTEGRATIONS'); }} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Integrations</button>
+                <button onClick={(e) => { e.stopPropagation(); onAction('JOB_DESC'); }} className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700">Job Description</button>
              </div>
            </div>
 
-           <button className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors">
+           <button 
+             onClick={(e) => { e.stopPropagation(); onAction('MATCH_AI'); }}
+             className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"
+           >
               Match AI
            </button>
            <button 
-             onClick={() => onAction('ENGAGE_AI')}
+             onClick={(e) => { e.stopPropagation(); onAction('ENGAGE_AI'); }}
              className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"
            >
               Engage AI
            </button>
            <button 
-             onClick={() => onAction('RECOMMENDED')}
+             onClick={(e) => { e.stopPropagation(); onAction('RECOMMENDED'); }}
              className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"
            >
               Recommended Profiles
@@ -199,7 +166,7 @@ const HoverMenu = ({ campaign, onAction }: { campaign: Campaign, onAction: (acti
 };
 
 interface CampaignsProps {
-  onNavigateToCampaign: (campaign: Campaign) => void;
+  onNavigateToCampaign: (campaign: Campaign, tab?: string) => void;
 }
 
 export const Campaigns: React.FC<CampaignsProps> = ({ onNavigateToCampaign }) => {
@@ -207,10 +174,6 @@ export const Campaigns: React.FC<CampaignsProps> = ({ onNavigateToCampaign }) =>
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeTab, setActiveTab] = useState('Active');
-  
-  // View States
-  const [activeView, setActiveView] = useState<'LIST' | 'ENGAGE' | 'SOURCE' | 'RECOMMENDED'>('LIST');
-  const [selectedCampaignId, setSelectedCampaignId] = useState<number | null>(null);
   
   const [campaigns, setCampaigns] = useState<Campaign[]>(GLOBAL_CAMPAIGNS);
 
@@ -233,14 +196,22 @@ export const Campaigns: React.FC<CampaignsProps> = ({ onNavigateToCampaign }) =>
   });
 
   const handleMenuAction = (campaignId: number, action: string) => {
-    setSelectedCampaignId(campaignId);
-    if (action === 'ENGAGE_AI') setActiveView('ENGAGE');
-    else if (action === 'ATTACH_PEOPLE' || action === 'INTEGRATIONS' || action === 'JOB_DESC') setActiveView('SOURCE');
-    else if (action === 'RECOMMENDED') setActiveView('RECOMMENDED');
+    const campaign = campaigns.find(c => c.id === campaignId);
+    if (!campaign) return;
+
+    // Navigate to specific tabs in the Campaign Dashboard
+    if (action === 'INTELLIGENCE') onNavigateToCampaign(campaign, 'Intelligence');
+    else if (action === 'ATTACH_PEOPLE') onNavigateToCampaign(campaign, 'Source AI:ATTACH');
+    else if (action === 'ATTACHED_PROFILES') onNavigateToCampaign(campaign, 'Source AI:PROFILES');
+    else if (action === 'INTEGRATIONS') onNavigateToCampaign(campaign, 'Source AI:INTEGRATIONS');
+    else if (action === 'JOB_DESC') onNavigateToCampaign(campaign, 'Source AI:JD');
+    else if (action === 'MATCH_AI') onNavigateToCampaign(campaign, 'Match AI');
+    else if (action === 'ENGAGE_AI') onNavigateToCampaign(campaign, 'Engage AI');
+    else if (action === 'RECOMMENDED') onNavigateToCampaign(campaign, 'Recommended Profiles');
   };
 
   const handleCampaignClick = (campaign: Campaign) => {
-      onNavigateToCampaign(campaign);
+      onNavigateToCampaign(campaign, 'Intelligence');
   };
 
   const toggleFavorite = (id: number) => {
@@ -259,17 +230,6 @@ export const Campaigns: React.FC<CampaignsProps> = ({ onNavigateToCampaign }) =>
       closed: campaigns.filter(c => c.status === 'Closed').length,
       archived: campaigns.filter(c => c.status === 'Archived').length,
   };
-
-  // Render Sub-Views (Modal style for quick actions, dashboard navigation handled by App)
-  if (activeView === 'ENGAGE' && selectedCampaignId) {
-    return <EngageWorkflow onClose={() => setActiveView('LIST')} />;
-  }
-  if (activeView === 'SOURCE' && selectedCampaignId) {
-    return <SourceAIView campaignId={selectedCampaignId} onClose={() => setActiveView('LIST')} />;
-  }
-  if (activeView === 'RECOMMENDED' && selectedCampaignId) {
-    return <RecommendedProfilesView campaignId={selectedCampaignId} onClose={() => setActiveView('LIST')} />;
-  }
 
   return (
     <div className="p-8 max-w-[1600px] mx-auto min-h-screen bg-slate-50/50">
