@@ -2,36 +2,42 @@
 import React, { useState } from 'react';
 import { 
   Briefcase, Lock, Archive, Search, ChevronDown, RefreshCw, MoreVertical, HelpCircle, 
-  Heart, Share2, Network, ChevronRight, CheckCircle
+  Heart, Share2, Network, ChevronRight, CheckCircle, PlusCircle, Users, Link, FileText, X
 } from 'lucide-react';
 import { GLOBAL_CAMPAIGNS } from '../data';
 import { EngageWorkflow } from '../components/EngageWorkflow';
 import { Campaign } from '../types';
 import { useToast } from '../components/Toast';
+import { CampaignSourceAI } from '../components/CampaignSourceAI';
 
-// --- SUB-VIEWS PLACEHOLDERS ---
-const SourceAIView = ({ campaignId, onClose }: { campaignId: number, onClose: () => void }) => (
-  <div className="fixed inset-0 bg-white z-50 flex flex-col animate-in fade-in duration-200">
-    <div className="p-4 border-b flex justify-between items-center">
-      <h2 className="text-xl font-bold">Source AI: Campaign {campaignId}</h2>
-      <button onClick={onClose} className="bg-gray-100 p-2 rounded">Close</button>
+// --- SUB-VIEWS ---
+
+const SourceAIView = ({ campaignId, onClose }: { campaignId: number, onClose: () => void }) => {
+  return (
+    <div className="fixed inset-0 bg-white z-[60] flex flex-col animate-in fade-in duration-200">
+       {/* Header */}
+       <div className="h-16 border-b border-slate-200 flex justify-between items-center px-6 bg-white shrink-0 shadow-sm z-10">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center border border-indigo-100 shadow-sm">
+               <Search size={20} />
+             </div>
+             <div>
+               <h2 className="text-lg font-bold text-slate-800">Source AI</h2>
+               <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-500">Campaign #{campaignId}</span>
+                  <span className="text-xs px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Active</span>
+               </div>
+             </div>
+          </div>
+          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors"><X size={24}/></button>
+       </div>
+
+       <div className="flex-1 flex overflow-hidden">
+          <CampaignSourceAI />
+       </div>
     </div>
-    <div className="p-8 flex gap-4">
-        <div className="p-6 border rounded-xl hover:shadow-md cursor-pointer flex-1">
-            <h3 className="font-bold text-lg mb-2">Attach People</h3>
-            <p className="text-sm text-gray-500">Find candidates from your database.</p>
-        </div>
-        <div className="p-6 border rounded-xl hover:shadow-md cursor-pointer flex-1">
-            <h3 className="font-bold text-lg mb-2">Integrations</h3>
-            <p className="text-sm text-gray-500">Source from LinkedIn, Indeed, etc.</p>
-        </div>
-        <div className="p-6 border rounded-xl hover:shadow-md cursor-pointer flex-1">
-            <h3 className="font-bold text-lg mb-2">Job Description</h3>
-            <p className="text-sm text-gray-500">Edit or view the JD.</p>
-        </div>
-    </div>
-  </div>
-);
+  );
+}
 
 const RecommendedProfilesView = ({ campaignId, onClose }: { campaignId: number, onClose: () => void }) => (
   <div className="fixed inset-0 bg-white z-50 flex flex-col animate-in slide-in-from-right duration-300">

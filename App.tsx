@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   Users, Home as HomeIcon, Briefcase, BarChart2, MessageCircle, HelpCircle, ChevronRight,
   ChevronLeft, FileText, Activity, Folder, ThumbsUp, Copy, CheckCircle, Brain, Search, GitBranch, Share2,
-  UserPlus, Building2, LogOut, Settings, Lock, UserCog, Phone, User, X
+  UserPlus, Building2, LogOut, Settings, Lock, UserCog, Phone, User, X, Link
 } from 'lucide-react';
 import { Home } from './pages/Home';
 import { Campaigns } from './pages/Campaigns';
@@ -72,14 +72,28 @@ export default function App() {
   // Campaign Context State
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [campaignTab, setCampaignTab] = useState('Intelligence');
+  const [isSourceHovered, setIsSourceHovered] = useState(false);
 
   // Candidate Navigation Item Helper
-  const NavItem = ({ id, icon: Icon, label, activeTab, setActiveTab }: any) => (
+  const NavItem = ({ id, icon: Icon, label, activeTab, setActiveTab, onClick }: any) => (
     <button 
-      onClick={() => setActiveTab(id)} 
+      onClick={(e) => {
+        if (onClick) onClick(e);
+        else setActiveTab(id);
+      }} 
       className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-all text-sm ${activeTab === id ? 'bg-white shadow-sm text-emerald-700 font-medium translate-x-1' : 'text-slate-600 hover:bg-white/50 hover:text-slate-900'}`}
     >
       <Icon size={16} /> {label}
+    </button>
+  );
+
+  const SubNavItem = ({ id, label, activeTab, setActiveTab }: any) => (
+    <button 
+      onClick={(e) => { e.stopPropagation(); setActiveTab(id); }} 
+      className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-md transition-all text-xs ${activeTab === id ? 'text-emerald-700 font-medium bg-emerald-50' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full ${activeTab === id ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
+      {label}
     </button>
   );
 
@@ -262,7 +276,32 @@ export default function App() {
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">Campaign Tools</p>
                   <div className="space-y-0.5">
                     <NavItem id="Intelligence" icon={Brain} label="Intelligence" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                    <NavItem id="Source AI" icon={Search} label="Source AI" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                    
+                    {/* Source AI Group - Expandable */}
+                    <div 
+                      className="relative"
+                      onMouseEnter={() => setIsSourceHovered(true)}
+                      onMouseLeave={() => setIsSourceHovered(false)}
+                    >
+                       <NavItem 
+                          id="Source AI" 
+                          icon={Search} 
+                          label="Source AI" 
+                          activeTab={campaignTab} 
+                          setActiveTab={(id: string) => setCampaignTab(campaignTab.startsWith('Source AI') ? campaignTab : 'Source AI:ATTACH')} // Keep current sub-view if already active, else default to ATTACH
+                       />
+                       
+                       {/* Dropdown Items */}
+                       {(campaignTab.startsWith('Source AI') || isSourceHovered) && (
+                          <div className="ml-9 mt-1 space-y-1 border-l-2 border-slate-100 pl-2 mb-2 animate-in slide-in-from-top-1 duration-200">
+                             <SubNavItem id="Source AI:ATTACH" label="Attach People" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                             <SubNavItem id="Source AI:PROFILES" label="Attached Profiles" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                             <SubNavItem id="Source AI:INTEGRATIONS" label="Integrations" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                             <SubNavItem id="Source AI:JD" label="Job Description" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                          </div>
+                       )}
+                    </div>
+
                     <NavItem id="Match AI" icon={CheckCircle} label="Match AI" activeTab={campaignTab} setActiveTab={setCampaignTab} />
                     <NavItem id="Engage AI" icon={GitBranch} label="Engage AI" activeTab={campaignTab} setActiveTab={setCampaignTab} />
                     <NavItem id="Recommended Profiles" icon={ThumbsUp} label="Recommended Profiles" activeTab={campaignTab} setActiveTab={setCampaignTab} />

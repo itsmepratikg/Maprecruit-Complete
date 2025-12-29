@@ -4,10 +4,14 @@ import {
   Briefcase, Search, ArrowLeft, MoreHorizontal, PlusCircle, 
   ChevronLeft, ChevronRight, Filter, Link, Upload, Plus, History,
   RotateCcw, MoreVertical, HelpCircle, X, Check, Calendar, Power,
-  BarChart, PieChart, TrendingUp, CheckCircle, Clock, Users
+  BarChart as BarChartIcon, PieChart as PieChartIcon, TrendingUp, CheckCircle, Clock, Users
 } from 'lucide-react';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell 
+} from 'recharts';
 import { Campaign, PanelMember, CampaignActivity } from '../types';
 import { PANEL_MEMBERS, CAMPAIGN_ACTIVITIES } from '../data';
+import { CampaignSourceAI } from '../components/CampaignSourceAI';
 
 // --- SUB-COMPONENTS ---
 
@@ -260,11 +264,17 @@ const CampaignSettingsView = () => {
 
 // --- WIDGETS ---
 
+const QUALITY_DATA = [
+  { name: 'Good (80%+)', value: 18, color: '#16a34a' }, // green-600
+  { name: 'Okay (60-79%)', value: 42, color: '#ca8a04' }, // yellow-600
+  { name: 'Bad (<60%)', value: 12, color: '#dc2626' }, // red-600
+];
+
 const KPIMetricsWidget = () => (
   <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 space-y-8">
     <div className="flex justify-between items-center border-b border-gray-100 pb-4">
       <h3 className="font-bold text-gray-700 text-sm flex items-center gap-2">
-         <BarChart size={16} className="text-indigo-600"/> Campaign Performance Metrics
+         <BarChartIcon size={16} className="text-indigo-600"/> Campaign Performance Metrics
       </h3>
       <select className="text-xs border border-gray-200 rounded px-2 py-1 bg-white focus:outline-none text-gray-600">
          <option>Last 30 Days</option>
@@ -276,7 +286,7 @@ const KPIMetricsWidget = () => (
     {/* 1. Sourcing Efficiency Metrics */}
     <div>
         <h4 className="text-xs font-bold text-gray-500 uppercase mb-4 flex items-center gap-2">
-            <PieChart size={14} /> Sourcing Efficiency
+            <PieChartIcon size={14} /> Sourcing Efficiency
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Active vs Passive */}
@@ -331,27 +341,23 @@ const KPIMetricsWidget = () => (
             <Check size={14} /> Quality Segmentation (Skill-Based)
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-             <div className="lg:col-span-3 bg-white border border-gray-100 rounded-lg p-4">
-                <div className="flex items-end gap-4 h-32 px-4 pb-2 border-b border-gray-100">
-                    {/* Good */}
-                    <div className="flex-1 flex flex-col justify-end items-center gap-2 group">
-                        <span className="text-xs font-bold text-green-600 opacity-0 group-hover:opacity-100 transition-opacity">18</span>
-                        <div className="w-full bg-green-100 hover:bg-green-200 rounded-t h-[60%] relative transition-all"></div>
-                        <span className="text-[10px] font-medium text-gray-500">Good (80%+)</span>
-                    </div>
-                    {/* Okay */}
-                    <div className="flex-1 flex flex-col justify-end items-center gap-2 group">
-                        <span className="text-xs font-bold text-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity">42</span>
-                        <div className="w-full bg-yellow-100 hover:bg-yellow-200 rounded-t h-[85%] relative transition-all"></div>
-                        <span className="text-[10px] font-medium text-gray-500">Okay (60-79%)</span>
-                    </div>
-                    {/* Bad */}
-                    <div className="flex-1 flex flex-col justify-end items-center gap-2 group">
-                        <span className="text-xs font-bold text-red-600 opacity-0 group-hover:opacity-100 transition-opacity">12</span>
-                        <div className="w-full bg-red-100 hover:bg-red-200 rounded-t h-[30%] relative transition-all"></div>
-                        <span className="text-[10px] font-medium text-gray-500">Bad (&lt;60%)</span>
-                    </div>
-                </div>
+             <div className="lg:col-span-3 bg-white border border-gray-100 rounded-lg p-4 h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                   <BarChart data={QUALITY_DATA} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#64748b'}} dy={10} />
+                      <YAxis axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#64748b'}} />
+                      <Tooltip 
+                        cursor={{fill: '#f8fafc'}}
+                        contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}}
+                      />
+                      <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={60}>
+                        {QUALITY_DATA.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Bar>
+                   </BarChart>
+                </ResponsiveContainer>
              </div>
              
              <div className="flex flex-col justify-center items-center bg-indigo-50 rounded-lg border border-indigo-100 p-4 text-center">
@@ -471,7 +477,7 @@ const NotesWidget = () => (
   </div>
 );
 
-const ActivityItem = ({ item }: { item: any }) => {
+const ActivityItem: React.FC<{ item: any }> = ({ item }) => {
    const isLink = item.type === 'link';
    const isUpload = item.type === 'upload';
    
@@ -575,15 +581,22 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
     return () => { if (container) container.removeEventListener('scroll', handleScroll); };
   }, []);
 
+  // Check if activeTab starts with 'Source AI' (e.g., 'Source AI:ATTACH')
+  const isSourceAI = activeTab.startsWith('Source AI');
+  // Extract specific view if present, default to 'ATTACH'
+  const sourceView = isSourceAI ? (activeTab.split(':')[1] || 'ATTACH') : 'ATTACH';
+
   return (
     <div className="flex flex-col h-full bg-slate-50 overflow-hidden animate-in fade-in duration-300">
        <CampaignHeader campaign={campaign} isScrolled={isScrolled} />
        
-       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 lg:p-6 custom-scrollbar">
+       <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
           {activeTab === 'Sharing' ? (
              <div className="max-w-6xl mx-auto">
                <CampaignSettingsView />
              </div>
+          ) : isSourceAI ? (
+             <CampaignSourceAI hideSidebar={true} activeView={sourceView} />
           ) : activeTab === 'Intelligence' ? (
              <>
                {/* Toggle Sub-nav */}

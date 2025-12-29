@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { CANDIDATE, INTERVIEW_TEMPLATES } from '../data';
 
-export const AssessmentQuestion = ({ question }: { question: any }) => {
+export const AssessmentQuestion: React.FC<{ question: any }> = ({ question }) => {
   const renderMedia = (type: string, label: string) => {
     const iconClass = "w-10 h-10 text-slate-400 mb-2";
     let Icon = ImageIcon;
