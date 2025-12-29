@@ -185,7 +185,16 @@ export interface EngageNode {
   title: string;
   x: number;
   y: number;
-  data: { desc: string };
+  data: { 
+    desc: string;
+    meetType?: string[]; // e.g. ['Video'], ['In-Person', 'Phone']
+    stats?: {
+      scheduled?: number;
+      viewed?: number;
+      responded?: number;
+      booked?: number;
+    }
+  };
 }
 
 export interface EngageEdge {

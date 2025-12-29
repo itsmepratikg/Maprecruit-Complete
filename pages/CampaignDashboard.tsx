@@ -37,40 +37,6 @@ const MatchAIPlaceholder = () => (
   </div>
 );
 
-const EngageAIView = () => {
-  const [showBuilder, setShowBuilder] = useState(false);
-  
-  return (
-    <div className="p-8 h-full relative">
-       {showBuilder && <EngageWorkflow onClose={() => setShowBuilder(false)} />}
-       <div className="flex justify-between items-center mb-8">
-          <div>
-             <h2 className="text-2xl font-bold text-slate-800">Engage AI Workflow</h2>
-             <p className="text-slate-500">Design and manage your candidate engagement campaigns.</p>
-          </div>
-          <button 
-            onClick={() => setShowBuilder(true)}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 transition-colors"
-          >
-             Open Workflow Builder
-          </button>
-       </div>
-       <div className="bg-slate-100 border border-dashed border-slate-300 rounded-xl h-[400px] flex items-center justify-center">
-          <div className="text-center text-slate-400">
-             <p className="mb-2">Workflow Preview</p>
-             <div className="flex items-center justify-center gap-4 opacity-50">
-                <div className="w-32 h-20 bg-white rounded border border-slate-300"></div>
-                <div className="w-8 h-0.5 bg-slate-300"></div>
-                <div className="w-32 h-20 bg-white rounded border border-slate-300"></div>
-                <div className="w-8 h-0.5 bg-slate-300"></div>
-                <div className="w-32 h-20 bg-white rounded border border-slate-300"></div>
-             </div>
-          </div>
-       </div>
-    </div>
-  );
-};
-
 const RecommendedProfilesView = () => (
   <div className="p-8 h-full">
      <h2 className="text-2xl font-bold text-slate-800 mb-6">Recommended Profiles</h2>
@@ -678,7 +644,7 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
     <div className="flex flex-col h-full bg-slate-50 overflow-hidden animate-in fade-in duration-300">
        <CampaignHeader campaign={campaign} isScrolled={isScrolled} />
        
-       <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
+       <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI || activeTab === 'Engage AI' ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
           {activeTab === 'Sharing' ? (
              <div className="max-w-6xl mx-auto">
                <CampaignSettingsView />
@@ -688,7 +654,7 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
           ) : activeTab === 'Match AI' ? (
              <MatchAIPlaceholder />
           ) : activeTab === 'Engage AI' ? (
-             <EngageAIView />
+             <EngageWorkflow />
           ) : activeTab === 'Recommended Profiles' ? (
              <RecommendedProfilesView />
           ) : activeTab === 'Intelligence' ? (

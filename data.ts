@@ -176,14 +176,85 @@ export const NODE_TYPES: any = {
 };
 
 export const INITIAL_NODES: EngageNode[] = [
-  { id: '1', type: 'ANNOUNCEMENT', title: 'Welcome Email', x: 50, y: 300, data: { desc: "Automated greeting" } },
-  { id: '2', type: 'SCREENING', title: 'Gen. Screening', x: 350, y: 300, data: { desc: "Basic qualifications" } },
-  { id: '3', type: 'SPLIT', title: 'Skill Check', x: 650, y: 300, data: { desc: "Branch by Tech Stack" } },
-  { id: '4a', type: 'SCREENING', title: 'React Quiz', x: 950, y: 100, data: { desc: "Component lifecycle" } },
-  { id: '4b', type: 'SCREENING', title: 'Angular Quiz', x: 950, y: 300, data: { desc: "Dependency Injection" } },
-  { id: '4c', type: 'SCREENING', title: 'Vue.js Quiz', x: 950, y: 500, data: { desc: "Vuex & Directives" } },
-  { id: '5a', type: 'INTERVIEW', title: 'Modern FE Interview', x: 1300, y: 150, data: { desc: "React & Vue Candidates" } },
-  { id: '5b', type: 'INTERVIEW', title: 'Enterprise FE Interview', x: 1300, y: 400, data: { desc: "Angular Candidates" } },
+  { 
+    id: '1', 
+    type: 'ANNOUNCEMENT', 
+    title: 'Welcome Email', 
+    x: 50, y: 300, 
+    data: { 
+      desc: "Automated greeting",
+      stats: { scheduled: 120, viewed: 45 }
+    } 
+  },
+  { 
+    id: '2', 
+    type: 'SCREENING', 
+    title: 'Gen. Screening', 
+    x: 350, y: 300, 
+    data: { 
+      desc: "Basic qualifications",
+      stats: { scheduled: 80, responded: 65 }
+    } 
+  },
+  { 
+    id: '3', 
+    type: 'SPLIT', 
+    title: 'Skill Check', 
+    x: 650, y: 300, 
+    data: { desc: "Branch by Tech Stack" } 
+  },
+  { 
+    id: '4a', 
+    type: 'SCREENING', 
+    title: 'React Quiz', 
+    x: 950, y: 100, 
+    data: { 
+      desc: "Component lifecycle",
+      stats: { scheduled: 25, responded: 20 }
+    } 
+  },
+  { 
+    id: '4b', 
+    type: 'SURVEY', 
+    title: 'Feedback Survey', 
+    x: 950, y: 300, 
+    data: { 
+      desc: "Candidate Experience",
+      stats: { scheduled: 30, responded: 12 }
+    } 
+  },
+  { 
+    id: '4c', 
+    type: 'SCREENING', 
+    title: 'Vue.js Quiz', 
+    x: 950, y: 500, 
+    data: { 
+      desc: "Vuex & Directives",
+      stats: { scheduled: 15, responded: 14 }
+    } 
+  },
+  { 
+    id: '5a', 
+    type: 'INTERVIEW', 
+    title: 'Modern FE Interview', 
+    x: 1300, y: 150, 
+    data: { 
+      desc: "React & Vue Candidates",
+      meetType: ['Video'],
+      stats: { scheduled: 15, booked: 10 }
+    } 
+  },
+  { 
+    id: '5b', 
+    type: 'INTERVIEW', 
+    title: 'Enterprise FE Interview', 
+    x: 1300, y: 400, 
+    data: { 
+      desc: "Angular Candidates",
+      meetType: ['In-Person'],
+      stats: { scheduled: 5, booked: 2 }
+    } 
+  },
 ];
 
 export const INITIAL_EDGES: EngageEdge[] = [
