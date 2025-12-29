@@ -7,7 +7,7 @@ import {
   Wand2, X, GripVertical, ArrowRight, GitBranch, AlertCircle, Users,
   Calendar, CheckCircle, Clock, ThumbsUp, ThumbsDown, ChevronRight,
   User, Search, MoreVertical, Paperclip, Layout, ZoomIn, ZoomOut, RotateCcw,
-  ClipboardList, Handshake, BarChart2, Phone
+  ClipboardList, Handshake, BarChart2, Phone, Settings, ChevronDown
 } from 'lucide-react';
 import { NODE_TYPES, MOCK_QUESTIONS_DATA, INITIAL_NODES, INITIAL_EDGES, MOCK_CANDIDATES_CAMPAIGN } from '../data';
 import { EngageNode, EngageEdge, Question } from '../types';
@@ -39,6 +39,113 @@ const DataTag = ({ text, config }: any) => {
 };
 
 // --- SUB-VIEWS ---
+
+const NodeConfigurationModal = ({ node, onClose, onSave }: { node: EngageNode, onClose: () => void, onSave: (node: EngageNode) => void }) => {
+  const [roundName, setRoundName] = useState(node.title);
+  const [commMethod, setCommMethod] = useState('Outbound');
+  
+  // Determine Tabs based on Node Type
+  const tabs = useMemo(() => {
+    if (node.type === 'INTERVIEW') {
+      return ['Auto-Schedule', 'ReachOut Templates', 'Interview Templates', 'Automation'];
+    }
+    // Default for Screening, Survey, Announcement etc.
+    return ['Questionnaire', 'ReachOut Templates', 'Automation'];
+  }, [node.type]);
+
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-start bg-white shrink-0">
+           <div className="flex-1">
+              <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                 Configure Round 
+                 <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-xs font-semibold border border-slate-200 tracking-wide uppercase">{node.type}</span>
+              </h2>
+              <div className="grid grid-cols-2 gap-8 max-w-2xl">
+                 <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Round Name</label>
+                    <input 
+                      type="text" 
+                      value={roundName} 
+                      onChange={(e) => setRoundName(e.target.value)}
+                      className="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-400"
+                      placeholder="e.g. Technical Screening"
+                    />
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Communication Method</label>
+                    <div className="relative">
+                       <select 
+                          value={commMethod}
+                          onChange={(e) => setCommMethod(e.target.value)}
+                          className="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none appearance-none bg-white transition-all cursor-pointer"
+                       >
+                          <option value="Outbound">Outbound (System Initiated)</option>
+                          <option value="Inbound">Inbound (Candidate Initiated)</option>
+                       </select>
+                       <ChevronDown size={16} className="absolute right-3 top-3 text-slate-400 pointer-events-none" />
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
+              <X size={24} />
+           </button>
+        </div>
+
+        {/* Tabs - Pill Style */}
+        <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 shrink-0">
+           <div className="flex gap-1 p-1 bg-slate-200/60 rounded-lg w-fit">
+              {tabs.map(tab => (
+                 <button 
+                   key={tab}
+                   onClick={() => setActiveTab(tab)}
+                   className={`px-4 py-2 text-xs font-bold rounded-md transition-all ${
+                     activeTab === tab 
+                       ? 'bg-white text-indigo-700 shadow-sm' 
+                       : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'
+                   }`}
+                 >
+                    {tab}
+                 </button>
+              ))}
+           </div>
+        </div>
+
+        {/* Content Area */}
+        <div className="flex-1 bg-white p-8 overflow-y-auto">
+           <div className="h-full border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center text-slate-400 bg-slate-50/30">
+              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm border border-slate-100">
+                 <Settings size={32} className="text-indigo-200" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-700 mb-1">{activeTab} Configuration</h3>
+              <p className="text-sm max-w-md text-center text-slate-500 leading-relaxed">
+                This is a placeholder view. Future implementation will allow detailed configuration for {activeTab.toLowerCase()}.
+              </p>
+              <button className="mt-6 px-4 py-2 bg-indigo-50 text-indigo-600 text-sm font-bold rounded-lg hover:bg-indigo-100 transition-colors">
+                 Add {activeTab.split(' ')[0]} Details
+              </button>
+           </div>
+        </div>
+
+        {/* Footer */}
+        <div className="px-8 py-5 border-t border-slate-100 bg-white flex justify-end gap-3 shrink-0">
+           <button onClick={onClose} className="px-5 py-2.5 text-slate-600 font-bold text-sm hover:bg-slate-50 rounded-lg transition-colors">Cancel</button>
+           <button 
+             onClick={() => onSave({ ...node, title: roundName })} 
+             className="px-6 py-2.5 bg-indigo-600 text-white font-bold text-sm rounded-lg hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all transform active:scale-95"
+           >
+             Save Changes
+           </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const QuestionsPanel = () => {
   const [questions, setQuestions] = useState<Question[]>(MOCK_QUESTIONS_DATA);
@@ -137,7 +244,7 @@ const BezierEdge = ({ start, end, label }: any) => {
   );
 };
 
-const NodeCard = ({ node, onSelect, onDelete, onStartConnect, onEndConnect, isSelected, isConnecting }: any) => {
+const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onEndConnect, isSelected, isConnecting }: any) => {
   const config: any = NODE_TYPES[node.type] || NODE_TYPES.ANNOUNCEMENT;
 
   // Resolve Icon Logic based on requirements
@@ -225,8 +332,8 @@ const NodeCard = ({ node, onSelect, onDelete, onStartConnect, onEndConnect, isSe
           <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button 
               className="p-1 hover:bg-slate-100 rounded text-slate-400 hover:text-slate-600"
-              onClick={(e) => { e.stopPropagation(); onSelect(node); }}
-              title="Edit"
+              onClick={(e) => { e.stopPropagation(); onEdit(node); }}
+              title="Edit Configuration"
             >
               <Edit3 size={12}/>
             </button>
@@ -268,6 +375,7 @@ const WorkflowBuilder = () => {
   const [nodes, setNodes] = useState<EngageNode[]>(INITIAL_NODES);
   const [edgesList, setEdgesList] = useState<EngageEdge[]>(INITIAL_EDGES);
   const [selectedNode, setSelectedNode] = useState<any>(null);
+  const [editingNode, setEditingNode] = useState<EngageNode | null>(null);
   const [connectingSourceId, setConnectingSourceId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [graphDimensions, setGraphDimensions] = useState({ width: 2000, height: 1200 });
@@ -336,6 +444,15 @@ const WorkflowBuilder = () => {
     };
     setNodes(prev => [...prev, newNode]);
     setSelectedNode(newNode);
+  };
+
+  const handleEditNode = (node: EngageNode) => {
+    setEditingNode(node);
+  };
+
+  const handleSaveNode = (updatedNode: EngageNode) => {
+    setNodes(prev => prev.map(n => n.id === updatedNode.id ? updatedNode : n));
+    setEditingNode(null);
   };
 
   const handleAutoLayout = () => {
@@ -428,6 +545,16 @@ const WorkflowBuilder = () => {
 
   return (
     <div className="flex h-full bg-slate-50 overflow-hidden relative">
+      
+      {/* Node Config Modal */}
+      {editingNode && (
+        <NodeConfigurationModal 
+          node={editingNode} 
+          onClose={() => setEditingNode(null)} 
+          onSave={handleSaveNode} 
+        />
+      )}
+
       <div 
         ref={containerRef}
         className="flex-1 overflow-auto relative cursor-grab active:cursor-grabbing bg-slate-50" 
@@ -449,6 +576,7 @@ const WorkflowBuilder = () => {
             <NodeCard 
               key={node.id} node={node} 
               onSelect={setSelectedNode} 
+              onEdit={handleEditNode}
               onDelete={(id: string) => { setNodes(prev => prev.filter(n => n.id !== id)); setEdgesList(prev => prev.filter(e => e.from !== id && e.to !== id)); }}
               onStartConnect={setConnectingSourceId} 
               onEndConnect={(id: string) => { if(connectingSourceId && connectingSourceId !== id) setEdgesList(prev => [...prev, { from: connectingSourceId, to: id }]); setConnectingSourceId(null); }}
