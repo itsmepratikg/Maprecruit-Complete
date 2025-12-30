@@ -17,6 +17,21 @@ export const AutomationPlaceholderModal = ({ onClose, isEnabled, onToggle }: { o
                     </h2>
                     <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full text-slate-400"><X size={20}/></button>
                 </div>
+
+                <div className="px-6 py-3 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                    <span className="text-xs font-bold text-slate-500 uppercase">Status</span>
+                    <div className="flex items-center gap-3">
+                        <span className={`text-sm font-medium ${isEnabled ? 'text-green-600' : 'text-slate-400'}`}>
+                            {isEnabled ? 'Enabled' : 'Disabled'}
+                        </span>
+                        <button 
+                            onClick={() => { onToggle(!isEnabled); onClose(); }}
+                            className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${isEnabled ? 'bg-green-600' : 'bg-slate-300'}`}
+                        >
+                            <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isEnabled ? 'translate-x-5' : 'translate-x-0'}`} />
+                        </button>
+                    </div>
+                </div>
                 
                 <div className="p-8 text-center space-y-4">
                     <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 ${isEnabled ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-400'}`}>
@@ -41,21 +56,6 @@ export const AutomationPlaceholderModal = ({ onClose, isEnabled, onToggle }: { o
                             </ul>
                         </div>
                     )}
-                </div>
-
-                <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-between items-center">
-                    <span className="text-xs font-bold text-slate-500 uppercase">Status</span>
-                    <div className="flex items-center gap-3">
-                        <span className={`text-sm font-medium ${isEnabled ? 'text-green-600' : 'text-slate-400'}`}>
-                            {isEnabled ? 'Enabled' : 'Disabled'}
-                        </span>
-                        <button 
-                            onClick={() => { onToggle(!isEnabled); onClose(); }}
-                            className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${isEnabled ? 'bg-green-600' : 'bg-slate-300'}`}
-                        >
-                            <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isEnabled ? 'translate-x-5' : 'translate-x-0'}`} />
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
