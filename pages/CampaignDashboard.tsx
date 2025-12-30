@@ -14,28 +14,9 @@ import { Campaign, PanelMember, CampaignActivity } from '../types';
 import { PANEL_MEMBERS, CAMPAIGN_ACTIVITIES } from '../data';
 import { CampaignSourceAI } from '../components/CampaignSourceAI';
 import { EngageWorkflow } from '../components/EngageWorkflow';
+import { MatchWorkflow } from '../components/MatchWorkflow';
 
 // --- SUB-COMPONENTS ---
-
-const MatchAIPlaceholder = () => (
-  <div className="p-8 h-full flex flex-col items-center justify-center text-center">
-     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
-        <CheckCircle size={40} className="text-green-600" />
-     </div>
-     <h2 className="text-2xl font-bold text-slate-800 mb-2">Match AI Analysis</h2>
-     <p className="text-slate-500 max-w-md mb-6">Our AI is analyzing candidate profiles against your job description to provide accurate match scores.</p>
-     <div className="flex gap-4">
-        <div className="p-4 bg-white border rounded-xl shadow-sm w-48">
-           <div className="text-3xl font-bold text-green-600 mb-1">98%</div>
-           <div className="text-xs text-slate-500">Top Match Score</div>
-        </div>
-        <div className="p-4 bg-white border rounded-xl shadow-sm w-48">
-           <div className="text-3xl font-bold text-blue-600 mb-1">12</div>
-           <div className="text-xs text-slate-500">Candidates Analyzed</div>
-        </div>
-     </div>
-  </div>
-);
 
 const RecommendedProfilesView = () => (
   <div className="p-8 h-full">
@@ -644,7 +625,7 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
     <div className="flex flex-col h-full bg-slate-50 overflow-hidden animate-in fade-in duration-300">
        <CampaignHeader campaign={campaign} isScrolled={isScrolled} />
        
-       <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI || activeTab === 'Engage AI' ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
+       <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI || activeTab === 'Engage AI' || activeTab === 'Match AI' ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
           {activeTab === 'Sharing' ? (
              <div className="max-w-6xl mx-auto">
                <CampaignSettingsView />
@@ -652,7 +633,7 @@ export const CampaignDashboard = ({ campaign, activeTab }: { campaign: Campaign,
           ) : isSourceAI ? (
              <CampaignSourceAI hideSidebar={true} activeView={sourceView} />
           ) : activeTab === 'Match AI' ? (
-             <MatchAIPlaceholder />
+             <MatchWorkflow />
           ) : activeTab === 'Engage AI' ? (
              <EngageWorkflow />
           ) : activeTab === 'Recommended Profiles' ? (

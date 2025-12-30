@@ -193,7 +193,9 @@ export interface EngageNode {
       viewed?: number;
       responded?: number;
       booked?: number;
-    }
+    };
+    config?: any;
+    label?: string;
   };
 }
 
