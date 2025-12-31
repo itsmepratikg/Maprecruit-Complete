@@ -2,15 +2,24 @@
 import React from 'react';
 import { 
   Megaphone, ClipboardList, Video, Calendar, Edit3, Trash2, 
-  Play, Plus, GitBranch 
+  Play, Plus, GitBranch, Network
 } from 'lucide-react';
 import { NODE_TYPES } from '../../data';
 import { EngageNode } from '../../types';
 import { CARD_WIDTH, CARD_HEIGHT, BUBBLE_SIZE, START_NODE_WIDTH, START_NODE_HEIGHT } from './constants';
 
-export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, isConnecting, isValidTarget }: any) => {
+export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, isConnecting, isValidTarget, layoutDirection = 'HORIZONTAL' }: any) => {
     const isEnabled = node.data.config?.enabled;
     const label = node.data.label;
+
+    // Handle Positions
+    const inputClass = layoutDirection === 'HORIZONTAL' 
+        ? "top-1/2 -translate-y-1/2 -left-[6px]" 
+        : "left-1/2 -translate-x-1/2 -top-[6px]";
+    
+    const outputClass = layoutDirection === 'HORIZONTAL'
+        ? "top-1/2 -translate-y-1/2 -right-[6px]"
+        : "left-1/2 -translate-x-1/2 -bottom-[6px]";
 
     return (
         <div className="node-card absolute flex flex-col items-center justify-center z-20"
@@ -25,20 +34,19 @@ export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, is
             </div>
             
             {label && (
-                <div className="absolute -top-6 whitespace-nowrap bg-white border border-slate-200 px-2 py-0.5 rounded text-[10px] font-bold text-slate-600 shadow-sm">
+                <div className={`absolute whitespace-nowrap bg-white border border-slate-200 px-2 py-0.5 rounded text-[10px] font-bold text-slate-600 shadow-sm ${layoutDirection === 'HORIZONTAL' ? '-top-6' : 'left-full ml-2 top-1/2 -translate-y-1/2'}`}>
                     {label}
                 </div>
             )}
 
-            {/* Input Handle - Only show if valid target. For CRITERIA nodes, isValidTarget is false when isConnecting=true */}
+            {/* Input Handle */}
             {(!isConnecting || isValidTarget) && (
                 <div 
-                    className={`absolute top-1/2 -translate-y-1/2 -left-[6px] w-2.5 h-2.5 rounded-full border-2 cursor-crosshair transition-all duration-300 ${
+                    className={`absolute w-2.5 h-2.5 rounded-full border-2 cursor-crosshair transition-all duration-300 ${inputClass} ${
                         isConnecting && isValidTarget 
                         ? 'bg-green-500 border-green-200 scale-150 shadow-[0_0_10px_rgba(34,197,94,0.5)] z-50' 
                         : 'bg-slate-400 border-white hover:bg-indigo-600 hover:scale-150'
                     }`}
-                    // Hide the handle completely if we are connecting but this node is invalid (e.g., criteria node)
                     style={{ opacity: isConnecting && !isValidTarget ? 0 : 1, pointerEvents: isConnecting && !isValidTarget ? 'none' : 'auto' }}
                     onClick={(e) => { 
                         e.stopPropagation(); 
@@ -48,10 +56,10 @@ export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, is
                 ></div>
             )}
 
-            {/* Output Handle - Hide when connecting */}
+            {/* Output Handle */}
             {!isConnecting && (
                 <div 
-                    className="absolute top-1/2 -translate-y-1/2 -right-[6px] w-2.5 h-2.5 rounded-full bg-slate-400 border-2 border-white cursor-crosshair hover:bg-indigo-600 hover:scale-150 transition-all"
+                    className={`absolute w-2.5 h-2.5 rounded-full bg-slate-400 border-2 border-white cursor-crosshair hover:bg-indigo-600 hover:scale-150 transition-all ${outputClass}`}
                     onClick={(e) => { e.stopPropagation(); onStartConnect(node.id); }}
                     title="Connect Output"
                 ></div>
@@ -60,33 +68,40 @@ export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, is
     );
 };
 
-export const StartNode = ({ node, onClick, onStartConnect, isConnecting }: any) => (
-    <div 
-      className="node-card absolute bg-emerald-50 rounded-full shadow-sm border-2 border-emerald-200 flex items-center justify-center gap-3 z-10 cursor-pointer hover:ring-2 hover:ring-emerald-100 transition-all hover:shadow-md"
-      style={{ left: node.x, top: node.y, width: START_NODE_WIDTH, height: START_NODE_HEIGHT }}
-      onClick={(e) => { e.stopPropagation(); onClick(); }}
-      title="Configure Start Trigger"
-    >
-       <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-sm border-2 border-emerald-100">
-          <Play size={18} fill="currentColor" className="ml-0.5" />
-       </div>
-       <div className="flex flex-col justify-center">
-          <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Start Workflow</span>
-          <span className="text-[10px] text-emerald-600 font-medium">Candidate Applied</span>
-       </div>
-       {/* Output Handle Only - Start Node has no input */}
-       {!isConnecting && (
-           <div 
-              className="absolute top-1/2 -translate-y-1/2 -right-[5px] w-2.5 h-2.5 rounded-full border-2 border-white bg-slate-400 z-20 cursor-crosshair hover:bg-indigo-600 hover:scale-150 transition-all"
-              onClick={(e) => { e.stopPropagation(); onStartConnect(node.id); }}
-           ></div>
-       )}
-    </div>
-);
+export const StartNode = ({ node, onClick, onStartConnect, isConnecting, layoutDirection = 'HORIZONTAL' }: any) => {
+    const outputClass = layoutDirection === 'HORIZONTAL'
+        ? "top-1/2 -translate-y-1/2 -right-[5px]"
+        : "left-1/2 -translate-x-1/2 -bottom-[5px]";
 
-export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onEndConnect, isSelected, isConnecting, isValidTarget }: any) => {
-  if (node.type === 'START') return <StartNode node={node} onClick={() => onEdit(node)} onStartConnect={onStartConnect} isConnecting={isConnecting} />;
-  if (node.type === 'CRITERIA') return <CriteriaBubble node={node} onClick={() => onEdit(node)} onStartConnect={onStartConnect} onEndConnect={onEndConnect} isConnecting={isConnecting} isValidTarget={isValidTarget} />;
+    return (
+        <div 
+        className="node-card absolute bg-emerald-50 rounded-full shadow-sm border-2 border-emerald-200 flex items-center justify-center gap-3 z-10 cursor-pointer hover:ring-2 hover:ring-emerald-100 transition-all hover:shadow-md"
+        style={{ left: node.x, top: node.y, width: START_NODE_WIDTH, height: START_NODE_HEIGHT }}
+        onClick={(e) => { e.stopPropagation(); onClick(); }}
+        title="Configure Start Trigger"
+        >
+        <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-sm border-2 border-emerald-100">
+            <Play size={18} fill="currentColor" className="ml-0.5" />
+        </div>
+        <div className="flex flex-col justify-center">
+            <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Start Workflow</span>
+            <span className="text-[10px] text-emerald-600 font-medium">Candidate Applied</span>
+        </div>
+        
+        {/* Output Handle Only */}
+        {!isConnecting && (
+            <div 
+                className={`absolute w-2.5 h-2.5 rounded-full border-2 border-white bg-slate-400 z-20 cursor-crosshair hover:bg-indigo-600 hover:scale-150 transition-all ${outputClass}`}
+                onClick={(e) => { e.stopPropagation(); onStartConnect(node.id); }}
+            ></div>
+        )}
+        </div>
+    );
+};
+
+export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onEndConnect, isSelected, isConnecting, isValidTarget, layoutDirection = 'HORIZONTAL', onShowAnalytics }: any) => {
+  if (node.type === 'START') return <StartNode node={node} onClick={() => onEdit(node)} onStartConnect={onStartConnect} isConnecting={isConnecting} layoutDirection={layoutDirection} />;
+  if (node.type === 'CRITERIA') return <CriteriaBubble node={node} onClick={() => onEdit(node)} onStartConnect={onStartConnect} onEndConnect={onEndConnect} isConnecting={isConnecting} isValidTarget={isValidTarget} layoutDirection={layoutDirection} />;
 
   const config: any = NODE_TYPES[node.type] || NODE_TYPES.ANNOUNCEMENT;
   
@@ -117,6 +132,14 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
         </>
     );
   };
+
+  const inputClass = layoutDirection === 'HORIZONTAL'
+        ? "top-1/2 -translate-y-1/2 -left-[10px]"
+        : "left-1/2 -translate-x-1/2 -top-[10px]";
+
+  const outputClass = layoutDirection === 'HORIZONTAL'
+        ? "top-1/2 -translate-y-1/2 -right-[10px]"
+        : "left-1/2 -translate-x-1/2 -bottom-[10px]";
 
   return (
     <div 
@@ -153,13 +176,22 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
         
         <div className="mt-auto pt-3 flex items-center border-t border-slate-50">
            {renderStats()}
+           <div className="ml-auto">
+              <button 
+                onClick={(e) => { e.stopPropagation(); onShowAnalytics && onShowAnalytics(); }}
+                className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
+                title="View Network Analytics"
+              >
+                <Network size={16} />
+              </button>
+           </div>
         </div>
       </div>
       
-      {/* Input Handle - Shows Green if Valid Target during connection mode */}
+      {/* Input Handle */}
       {(!isConnecting || isValidTarget) && (
           <div 
-            className={`absolute top-1/2 -translate-y-1/2 -left-[10px] w-5 h-5 rounded-full border-4 shadow-sm transition-all duration-300 cursor-crosshair z-20 ${
+            className={`absolute w-5 h-5 rounded-full border-4 shadow-sm transition-all duration-300 cursor-crosshair z-20 ${inputClass} ${
                 isConnecting && isValidTarget 
                 ? 'bg-green-500 border-green-200 scale-125 shadow-[0_0_15px_rgba(34,197,94,0.6)] animate-pulse' 
                 : 'bg-slate-300 border-white hover:bg-indigo-500 hover:scale-125'
@@ -171,10 +203,10 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
           ></div>
       )}
       
-      {/* Output Handle - Hidden during connection mode to reduce clutter */}
+      {/* Output Handle */}
       {!isConnecting && (
           <div 
-            className="absolute top-1/2 -translate-y-1/2 -right-[10px] w-5 h-5 rounded-full border-4 border-white shadow-sm bg-slate-300 hover:bg-indigo-500 hover:scale-125 transition-all cursor-crosshair z-20" 
+            className={`absolute w-5 h-5 rounded-full border-4 border-white shadow-sm bg-slate-300 hover:bg-indigo-500 hover:scale-125 transition-all cursor-crosshair z-20 ${outputClass}`} 
             onClick={(e) => { e.stopPropagation(); onStartConnect(node.id); }}
           ></div>
       )}
@@ -182,24 +214,29 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
   );
 };
 
-export const BezierEdge = ({ start, end, label }: any) => {
-  const distX = Math.abs(end.x - start.x);
+export const BezierEdge = ({ start, end, label, direction = 'HORIZONTAL' }: any) => {
+  let path = '';
   
-  // Adjusted curve calculation for close proximity nodes
-  // If nodes are very close (e.g. < 50px), reduce curve to almost straight but preserve a tiny curve for aesthetics
-  // If nodes are far, clamp curve to 150 max to avoid huge loops
-  let controlOffset = Math.min(distX * 0.4, 150);
-  
-  // Ensure minimal curve so it doesn't look like a glitchy straight line when *too* close
-  if (controlOffset < 20 && distX > 20) controlOffset = 20;
+  if (direction === 'HORIZONTAL') {
+      const distX = Math.abs(end.x - start.x);
+      let controlOffset = Math.min(distX * 0.4, 150);
+      if (controlOffset < 20 && distX > 20) controlOffset = 20;
+      path = `M ${start.x} ${start.y} C ${start.x + controlOffset} ${start.y}, ${end.x - controlOffset} ${end.y}, ${end.x} ${end.y}`;
+  } else {
+      const distY = Math.abs(end.y - start.y);
+      let controlOffset = Math.min(distY * 0.4, 150);
+      if (controlOffset < 20 && distY > 20) controlOffset = 20;
+      path = `M ${start.x} ${start.y} C ${start.x} ${start.y + controlOffset}, ${end.x} ${end.y - controlOffset}, ${end.x} ${end.y}`;
+  }
 
-  const path = `M ${start.x} ${start.y} C ${start.x + controlOffset} ${start.y}, ${end.x - controlOffset} ${end.y}, ${end.x} ${end.y}`;
+  const labelX = (start.x + end.x) / 2 - 20;
+  const labelY = (start.y + end.y) / 2 - 10;
 
   return (
     <g>
       <path d={path} fill="none" stroke="#94a3b8" strokeWidth="2.5" />
       {label && (
-        <foreignObject x={(start.x + end.x) / 2 - 20} y={(start.y + end.y) / 2 - 10} width={40} height={20}>
+        <foreignObject x={labelX} y={labelY} width={40} height={20}>
            <div className="bg-white text-[10px] text-slate-500 border border-slate-200 rounded px-1 text-center truncate">{label}</div>
         </foreignObject>
       )}

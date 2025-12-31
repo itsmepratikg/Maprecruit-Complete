@@ -12,6 +12,7 @@ import { Metrics } from './pages/Metrics';
 import { CandidateProfile } from './pages/CandidateProfile';
 import { CampaignDashboard } from './pages/CampaignDashboard';
 import { CANDIDATE } from './data';
+import { INITIAL_NODES_GRAPH } from './components/engage/demoData';
 import { ToastProvider } from './components/Toast';
 import { Campaign } from './types';
 
@@ -73,6 +74,7 @@ export default function App() {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [campaignTab, setCampaignTab] = useState('Intelligence');
   const [isSourceHovered, setIsSourceHovered] = useState(false);
+  const [isEngageHovered, setIsEngageHovered] = useState(false);
 
   // Candidate Navigation Item Helper
   const NavItem = ({ id, icon: Icon, label, activeTab, setActiveTab, onClick }: any) => (
@@ -288,7 +290,7 @@ export default function App() {
                           icon={Search} 
                           label="Source AI" 
                           activeTab={campaignTab} 
-                          setActiveTab={(id: string) => setCampaignTab(campaignTab.startsWith('Source AI') ? campaignTab : 'Source AI:ATTACH')} // Keep current sub-view if already active, else default to ATTACH
+                          setActiveTab={(id: string) => setCampaignTab(campaignTab.startsWith('Source AI') ? campaignTab : 'Source AI:ATTACH')} 
                        />
                        
                        {/* Dropdown Items */}
@@ -303,7 +305,40 @@ export default function App() {
                     </div>
 
                     <NavItem id="Match AI" icon={CheckCircle} label="Match AI" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                    <NavItem id="Engage AI" icon={GitBranch} label="Engage AI" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                    
+                    {/* Engage AI Group - Expandable */}
+                    <div 
+                      className="relative"
+                      onMouseEnter={() => setIsEngageHovered(true)}
+                      onMouseLeave={() => setIsEngageHovered(false)}
+                    >
+                       <NavItem 
+                          id="Engage AI" 
+                          icon={GitBranch} 
+                          label="Engage AI" 
+                          activeTab={campaignTab} 
+                          setActiveTab={(id: string) => {
+                             if (campaignTab.startsWith('Engage AI')) {
+                                // If already active, keep current sub-view
+                                setCampaignTab(campaignTab);
+                             } else {
+                                // Logic: If multiple nodes (>1), default to Interview Room (ROOM). Else Builder.
+                                const hasMultipleNodes = INITIAL_NODES_GRAPH.length > 1;
+                                setCampaignTab(hasMultipleNodes ? 'Engage AI:ROOM' : 'Engage AI:BUILDER');
+                             }
+                          }}
+                       />
+                       
+                       {/* Dropdown Items */}
+                       {(campaignTab.startsWith('Engage AI') || isEngageHovered) && (
+                          <div className="ml-9 mt-1 space-y-1 border-l-2 border-slate-100 pl-2 mb-2 animate-in slide-in-from-top-1 duration-200">
+                             <SubNavItem id="Engage AI:BUILDER" label="Workflow Builder" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                             <SubNavItem id="Engage AI:TRACKING" label="Candidate Tracking" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                             <SubNavItem id="Engage AI:ROOM" label="Interview Room" activeTab={campaignTab} setActiveTab={setCampaignTab} />
+                          </div>
+                       )}
+                    </div>
+
                     <NavItem id="Recommended Profiles" icon={ThumbsUp} label="Recommended Profiles" activeTab={campaignTab} setActiveTab={setCampaignTab} />
                   </div>
                 </div>

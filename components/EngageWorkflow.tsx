@@ -1,8 +1,8 @@
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { 
-  GitBranch, Users, Video, Layout, ZoomIn, ZoomOut, RotateCcw, RotateCw,
-  Link as LinkIcon, Save, AlertTriangle, CheckCircle, X
+  GitBranch, Users, Video, Layout, ZoomIn, ZoomOut, Undo2, Redo2,
+  Link as LinkIcon, Save, AlertTriangle, CheckCircle, X, RotateCcw, RotateCcwSquare, RotateCwSquare
 } from 'lucide-react';
 import { NODE_TYPES } from '../data';
 import { EngageNode, EngageEdge } from '../types';
@@ -11,6 +11,7 @@ import { START_NODE_WIDTH, START_NODE_HEIGHT, BUBBLE_SIZE, CARD_WIDTH, CARD_HEIG
 import { NodeCard, BezierEdge } from './engage/CanvasNodes';
 import { AutomationPlaceholderModal, NodeConfigurationModal } from './engage/ConfigModals';
 import { CandidateTracking, InterviewRoom } from './engage/Views';
+import { NetworkGraphModal } from './NetworkGraphModal';
 
 // --- MODALS ---
 
@@ -65,7 +66,7 @@ const ValidationErrorsModal = ({ isOpen, onClose, errors }: any) => {
 };
 
 // --- ALIGNMENT ALGORITHM ---
-const calculateAutoLayout = (nodes: EngageNode[], edges: EngageEdge[]) => {
+const calculateAutoLayout = (nodes: EngageNode[], edges: EngageEdge[], direction: 'HORIZONTAL' | 'VERTICAL') => {
     // 1. Hierarchy Calc
     const adjacency: Record<string, string[]> = {};
     const incoming: Record<string, number> = {}; 
@@ -95,43 +96,75 @@ const calculateAutoLayout = (nodes: EngageNode[], edges: EngageEdge[]) => {
         }
     };
     processQueue();
-    // Process disconnected components
     nodes.forEach(n => { if (!visited.has(n.id)) { queue.push({ id: n.id, depth: 0 }); processQueue(); } });
 
     // 2. Position Assignment
-    const GAP_X = 100;
-    const GAP_Y = 60;
-    let currentX = 50;
+    const GAP_X = direction === 'HORIZONTAL' ? 100 : 60;
+    const GAP_Y = direction === 'HORIZONTAL' ? 60 : 100;
     const newNodes = [...nodes];
     const maxDepth = Math.max(...Object.keys(levels).map(Number));
 
-    for (let d = 0; d <= maxDepth; d++) {
-        const levelNodeIds = levels[d] || [];
-        if (levelNodeIds.length === 0) continue;
-        let maxW = 0;
-        
-        // Calculate total height for vertical centering relative to canvas center (approx 350)
-        const totalHeight = levelNodeIds.reduce((acc, nid) => {
-            const n = nodes.find(x => x.id === nid)!;
-            const h = n.type === 'START' ? START_NODE_HEIGHT : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_HEIGHT);
-            return acc + h;
-        }, 0) + (levelNodeIds.length - 1) * GAP_Y;
-
-        let currentY = 350 - (totalHeight / 2); 
-        if (currentY < 50) currentY = 50;
-
-        levelNodeIds.forEach(nid => {
-            const nodeIndex = newNodes.findIndex(n => n.id === nid);
-            if (nodeIndex === -1) return;
-            const n = newNodes[nodeIndex];
-            const w = n.type === 'START' ? START_NODE_WIDTH : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_WIDTH);
-            const h = n.type === 'START' ? START_NODE_HEIGHT : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_HEIGHT);
+    if (direction === 'HORIZONTAL') {
+        let currentX = 50;
+        for (let d = 0; d <= maxDepth; d++) {
+            const levelNodeIds = levels[d] || [];
+            if (levelNodeIds.length === 0) continue;
+            let maxW = 0;
             
-            maxW = Math.max(maxW, w);
-            newNodes[nodeIndex] = { ...n, x: currentX, y: currentY };
-            currentY += h + GAP_Y;
-        });
-        currentX += maxW + GAP_X;
+            const totalHeight = levelNodeIds.reduce((acc, nid) => {
+                const n = nodes.find(x => x.id === nid)!;
+                const h = n.type === 'START' ? START_NODE_HEIGHT : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_HEIGHT);
+                return acc + h;
+            }, 0) + (levelNodeIds.length - 1) * GAP_Y;
+
+            let currentY = 350 - (totalHeight / 2); 
+            if (currentY < 50) currentY = 50;
+
+            levelNodeIds.forEach(nid => {
+                const nodeIndex = newNodes.findIndex(n => n.id === nid);
+                if (nodeIndex === -1) return;
+                const n = newNodes[nodeIndex];
+                const w = n.type === 'START' ? START_NODE_WIDTH : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_WIDTH);
+                const h = n.type === 'START' ? START_NODE_HEIGHT : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_HEIGHT);
+                
+                maxW = Math.max(maxW, w);
+                newNodes[nodeIndex] = { ...n, x: currentX, y: currentY };
+                currentY += h + GAP_Y;
+            });
+            currentX += maxW + GAP_X;
+        }
+    } else {
+        // VERTICAL LAYOUT
+        let currentY = 50;
+        const CENTER_X = 600; 
+
+        for (let d = 0; d <= maxDepth; d++) {
+            const levelNodeIds = levels[d] || [];
+            if (levelNodeIds.length === 0) continue;
+            let maxH = 0;
+
+            const totalWidth = levelNodeIds.reduce((acc, nid) => {
+                const n = nodes.find(x => x.id === nid)!;
+                const w = n.type === 'START' ? START_NODE_WIDTH : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_WIDTH);
+                return acc + w;
+            }, 0) + (levelNodeIds.length - 1) * GAP_X;
+
+            let currentX = CENTER_X - (totalWidth / 2);
+            if (currentX < 50) currentX = 50;
+
+            levelNodeIds.forEach(nid => {
+                const nodeIndex = newNodes.findIndex(n => n.id === nid);
+                if (nodeIndex === -1) return;
+                const n = newNodes[nodeIndex];
+                const w = n.type === 'START' ? START_NODE_WIDTH : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_WIDTH);
+                const h = n.type === 'START' ? START_NODE_HEIGHT : (n.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_HEIGHT);
+
+                maxH = Math.max(maxH, h);
+                newNodes[nodeIndex] = { ...n, x: currentX, y: currentY };
+                currentX += w + GAP_X;
+            });
+            currentY += maxH + GAP_Y;
+        }
     }
     return newNodes;
 };
@@ -140,12 +173,14 @@ const calculateAutoLayout = (nodes: EngageNode[], edges: EngageEdge[]) => {
 
 interface WorkflowBuilderProps {
     onDirtyChange: (isDirty: boolean) => void;
+    onShowAnalytics: () => void;
 }
 
-const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
+const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }: WorkflowBuilderProps) => {
   // Graph State
   const [nodes, setNodes] = useState<EngageNode[]>(INITIAL_NODES_GRAPH);
   const [edgesList, setEdgesList] = useState<EngageEdge[]>(INITIAL_EDGES_GRAPH);
+  const [layoutDirection, setLayoutDirection] = useState<'HORIZONTAL' | 'VERTICAL'>('HORIZONTAL');
   
   // History State
   const [history, setHistory] = useState<{nodes: EngageNode[], edges: EngageEdge[]}[]>([{nodes: INITIAL_NODES_GRAPH, edges: INITIAL_EDGES_GRAPH}]);
@@ -168,10 +203,8 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
 
   // Initial Auto Align
   useEffect(() => {
-      // Run alignment once on mount to ensure dynamic look is default
-      const aligned = calculateAutoLayout(INITIAL_NODES_GRAPH, INITIAL_EDGES_GRAPH);
+      const aligned = calculateAutoLayout(INITIAL_NODES_GRAPH, INITIAL_EDGES_GRAPH, 'HORIZONTAL');
       setNodes(aligned);
-      // Reset history with aligned state so undo doesn't jump to unaligned
       setHistory([{nodes: aligned, edges: INITIAL_EDGES_GRAPH}]);
   }, []);
 
@@ -271,7 +304,6 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
 
   const confirmSave = () => {
       setIsSaved(true);
-      // Reset history stack base to current state
       setHistory([{ nodes: JSON.parse(JSON.stringify(nodes)), edges: JSON.parse(JSON.stringify(edgesList)) }]);
       setHistoryStep(0);
       setShowSaveModal(false);
@@ -296,23 +328,30 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
     const endNode = nodes.find(n => n.id === edge.to);
     if (!startNode || !endNode) return null;
     
-    const getOutputPos = (n: EngageNode) => {
-        if (n.type === 'START') return { x: n.x + START_NODE_WIDTH, y: n.y + (START_NODE_HEIGHT / 2) };
-        if (n.type === 'CRITERIA') return { x: n.x + BUBBLE_SIZE, y: n.y + (BUBBLE_SIZE / 2) };
-        return { x: n.x + CARD_WIDTH, y: n.y + (CARD_HEIGHT / 2) };
-    };
+    // Calculate Connection Points based on Layout Direction
+    let startPos = { x: 0, y: 0 };
+    let endPos = { x: 0, y: 0 };
 
-    const getInputPos = (n: EngageNode) => {
-        if (n.type === 'CRITERIA') return { x: n.x, y: n.y + (BUBBLE_SIZE / 2) };
-        return { x: n.x, y: n.y + (CARD_HEIGHT / 2) };
-    };
+    if (layoutDirection === 'HORIZONTAL') {
+        // Output Right, Input Left
+        if (startNode.type === 'START') startPos = { x: startNode.x + START_NODE_WIDTH, y: startNode.y + (START_NODE_HEIGHT / 2) };
+        else if (startNode.type === 'CRITERIA') startPos = { x: startNode.x + BUBBLE_SIZE, y: startNode.y + (BUBBLE_SIZE / 2) };
+        else startPos = { x: startNode.x + CARD_WIDTH, y: startNode.y + (CARD_HEIGHT / 2) };
 
-    return { 
-      ...edge, 
-      start: getOutputPos(startNode), 
-      end: getInputPos(endNode)
-    };
-  }).filter(Boolean), [nodes, edgesList]);
+        if (endNode.type === 'CRITERIA') endPos = { x: endNode.x, y: endNode.y + (BUBBLE_SIZE / 2) };
+        else endPos = { x: endNode.x, y: endNode.y + (CARD_HEIGHT / 2) };
+    } else {
+        // VERTICAL: Output Bottom, Input Top
+        if (startNode.type === 'START') startPos = { x: startNode.x + (START_NODE_WIDTH / 2), y: startNode.y + START_NODE_HEIGHT };
+        else if (startNode.type === 'CRITERIA') startPos = { x: startNode.x + (BUBBLE_SIZE / 2), y: startNode.y + BUBBLE_SIZE };
+        else startPos = { x: startNode.x + (CARD_WIDTH / 2), y: startNode.y + CARD_HEIGHT };
+
+        if (endNode.type === 'CRITERIA') endPos = { x: endNode.x + (BUBBLE_SIZE / 2), y: endNode.y };
+        else endPos = { x: endNode.x + (CARD_WIDTH / 2), y: endNode.y };
+    }
+
+    return { ...edge, start: startPos, end: endPos };
+  }).filter(Boolean), [nodes, edgesList, layoutDirection]);
 
   // --- HANDLERS ---
 
@@ -353,7 +392,9 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
       if (!sourceNode || !targetNode) return false;
       if (targetNode.type === 'START') return false;
       if (targetNode.type === 'CRITERIA') return false;
-      return targetNode.x > sourceNode.x + 10;
+      // Basic position check (don't connect backwards too easily)
+      if (layoutDirection === 'HORIZONTAL') return targetNode.x > sourceNode.x + 10;
+      else return targetNode.y > sourceNode.y + 10;
   };
 
   const handleEndConnect = (targetNodeId: string) => {
@@ -377,7 +418,6 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
           if (isSourceRound && isTargetRound) {
               // Automatically Insert Criteria Node
               const criteriaId = Date.now().toString() + '_auto_c';
-              // Temporary positions, will be fixed by auto-align
               const midX = (sourceNode.x + targetNode.x) / 2;
               const midY = (sourceNode.y + targetNode.y) / 2;
               
@@ -395,8 +435,8 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
               }
           }
           
-          // Auto-align immediately on new connection to handle multiple nodes/branches smoothly
-          const aligned = calculateAutoLayout(nextNodes, nextEdges);
+          // Auto-align immediately on new connection
+          const aligned = calculateAutoLayout(nextNodes, nextEdges, layoutDirection);
           setNodes(aligned);
           setEdgesList(nextEdges);
           recordHistory(aligned, nextEdges);
@@ -456,23 +496,48 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
   }, [connectingNodeId]);
 
   const handleAddNode = (type: string) => {
-      const sortedNodes = [...nodes].sort((a, b) => b.x - a.x);
-      const lastNode = sortedNodes[0];
+      // Find the last node based on current direction to place the new one
+      let lastNode;
+      if (layoutDirection === 'HORIZONTAL') {
+          // Right-most
+          const sortedNodes = [...nodes].sort((a, b) => b.x - a.x);
+          lastNode = sortedNodes[0];
+      } else {
+          // Bottom-most
+          const sortedNodes = [...nodes].sort((a, b) => b.y - a.y);
+          lastNode = sortedNodes[0];
+      }
+      
       if (!lastNode) return; 
 
-      const lastNodeWidth = lastNode.type === 'START' ? START_NODE_WIDTH : (lastNode.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_WIDTH);
-      const centerY = lastNode.y; 
+      const lastNodeW = lastNode.type === 'START' ? START_NODE_WIDTH : (lastNode.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_WIDTH);
+      const lastNodeH = lastNode.type === 'START' ? START_NODE_HEIGHT : (lastNode.type === 'CRITERIA' ? BUBBLE_SIZE : CARD_HEIGHT);
       
       const criteriaId = `c_${Date.now()}`;
       const newNodeId = `n_${Date.now()}`;
 
+      // Default temporary positions
+      let criteriaX = lastNode.x, criteriaY = lastNode.y, nodeX = lastNode.x, nodeY = lastNode.y;
+
+      if (layoutDirection === 'HORIZONTAL') {
+          criteriaX = lastNode.x + lastNodeW + 50;
+          criteriaY = lastNode.y + (lastNodeH / 2) - (BUBBLE_SIZE / 2); // Center Y
+          nodeX = criteriaX + BUBBLE_SIZE + 50;
+          nodeY = lastNode.y;
+      } else {
+          criteriaX = lastNode.x + (lastNodeW / 2) - (BUBBLE_SIZE / 2); // Center X
+          criteriaY = lastNode.y + lastNodeH + 50;
+          nodeX = lastNode.x;
+          nodeY = criteriaY + BUBBLE_SIZE + 50;
+      }
+
       const newCriteria: EngageNode = {
-          id: criteriaId, type: 'CRITERIA', title: 'Logic', x: lastNode.x + lastNodeWidth + 50, y: centerY,
+          id: criteriaId, type: 'CRITERIA', title: 'Logic', x: criteriaX, y: criteriaY,
           data: { desc: 'Logic', config: { enabled: false } }
       };
 
       const newNode: EngageNode = {
-          id: newNodeId, type, title: `New ${NODE_TYPES[type]?.label || 'Step'}`, x: lastNode.x + lastNodeWidth + 150, y: centerY,
+          id: newNodeId, type, title: `New ${NODE_TYPES[type]?.label || 'Step'}`, x: nodeX, y: nodeY,
           data: { desc: 'Configure this step' }
       };
       
@@ -480,15 +545,17 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
       const nextEdges = [...edgesList, { from: lastNode.id, to: criteriaId }, { from: criteriaId, to: newNodeId }];
       
       // Auto Align immediately
-      const alignedNodes = calculateAutoLayout(nextNodes, nextEdges);
+      const alignedNodes = calculateAutoLayout(nextNodes, nextEdges, layoutDirection);
       
       setNodes(alignedNodes);
       setEdgesList(nextEdges);
       recordHistory(alignedNodes, nextEdges);
   };
 
-  const handleManualAlign = () => {
-      const aligned = calculateAutoLayout(nodes, edgesList);
+  const handleToggleLayout = () => {
+      const newDir = layoutDirection === 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL';
+      setLayoutDirection(newDir);
+      const aligned = calculateAutoLayout(nodes, edgesList, newDir);
       setNodes(aligned);
       recordHistory(aligned, edgesList);
   };
@@ -550,7 +617,7 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
             }}
         >
           <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
-            {edges.map((edge: any, i) => <BezierEdge key={i} {...edge} />)}
+            {edges.map((edge: any, i) => <BezierEdge key={i} {...edge} direction={layoutDirection} />)}
             {connectingNodeId && (
                 <defs>
                     <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -571,6 +638,8 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
                 isSelected={selectedNode?.id === node.id} 
                 isConnecting={connectingNodeId !== null}
                 isValidTarget={connectingNodeId ? isConnectionValid(connectingNodeId, node.id) : false}
+                layoutDirection={layoutDirection}
+                onShowAnalytics={onShowAnalytics}
                 />
             </React.Fragment>
           ))}
@@ -603,13 +672,17 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
            <button onClick={() => setZoom(z => Math.max(0.1, z - 0.1))} className="p-1.5 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-700"><ZoomOut size={16}/></button>
            <span className="text-[10px] font-mono text-slate-500 w-8 text-center">{Math.round(zoom * 100)}%</span>
            <button onClick={() => setZoom(z => Math.min(3, z + 0.1))} className="p-1.5 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-700"><ZoomIn size={16}/></button>
-           <button onClick={() => setZoom(0.85)} className="p-1.5 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-700 ml-1" title="Reset View"><RotateCcw size={14}/></button>
+           <button onClick={() => setZoom(0.85)} className="p-1.5 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-700 ml-1" title="Reset View"><RotateCcw size={14} className="opacity-50" /></button>
            
            <div className="w-px h-4 bg-slate-300 mx-2"></div>
 
-           {/* Layout Tools */}
-           <button onClick={handleManualAlign} className="p-1.5 hover:bg-indigo-50 text-slate-500 hover:text-indigo-600 rounded transition-colors" title="Auto Align Layout">
-              <Layout size={16}/> 
+           {/* Layout Tools: Toggle Orientation */}
+           <button 
+             onClick={handleToggleLayout} 
+             className="p-1.5 hover:bg-indigo-50 text-slate-500 hover:text-indigo-600 rounded transition-colors flex items-center gap-2" 
+             title={layoutDirection === 'HORIZONTAL' ? "Switch to Vertical Layout" : "Switch to Horizontal Layout"}
+           >
+              {layoutDirection === 'HORIZONTAL' ? <RotateCwSquare size={16} /> : <RotateCcwSquare size={16} />}
            </button>
 
            <div className="w-px h-4 bg-slate-300 mx-2"></div>
@@ -621,7 +694,7 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
              className={`p-1.5 rounded transition-colors ${isSaved || historyStep === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}
              title="Undo"
            >
-              <RotateCcw size={16} /> 
+              <Undo2 size={16} /> 
            </button>
            <button 
              onClick={handleRedo} 
@@ -629,7 +702,7 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
              className={`p-1.5 rounded transition-colors ${isSaved || historyStep === history.length - 1 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}
              title="Redo"
            >
-              <RotateCw size={16} /> 
+              <Redo2 size={16} /> 
            </button>
         </div>
       </div>
@@ -637,84 +710,19 @@ const WorkflowBuilder = ({ onDirtyChange }: WorkflowBuilderProps) => {
   );
 };
 
-export const EngageWorkflow = () => {
-  const [activeTab, setActiveTab] = useState<'BUILDER' | 'TRACKING' | 'ROOM'>('BUILDER');
+export const EngageWorkflow = ({ activeView = 'BUILDER' }: { activeView?: string }) => {
+  // We keep isWorkflowDirty here to pass to Builder, even if navigation is external.
   const [isWorkflowDirty, setIsWorkflowDirty] = useState(false);
-
-  // Tab switching guard
-  const handleTabChange = (tab: 'BUILDER' | 'TRACKING' | 'ROOM') => {
-      if (activeTab === 'BUILDER' && isWorkflowDirty && tab !== 'BUILDER') {
-          if (!window.confirm("You have unsaved changes in the workflow. Navigate away and discard changes?")) {
-              return;
-          }
-          setIsWorkflowDirty(false); 
-      }
-      setActiveTab(tab);
-  };
-
-  // Browser navigation guard
-  useEffect(() => {
-      const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-          if (isWorkflowDirty && activeTab === 'BUILDER') {
-              e.preventDefault();
-              e.returnValue = ''; // Required for modern browsers
-              return '';
-          }
-      };
-
-      window.addEventListener('beforeunload', handleBeforeUnload);
-      return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [isWorkflowDirty, activeTab]);
+  const [isNetworkGraphOpen, setIsNetworkGraphOpen] = useState(false);
 
   return (
     <div className="flex flex-col h-full bg-white relative">
-       {/* Top Navigation Bar */}
-       <div className="h-14 border-b border-slate-200 flex items-center justify-between px-6 bg-white shrink-0 z-40">
-          <div className="flex items-center gap-2">
-             <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white shadow-sm">
-                <GitBranch size={18} />
-             </div>
-             <div>
-                <h2 className="font-bold text-slate-800 leading-tight">Engage AI</h2>
-                <p className="text-[10px] text-slate-500 font-medium">Campaign: Warehouse Bot</p>
-             </div>
-          </div>
-
-          <div className="flex bg-slate-100 p-1 rounded-lg">
-             <button 
-               onClick={() => handleTabChange('BUILDER')}
-               className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-bold transition-all ${activeTab === 'BUILDER' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-             >
-                <Layout size={14} /> Workflow Builder
-                {isWorkflowDirty && <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>}
-             </button>
-             <button 
-               onClick={() => handleTabChange('TRACKING')}
-               className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-bold transition-all ${activeTab === 'TRACKING' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-             >
-                <Users size={14} /> Candidate Tracking
-             </button>
-             <button 
-               onClick={() => handleTabChange('ROOM')}
-               className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-bold transition-all ${activeTab === 'ROOM' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-             >
-                <Video size={14} /> Interview Room
-             </button>
-          </div>
-
-          <div className="flex items-center gap-3">
-             <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full border border-green-200 text-xs font-bold">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                Active
-             </div>
-          </div>
-       </div>
-
+       <NetworkGraphModal isOpen={isNetworkGraphOpen} onClose={() => setIsNetworkGraphOpen(false)} />
        {/* Content Area */}
        <div className="flex-1 overflow-hidden relative">
-          {activeTab === 'BUILDER' && <WorkflowBuilder onDirtyChange={setIsWorkflowDirty} />}
-          {activeTab === 'TRACKING' && <CandidateTracking />}
-          {activeTab === 'ROOM' && <InterviewRoom />}
+          {activeView === 'BUILDER' && <WorkflowBuilder onDirtyChange={setIsWorkflowDirty} onShowAnalytics={() => setIsNetworkGraphOpen(true)} />}
+          {activeView === 'TRACKING' && <CandidateTracking />}
+          {activeView === 'ROOM' && <InterviewRoom />}
        </div>
     </div>
   );
