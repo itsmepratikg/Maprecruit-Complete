@@ -178,9 +178,9 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
            {renderStats()}
            <div className="ml-auto">
               <button 
-                onClick={(e) => { e.stopPropagation(); onShowAnalytics && onShowAnalytics(); }}
+                onClick={(e) => { e.stopPropagation(); onShowAnalytics && onShowAnalytics(node.type); }}
                 className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
-                title="View Network Analytics"
+                title="Round Analytics"
               >
                 <Network size={16} />
               </button>

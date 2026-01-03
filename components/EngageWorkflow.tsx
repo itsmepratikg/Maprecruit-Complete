@@ -173,7 +173,7 @@ const calculateAutoLayout = (nodes: EngageNode[], edges: EngageEdge[], direction
 
 interface WorkflowBuilderProps {
     onDirtyChange: (isDirty: boolean) => void;
-    onShowAnalytics: () => void;
+    onShowAnalytics: (type: string) => void;
 }
 
 const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }: WorkflowBuilderProps) => {
@@ -714,13 +714,19 @@ export const EngageWorkflow = ({ activeView = 'BUILDER' }: { activeView?: string
   // We keep isWorkflowDirty here to pass to Builder, even if navigation is external.
   const [isWorkflowDirty, setIsWorkflowDirty] = useState(false);
   const [isNetworkGraphOpen, setIsNetworkGraphOpen] = useState(false);
+  const [analyticsRoundType, setAnalyticsRoundType] = useState<string>('Screening');
+
+  const handleShowAnalytics = (type: string) => {
+      setAnalyticsRoundType(type);
+      setIsNetworkGraphOpen(true);
+  };
 
   return (
     <div className="flex flex-col h-full bg-white relative">
-       <NetworkGraphModal isOpen={isNetworkGraphOpen} onClose={() => setIsNetworkGraphOpen(false)} />
+       <NetworkGraphModal isOpen={isNetworkGraphOpen} onClose={() => setIsNetworkGraphOpen(false)} initialRoundType={analyticsRoundType} />
        {/* Content Area */}
        <div className="flex-1 overflow-hidden relative">
-          {activeView === 'BUILDER' && <WorkflowBuilder onDirtyChange={setIsWorkflowDirty} onShowAnalytics={() => setIsNetworkGraphOpen(true)} />}
+          {activeView === 'BUILDER' && <WorkflowBuilder onDirtyChange={setIsWorkflowDirty} onShowAnalytics={handleShowAnalytics} />}
           {activeView === 'TRACKING' && <CandidateTracking />}
           {activeView === 'ROOM' && <InterviewRoom />}
        </div>

@@ -6,6 +6,7 @@ import {
 import { MOCK_QUESTIONS_DATA } from '../../data';
 import { EngageNode } from '../../types';
 import { AutomationConfig } from './AutomationConfig';
+import { AnnouncementConfig, TemplatePreviewPanel } from './rounds/AnnouncementConfig';
 
 export const AutomationPlaceholderModal = ({ onClose, isEnabled, onToggle }: { onClose: () => void, isEnabled: boolean, onToggle: (val: boolean) => void }) => {
     return (
@@ -101,15 +102,19 @@ export const TemplateManager = ({ nodeType, config, onUpdate }: any) => {
 export const NodeConfigurationModal = ({ node, onClose, onSave }: { node: EngageNode, onClose: () => void, onSave: (node: EngageNode) => void }) => {
   const [roundName, setRoundName] = useState(node.title);
   const [nodeConfig, setNodeConfig] = useState(node.data.config || {});
+  const [previewTemplateId, setPreviewTemplateId] = useState<string | null>(null);
+  
   const tabs = useMemo(() => {
+    if (node.type === 'ANNOUNCEMENT') return ['Template Configuration'];
     if (node.type === 'INTERVIEW') return ['Templates', 'Interview Details'];
     return ['Questionnaire', 'Templates'];
   }, [node.type]);
+  
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl h-[85vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className={`bg-white rounded-xl shadow-2xl w-full flex flex-col overflow-hidden animate-in zoom-in-95 duration-200 transition-all ${previewTemplateId ? 'max-w-[95vw] lg:max-w-7xl' : 'max-w-4xl'}`} style={{ height: '85vh' }}>
         <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-start bg-white shrink-0">
            <div className="flex-1">
               <h2 className="text-xl font-bold text-slate-800 mb-2 flex items-center gap-3">
@@ -130,17 +135,41 @@ export const NodeConfigurationModal = ({ node, onClose, onSave }: { node: Engage
               <X size={24} />
            </button>
         </div>
-        <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 shrink-0">
-           <div className="flex gap-1 p-1 bg-slate-200/60 rounded-lg w-fit">
-              {tabs.map(tab => (
-                 <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 text-xs font-bold rounded-md transition-all ${activeTab === tab ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}>{tab}</button>
-              ))}
-           </div>
+        
+        {/* Only show tabs if it's NOT an announcement (Announcement has custom internal layout) */}
+        {node.type !== 'ANNOUNCEMENT' && (
+            <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 shrink-0">
+            <div className="flex gap-1 p-1 bg-slate-200/60 rounded-lg w-fit">
+                {tabs.map(tab => (
+                    <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 text-xs font-bold rounded-md transition-all ${activeTab === tab ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}>{tab}</button>
+                ))}
+            </div>
+            </div>
+        )}
+
+        {/* Content Body - Split View Supported */}
+        <div className="flex-1 flex overflow-hidden">
+            <div className={`flex-1 flex flex-col min-w-0 ${previewTemplateId ? 'border-r border-slate-200' : ''}`}>
+                {node.type === 'ANNOUNCEMENT' ? (
+                    <div className="flex-1 overflow-hidden h-full">
+                        <AnnouncementConfig config={nodeConfig} onChange={setNodeConfig} onPreview={setPreviewTemplateId} />
+                    </div>
+                ) : (
+                    <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
+                        {activeTab === 'Questionnaire' ? <QuestionsPanel /> : activeTab === 'Templates' ? <div className="max-w-3xl mx-auto"><TemplateManager nodeType={node.type} config={nodeConfig} onUpdate={setNodeConfig} /></div> : <div className="h-full border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center text-slate-400 bg-slate-50/30"><Settings size={32} className="text-indigo-200 mb-4" /><p className="text-sm">Configuration for {activeTab}</p></div>}
+                    </div>
+                )}
+            </div>
+
+            {/* Right Panel - Preview */}
+            {previewTemplateId && (
+                <div className="w-[450px] flex flex-col bg-slate-50 shrink-0 animate-in slide-in-from-right duration-300">
+                    <TemplatePreviewPanel onClose={() => setPreviewTemplateId(null)} />
+                </div>
+            )}
         </div>
-        <div className="flex-1 bg-white p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
-           {activeTab === 'Questionnaire' ? <QuestionsPanel /> : activeTab === 'Templates' ? <div className="max-w-3xl mx-auto"><TemplateManager nodeType={node.type} config={nodeConfig} onUpdate={setNodeConfig} /></div> : <div className="h-full border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center text-slate-400 bg-slate-50/30"><Settings size={32} className="text-indigo-200 mb-4" /><p className="text-sm">Configuration for {activeTab}</p></div>}
-        </div>
-        <div className="px-8 py-5 border-t border-slate-100 bg-white flex justify-end gap-3 shrink-0">
+
+        <div className="px-8 py-5 border-t border-slate-100 bg-white flex justify-end gap-3 shrink-0 z-20">
            <button onClick={onClose} className="px-5 py-2.5 text-slate-600 font-bold text-sm hover:bg-slate-50 rounded-lg transition-colors">Cancel</button>
            <button onClick={() => onSave({ ...node, title: roundName, data: { ...node.data, config: nodeConfig } })} className="px-6 py-2.5 bg-indigo-600 text-white font-bold text-sm rounded-lg hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all transform active:scale-95">Save Changes</button>
         </div>
