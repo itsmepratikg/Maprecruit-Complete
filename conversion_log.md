@@ -46,6 +46,8 @@
 ## Recent Updates
 - [x] Updated functionality from Basic Modal to Advanced Upload/Manual Modal. [Test Changelog](Test Cases/Feature Logs/ProfileCreation_CreateProfileModal_App_Changelog.md)
 - [x] Updated functionality for Candidate List and Interview Panel views. [Test Changelog](Test Cases/Feature Logs/EngageAI_Views_Changelog.md) (Note: Creating this retroactively for consistency)
+- [x] Refactored Profile View to use Dynamic JSON and New UI. [Test Changelog](Test Cases/Feature Logs/ProfileView_CandidateProfile_Page_Changelog.md)
+
 
 ## Next Steps for User
 1. Run `npm install` to install dependencies (node_modules was missing).

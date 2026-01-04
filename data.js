@@ -365,3 +365,6 @@ export const SIDEBAR_FILTERS = [
   { id: 'availability', label: 'Availability', options: ['Immediate', '2 Weeks', '1 Month'] },
   { id: 'match', label: 'Match Quality', options: ['High Match (>90%)'] }
 ];
+
+import PROFILE_JSON from './Data JSONs/Resume Page/RID690983bcb7f941d7bdaf0a27.json';
+export const FULL_PROFILE_DATA = PROFILE_JSON;
