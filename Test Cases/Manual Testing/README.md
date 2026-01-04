@@ -22,9 +22,10 @@ Manual testing focuses on verifying the application from an end-user perspective
 ### 3. Profile Management
 | ID | Scenario | Steps | Expected Result | Priority |
 |----|----------|-------|-----------------|----------|
-| MT-07 | Create Profile Modal | Click "Create Profile" in sidebar | Modal opens with title "Create Profile" | Medium |
-| MT-08 | Close Modal | Click "X" or outside modal | Modal closes | Medium |
-| MT-09 | Submit Empty Form | Click Save without data | Validation errors displayed | Low |
+| MT-07 | Create Profile Modal | Click "Create Profile" in sidebar | Modal opens with "Upload Resume" and "Manual Entry" tabs | Medium |
+| MT-08 | Close Modal | Click "X" or "Cancel" | Modal closes | Medium |
+| MT-09 | Submit Profile | Fill Manual Form -> Click Create | Success toast appears, modal closes | High |
+| MT-10 | Upload Workflow | Upload file -> Review Auto-filled Data | Data populates in Manual tab after parse simulation | High |
 
 ### 4. Interactive Elements
 | ID | Scenario | Steps | Expected Result | Priority |

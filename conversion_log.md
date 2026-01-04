@@ -43,6 +43,10 @@
 - [x] Removed residual TypeScript syntax in `ConfigModals.jsx`, `AnnouncementConfig.jsx`, `Campaigns.jsx`, and `Profiles.jsx`.
 - [x] Verified `index.html` uses `babel-standalone` for no-build execution.
 
+## Recent Updates
+- [x] Updated functionality from Basic Modal to Advanced Upload/Manual Modal. [Test Changelog](Test Cases/Feature Logs/ProfileCreation_CreateProfileModal_App_Changelog.md)
+- [x] Updated functionality for Candidate List and Interview Panel views. [Test Changelog](Test Cases/Feature Logs/EngageAI_Views_Changelog.md) (Note: Creating this retroactively for consistency)
+
 ## Next Steps for User
 1. Run `npm install` to install dependencies (node_modules was missing).
 2. Run `npm run dev` or serve the root directory to verify 'no-build' mode (using babel-standalone).
