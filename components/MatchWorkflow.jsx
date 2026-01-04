@@ -85,7 +85,7 @@ const ScoreRing = ({ score, size = 60, stroke = 4, fontSize = "text-sm" }) => {
                     cy={size / 2}
                 />
             </svg>
-            <span className={`absolute font-bold text-slate-700 ${fontSize}`}>{score}</span>
+            <span className={`absolute font-bold text-slate-700 dark:text-slate-200 ${fontSize}`}>{score}</span>
         </div>
     );
 };
@@ -93,7 +93,7 @@ const ScoreRing = ({ score, size = 60, stroke = 4, fontSize = "text-sm" }) => {
 const CandidateListCard = ({ candidate, isSelected, onClick }) => (
     <div
         onClick={onClick}
-        className={`p-4 border-b border-slate-100 cursor-pointer transition-all hover:bg-slate-50 group ${isSelected ? 'bg-indigo-50/60 border-l-4 border-l-indigo-600' : 'border-l-4 border-l-transparent'}`}
+        className={`p-4 border-b border-slate-100 dark:border-slate-700 dark:border-slate-700 cursor-pointer transition-all hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 group ${isSelected ? 'bg-indigo-50/60 border-l-4 border-l-indigo-600' : 'border-l-4 border-l-transparent'}`}
     >
         <div className="flex justify-between items-start mb-2">
             <div className="flex items-center gap-3">
@@ -108,7 +108,7 @@ const CandidateListCard = ({ candidate, isSelected, onClick }) => (
             <ScoreRing score={candidate.score} size={40} stroke={3} fontSize="text-[10px]" />
         </div>
         <div className="flex items-center gap-2 mt-2">
-            <span className={`px-2 py-0.5 rounded text-[10px] font-medium border ${candidate.status === 'New' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+            <span className={`px-2 py-0.5 rounded text-[10px] font-medium border ${candidate.status === 'New' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200'}`}>
                 {candidate.status}
             </span>
             <span className="text-[10px] text-slate-400 flex items-center gap-1">
@@ -120,27 +120,27 @@ const CandidateListCard = ({ candidate, isSelected, onClick }) => (
 
 const MatchAnalysisView = ({ candidate }) => {
     return (
-        <div className="flex-1 overflow-y-auto bg-slate-50 p-6">
+        <div className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-700 p-6">
             <div className="max-w-5xl mx-auto space-y-6">
 
                 {/* Header Card */}
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 dark:border-slate-700 p-6">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-6">
                         <div className="flex gap-5">
                             <div className="w-20 h-20 rounded-xl bg-slate-200 flex items-center justify-center text-2xl font-bold text-slate-500 shadow-inner">
                                 {candidate.avatar}
                             </div>
                             <div>
-                                <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                                <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
                                     {candidate.name}
                                     <a href="#" className="text-slate-400 hover:text-indigo-600"><ExternalLink size={18} /></a>
                                 </h2>
-                                <p className="text-slate-600 font-medium mb-2">{candidate.role} <span className="text-slate-300 mx-2">|</span> {candidate.location}</p>
+                                <p className="text-slate-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 font-medium mb-2">{candidate.role} <span className="text-slate-300 dark:text-slate-600 dark:text-slate-300 mx-2">|</span> {candidate.location}</p>
                                 <div className="flex gap-2">
                                     <button className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 shadow-sm transition-colors">
                                         <ThumbsUp size={16} /> Shortlist
                                     </button>
-                                    <button className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-300 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+                                    <button className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-700 border border-slate-300 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 transition-colors">
                                         <MessageSquare size={16} /> Message
                                     </button>
                                     <button className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
@@ -150,7 +150,7 @@ const MatchAnalysisView = ({ candidate }) => {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-6 bg-slate-50 px-6 py-4 rounded-xl border border-slate-100">
+                        <div className="flex items-center gap-6 bg-slate-50 dark:bg-slate-700 px-6 py-4 rounded-xl border border-slate-100">
                             <div className="text-center">
                                 <span className="block text-3xl font-bold text-emerald-600">{candidate.score}%</span>
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wide">Match Score</span>
@@ -159,15 +159,15 @@ const MatchAnalysisView = ({ candidate }) => {
                             <div className="space-y-1">
                                 <div className="flex items-center gap-2 text-xs">
                                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                    <span className="text-slate-600 font-medium">Skills: {candidate.breakdown.skills}%</span>
+                                    <span className="text-slate-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 font-medium">Skills: {candidate.breakdown.skills}%</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs">
                                     <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                                    <span className="text-slate-600 font-medium">Exp: {candidate.breakdown.experience}%</span>
+                                    <span className="text-slate-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 font-medium">Exp: {candidate.breakdown.experience}%</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs">
                                     <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                                    <span className="text-slate-600 font-medium">Edu: {candidate.breakdown.education}%</span>
+                                    <span className="text-slate-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 font-medium">Edu: {candidate.breakdown.education}%</span>
                                 </div>
                             </div>
                         </div>
@@ -177,14 +177,14 @@ const MatchAnalysisView = ({ candidate }) => {
                 {/* AI Summary & Insights */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 space-y-6">
-                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 relative overflow-hidden">
+                        <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 dark:border-slate-700 p-6 relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-4 opacity-10">
                                 <Sparkles size={100} className="text-indigo-600" />
                             </div>
-                            <h3 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
                                 <Brain size={18} className="text-indigo-600" /> Match Intelligence
                             </h3>
-                            <p className="text-slate-600 text-sm leading-relaxed bg-indigo-50/50 p-4 rounded-lg border border-indigo-100">
+                            <p className="text-slate-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 text-sm leading-relaxed bg-indigo-50/50 p-4 rounded-lg border border-indigo-100">
                                 {candidate.aiSummary}
                             </p>
 
@@ -217,8 +217,8 @@ const MatchAnalysisView = ({ candidate }) => {
                         </div>
 
                         {/* Comparative Chart */}
-                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                            <h3 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 dark:border-slate-700 p-6">
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
                                 <TrendingUp size={18} className="text-blue-600" /> Attribute Comparison
                             </h3>
                             <div className="h-[250px] w-full min-w-0">
@@ -273,36 +273,36 @@ const MatchAnalysisView = ({ candidate }) => {
 
                     {/* Right Side Info */}
                     <div className="space-y-6">
-                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 dark:border-slate-700 p-5">
                             <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Contact Info</h4>
                             <div className="space-y-3">
                                 <div className="flex items-center gap-3 text-sm text-slate-700">
-                                    <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><Mail size={16} /></div>
+                                    <div className="p-2 bg-slate-50 dark:bg-slate-700 rounded-lg text-slate-400"><Mail size={16} /></div>
                                     <span className="truncate">michael.ross@example.com</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-slate-700">
-                                    <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><Phone size={16} /></div>
+                                    <div className="p-2 bg-slate-50 dark:bg-slate-700 rounded-lg text-slate-400"><Phone size={16} /></div>
                                     <span>+1 (555) 123-4567</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-slate-700">
-                                    <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><Linkedin size={16} /></div>
+                                    <div className="p-2 bg-slate-50 dark:bg-slate-700 rounded-lg text-slate-400"><Linkedin size={16} /></div>
                                     <span className="text-blue-600 hover:underline cursor-pointer">linkedin.com/in/mross</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 dark:border-slate-700 p-5">
                             <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Work History</h4>
-                            <div className="relative border-l-2 border-slate-100 ml-3 space-y-6">
+                            <div className="relative border-l-2 border-slate-100 dark:border-slate-700 dark:border-slate-700 ml-3 space-y-6">
                                 <div className="pl-6 relative">
                                     <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-indigo-600 ring-4 ring-white"></div>
-                                    <h5 className="font-bold text-slate-800 text-sm">Senior Warehouse Lead</h5>
+                                    <h5 className="font-bold text-slate-800 dark:text-slate-200 text-sm">Senior Warehouse Lead</h5>
                                     <p className="text-xs text-slate-500 mb-1">Amazon Logistics • 2020 - Present</p>
-                                    <p className="text-xs text-slate-600 line-clamp-2">Managed team of 15 associates. Implemented new inventory tracking system reducing errors by 12%.</p>
+                                    <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">Managed team of 15 associates. Implemented new inventory tracking system reducing errors by 12%.</p>
                                 </div>
                                 <div className="pl-6 relative">
                                     <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-slate-300 ring-4 ring-white"></div>
-                                    <h5 className="font-bold text-slate-800 text-sm">Forklift Operator</h5>
+                                    <h5 className="font-bold text-slate-800 dark:text-slate-200 text-sm">Forklift Operator</h5>
                                     <p className="text-xs text-slate-500 mb-1">XPO Logistics • 2018 - 2020</p>
                                 </div>
                             </div>
@@ -322,14 +322,14 @@ export const MatchWorkflow = () => {
     const selectedCandidate = MATCH_CANDIDATES.find(c => c.id === selectedCandidateId) || MATCH_CANDIDATES[0];
 
     return (
-        <div className="flex h-full bg-white relative overflow-hidden">
+        <div className="flex h-full bg-white dark:bg-slate-700 relative overflow-hidden">
             {/* Left Sidebar List */}
-            <div className="w-80 border-r border-slate-200 bg-white flex flex-col z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+            <div className="w-80 border-r border-slate-200 dark:border-slate-700 dark:border-slate-700 bg-white dark:bg-slate-700 flex flex-col z-10 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
                 <div className="p-4 border-b border-slate-200">
-                    <h3 className="font-bold text-slate-800 mb-2">Ranked Candidates</h3>
+                    <h3 className="font-bold text-slate-800 dark:text-slate-200 mb-2">Ranked Candidates</h3>
                     <div className="relative">
                         <Search className="absolute left-3 top-2.5 text-slate-400" size={14} />
-                        <input type="text" placeholder="Filter list..." className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all" />
+                        <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600" type="text" placeholder="Filter list..." className="w-full pl-9 pr-4 py-2 border border-slate-200 dark:border-slate-700 dark:border-slate-700 rounded-lg text-sm bg-slate-50 dark:bg-slate-700 focus:bg-white dark:bg-slate-700 focus:ring- dark:focus:ring-2 focus:ring- dark:focus:ring-indigo-500 outline-none transition-all" />
                     </div>
                     <div className="flex items-center justify-between mt-3 text-xs text-slate-500">
                         <span>Sort by: <b>Match Score</b></span>

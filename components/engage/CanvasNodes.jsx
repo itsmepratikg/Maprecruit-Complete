@@ -26,7 +26,7 @@ export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, is
       style={{ left: node.x, top: node.y, width: BUBBLE_SIZE, height: BUBBLE_SIZE }}
     >
       <div
-        className={`w-full h-full rounded-full shadow-sm border-2 flex items-center justify-center cursor-pointer transition-all hover:scale-110 hover:shadow-md ${isEnabled ? 'bg-green-500 border-white' : 'bg-white border-slate-300 text-slate-400 hover:border-slate-400'}`}
+        className={`w-full h-full rounded-full shadow-sm border-2 flex items-center justify-center cursor-pointer transition-all hover:scale-110 hover:shadow-md ${isEnabled ? 'bg-green-500 border-white' : 'bg-white dark:bg-slate-700 border-slate-300 text-slate-400 hover:border-slate-400'}`}
         onClick={(e) => { e.stopPropagation(); onClick(); }}
         title={isEnabled ? "Edit Criteria" : "Add Automation"}
       >
@@ -34,7 +34,7 @@ export const CriteriaBubble = ({ node, onClick, onStartConnect, onEndConnect, is
       </div>
 
       {label && (
-        <div className={`absolute whitespace-nowrap bg-white border border-slate-200 px-2 py-0.5 rounded text-[10px] font-bold text-slate-600 shadow-sm ${layoutDirection === 'HORIZONTAL' ? '-top-6' : 'left-full ml-2 top-1/2 -translate-y-1/2'}`}>
+        <div className={`absolute whitespace-nowrap bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded text-[10px] font-bold text-slate-600 dark:text-slate-300 shadow-sm ${layoutDirection === 'HORIZONTAL' ? '-top-6' : 'left-full ml-2 top-1/2 -translate-y-1/2'}`}>
           {label}
         </div>
       )}
@@ -120,7 +120,7 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
     const stats = node.data.stats || {};
     return (
       <>
-        <div className="flex flex-col border-r border-slate-100 pr-3">
+        <div className="flex flex-col border-r border-slate-100 dark:border-slate-700 pr-3">
           <span className="text-[10px] text-slate-400 font-medium">Scheduled</span>
           <span className="text-sm font-bold text-slate-700">{stats.scheduled || 0}</span>
         </div>
@@ -142,7 +142,7 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
 
   return (
     <div
-      className={`node-card absolute bg-white rounded-lg shadow-md border-2 group hover:shadow-xl flex flex-col z-10 ${isSelected ? 'border-indigo-500 ring-2 ring-indigo-200' : 'border-slate-200'}`}
+      className={`node-card absolute bg-white dark:bg-slate-700 rounded-lg shadow-md border-2 group hover:shadow-xl flex flex-col z-10 ${isSelected ? 'border-indigo-500 ring-2 ring-indigo-200' : 'border-slate-200'}`}
       style={{ left: node.x, top: node.y, width: CARD_WIDTH, height: CARD_HEIGHT }}
       onClick={() => onSelect(node)}
     >
@@ -155,7 +155,7 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
           </div>
           <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
-              className="p-1 hover:bg-slate-100 rounded text-slate-400 hover:text-slate-600"
+              className="p-1 hover:bg-slate-100 dark:bg-slate-700 rounded text-slate-400 hover:text-slate-600"
               onClick={(e) => { e.stopPropagation(); onEdit(node); }}
               title="Edit Configuration"
             >
@@ -170,7 +170,7 @@ export const NodeCard = ({ node, onSelect, onEdit, onDelete, onStartConnect, onE
             </button>
           </div>
         </div>
-        <h4 className="font-bold text-slate-800 text-sm mb-1">{node.title}</h4>
+        <h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm mb-1">{node.title}</h4>
         <p className="text-[10px] text-slate-500 line-clamp-2 leading-relaxed">{node.data.desc}</p>
 
         <div className="mt-auto pt-3 flex items-center border-t border-slate-50">
@@ -235,7 +235,7 @@ export const BezierEdge = ({ start, end, label, direction = 'HORIZONTAL' }) => {
       <path d={path} fill="none" stroke="#94a3b8" strokeWidth="2.5" />
       {label && (
         <foreignObject x={labelX} y={labelY} width={40} height={20}>
-          <div className="bg-white text-[10px] text-slate-500 border border-slate-200 rounded px-1 text-center truncate">{label}</div>
+          <div className="bg-white dark:bg-slate-700 text-[10px] text-slate-500 border border-slate-200 dark:border-slate-700 rounded px-1 text-center truncate">{label}</div>
         </foreignObject>
       )}
     </g>

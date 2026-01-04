@@ -135,7 +135,7 @@ const Tooltip = ({ data, position }) => {
 
     return (
         <div
-            className="fixed z-[110] pointer-events-none bg-white p-3 rounded-lg shadow-xl border border-slate-200 text-xs animate-in fade-in zoom-in-95 duration-150"
+            className="fixed z-[110] pointer-events-none bg-white dark:bg-slate-700 p-3 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 text-xs animate-in fade-in zoom-in-95 duration-150"
             style={{
                 left: left,
                 top: top,
@@ -144,7 +144,7 @@ const Tooltip = ({ data, position }) => {
         >
             {isLink ? (
                 <>
-                    <p className="font-bold text-slate-800 mb-1 border-b border-slate-100 pb-1">
+                    <p className="font-bold text-slate-800 dark:text-slate-200 mb-1 border-b border-slate-100 dark:border-slate-700 pb-1">
                         {data.source.name} <span className="text-slate-400">→</span> {data.target.name}
                     </p>
                     <div className="flex justify-between gap-4 mt-2">
@@ -160,7 +160,7 @@ const Tooltip = ({ data, position }) => {
                 </>
             ) : (
                 <>
-                    <p className="font-bold text-slate-800 mb-1 border-b border-slate-100 pb-1">{data.name}</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-200 mb-1 border-b border-slate-100 dark:border-slate-700 pb-1">{data.name}</p>
                     <div className="space-y-1 mt-2">
                         <div className="flex justify-between gap-4">
                             <span className="text-slate-500">Total Count:</span>
@@ -360,20 +360,20 @@ export const NetworkGraphModal = ({ isOpen, onClose, initialRoundType = 'Screeni
         <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-200">
             <Tooltip data={tooltipData?.data} position={tooltipData?.position || null} />
 
-            <div className="bg-white w-full max-w-7xl h-[90vh] rounded-xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+            <div className="bg-white dark:bg-slate-700 w-full max-w-7xl h-[90vh] rounded-xl shadow-2xl overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
 
                 {/* Header */}
-                <div className="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
+                <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50/50">
                     <div className="flex items-center gap-4">
                         <div className="p-2 bg-indigo-100 text-indigo-600 rounded-lg">
                             <GitGraph size={20} />
                         </div>
                         <div>
-                            <h3 className="font-bold text-slate-800 text-lg">Candidate Flow Analysis</h3>
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 text-lg">Candidate Flow Analysis</h3>
                             <p className="text-xs text-slate-500">Visualization of candidate distribution across stages</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-2 hover:bg-slate-100 rounded-full transition-colors"><X size={20} /></button>
+                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:text-slate-300 p-2 hover:bg-slate-100 dark:bg-slate-700 rounded-full transition-colors"><X size={20} /></button>
                 </div>
 
                 <div className="flex-1 p-6 overflow-hidden flex flex-col bg-slate-50">
@@ -397,7 +397,7 @@ export const NetworkGraphModal = ({ isOpen, onClose, initialRoundType = 'Screeni
                     </div>
 
                     {/* Graph Area */}
-                    <div className="flex-1 bg-white rounded-xl border border-slate-200 p-6 shadow-sm relative flex flex-col overflow-hidden">
+                    <div className="flex-1 bg-white dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm relative flex flex-col overflow-hidden">
                         <div ref={wrapperRef} className="flex-1 min-h-0 w-full relative">
                             <svg ref={svgRef} width="100%" height="100%" style={{ overflow: 'visible' }}></svg>
                         </div>

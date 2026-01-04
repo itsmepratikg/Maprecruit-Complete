@@ -8,7 +8,7 @@ import { Briefcase, Users, UserCheck, UserX, ChevronDown } from 'lucide-react';
 
 export const Home = () => {
    return (
-      <div className="p-4 lg:p-6 bg-slate-50/50 min-h-full overflow-y-auto">
+      <div className="p-4 lg:p-6 bg-slate-50/50 dark:bg-slate-700 min-h-full overflow-y-auto">
          <div className="max-w-[1600px] mx-auto space-y-6">
 
             {/* Row 1: Welcome & Metrics */}
@@ -68,7 +68,7 @@ export const Home = () => {
                   sub={
                      <div className="flex gap-2">
                         <select className="text-[10px] border rounded px-1"><option>Interviews</option></select>
-                        <div className="flex bg-gray-100 rounded"><button className="px-2 text-[10px]">Previous</button><button className="px-2 text-[10px] bg-white shadow-sm">Upcoming</button></div>
+                        <div className="flex bg-gray-100 dark:bg-slate-700 rounded"><button className="px-2 text-[10px]">Previous</button><button className="px-2 text-[10px] bg-white dark:bg-slate-700 shadow-sm">Upcoming</button></div>
                      </div>
                   }
                />

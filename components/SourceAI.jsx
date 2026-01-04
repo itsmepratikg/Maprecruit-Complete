@@ -12,14 +12,14 @@ import { ChatBubble, EmptyView } from './Common.jsx';
 import { useToast } from './Toast.jsx';
 
 const SourceProfileCard = ({ profile, onAdd }) => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row gap-4 group relative">
+  <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-5 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row gap-4 group relative">
     <div className="absolute top-4 right-4 flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
       <Sparkles size={12} />
       {profile.matchScore}% Match
     </div>
 
     <div className="flex-shrink-0">
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-500 font-bold text-xl border-2 border-white shadow-sm">
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-500 dark:text-slate-400 font-bold text-xl border-2 border-white shadow-sm">
         {profile.avatar}
       </div>
     </div>
@@ -30,7 +30,7 @@ const SourceProfileCard = ({ profile, onAdd }) => (
           <h3 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors cursor-pointer">
             {profile.name}
           </h3>
-          <p className="text-gray-600 font-medium">{profile.title}</p>
+          <p className="text-gray-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 font-medium">{profile.title}</p>
         </div>
       </div>
 
@@ -55,14 +55,14 @@ const SourceProfileCard = ({ profile, onAdd }) => (
 
       <div className="mt-4 flex flex-wrap gap-2">
         {profile.skills?.map((skill, idx) => (
-          <span key={idx} className="px-2 py-1 bg-gray-50 text-gray-600 text-xs rounded-md border border-gray-200">
+          <span key={idx} className="px-2 py-1 bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-slate-300 text-xs rounded-md border border-gray-200">
             {skill}
           </span>
         ))}
       </div>
     </div>
 
-    <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-4 mt-4 md:mt-0 gap-2">
+    <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 dark:border-slate-700 dark:border-slate-700 pt-4 md:pt-0 md:pl-4 mt-4 md:mt-0 gap-2">
       <button className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors">
         <ThumbsUp size={18} />
       </button>
@@ -246,7 +246,7 @@ export const SourceAI = () => {
   };
 
   return (
-    <div className="flex h-full bg-white relative overflow-hidden">
+    <div className="flex h-full bg-white dark:bg-slate-700 relative overflow-hidden">
       <FilterPopup
         isOpen={isFilterPopupOpen}
         onClose={() => setIsFilterPopupOpen(false)}
@@ -274,22 +274,22 @@ export const SourceAI = () => {
                   <button
                     type="button"
                     onClick={() => setIsAiEnabled(!isAiEnabled)}
-                    className={`p-2 rounded-lg transition-colors z-10 ${isAiEnabled ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600'}`}
+                    className={`p-2 rounded-lg transition-colors z-10 ${isAiEnabled ? 'bg-green-100 text-green-600' : 'bg-gray-100 dark:bg-slate-700 text-gray-400 hover:bg-gray-200 hover:text-gray-600'}`}
                     title={isAiEnabled ? "AI Search Enabled" : "Traditional Search"}
                   >
                     <Sparkles size={18} className={isAiEnabled ? "fill-green-600" : ""} />
                   </button>
                 </div>
-                <input
+                <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
                   type="text"
                   value={searchState.inputValue}
                   onChange={(e) => setSearchState({ ...searchState, inputValue: e.target.value })}
                   placeholder={placeholder}
-                  className="w-full pl-12 pr-28 py-4 rounded-2xl border-2 border-gray-200 focus:border-green-500 focus:ring-4 focus:ring-green-50 outline-none text-lg shadow-lg shadow-gray-100 transition-all placeholder:text-gray-400 bg-white"
+                  className="w-full pl-12 pr-28 py-4 rounded-2xl border-2 border-gray-200 dark:border-slate-600 focus:border-green-500 focus:ring- dark:focus:ring-4 focus:ring- dark:focus:ring-green-50 outline-none text-lg shadow-lg shadow-gray-100 transition-all placeholder:text-gray-400 bg-white"
                 />
                 <div className="absolute right-3 top-2.5 flex items-center gap-2">
                   {searchState.inputValue && (
-                    <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 hover:text-gray-600 p-2">
+                    <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-300 p-2">
                       <XCircle size={20} />
                     </button>
                   )}
@@ -317,20 +317,20 @@ export const SourceAI = () => {
           /* RESULTS VIEW */
           <div className="flex flex-col h-full">
             {/* Top Search Bar */}
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between gap-4 bg-white sticky top-0 z-10 shrink-0">
+            <div className="p-4 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700 flex items-center justify-between gap-4 bg-white dark:bg-slate-700 sticky top-0 z-10 shrink-0">
               <div className="flex items-center gap-2 flex-1 max-w-3xl">
                 <form onSubmit={handleSearch} className="relative flex-1">
                   <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
-                  <input
+                  <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
                     type="text"
                     value={searchState.inputValue}
                     onChange={(e) => setSearchState({ ...searchState, inputValue: e.target.value })}
-                    className="w-full bg-gray-50 text-sm rounded-lg pl-9 pr-20 py-2.5 focus:bg-white focus:ring-2 focus:ring-green-100 outline-none border border-gray-200 focus:border-green-300 transition-all"
+                    className="w-full bg-gray-50 dark:bg-slate-700 text-sm rounded-lg pl-9 pr-20 py-2.5 focus:bg-white dark:bg-slate-700 focus:ring- dark:focus:ring-2 focus:ring- dark:focus:ring-green-100 outline-none border border-gray-200 dark:border-slate-600 focus:border-green-300 transition-all"
                     placeholder="Search candidates to add..."
                   />
                   <div className="absolute right-2 top-1.5 flex items-center gap-1">
                     {searchState.inputValue && (
-                      <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 hover:text-gray-600 p-1">
+                      <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-300 p-1">
                         <XCircle size={16} />
                       </button>
                     )}
@@ -353,7 +353,7 @@ export const SourceAI = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <button onClick={() => setIsChatOpen(!isChatOpen)} className={`p-2 rounded-lg text-gray-600 hover:bg-gray-100 ${isChatOpen ? 'bg-green-50 text-green-700' : ''}`}>
+                <button onClick={() => setIsChatOpen(!isChatOpen)} className={`p-2 rounded-lg text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 ${isChatOpen ? 'bg-green-50 text-green-700' : ''}`}>
                   <MessageSquare size={20} />
                 </button>
               </div>
@@ -365,12 +365,12 @@ export const SourceAI = () => {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
                   <div className="flex items-center gap-3">
                     <h2 className="text-xl font-bold text-gray-800">Results</h2>
-                    <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full font-medium">{filteredProfiles.length} found</span>
+                    <span className="bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 text-xs px-2 py-1 rounded-full font-medium">{filteredProfiles.length} found</span>
                   </div>
                   <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar max-w-full">
                     <button
                       onClick={() => setIsFilterPopupOpen(true)}
-                      className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-green-700 transition-colors bg-white shadow-sm flex-shrink-0"
+                      className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-300 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 hover:text-green-700 transition-colors bg-white dark:bg-slate-700 shadow-sm flex-shrink-0"
                     >
                       <Filter size={16} />
                     </button>
@@ -380,7 +380,7 @@ export const SourceAI = () => {
                         <button
                           key={filter.value}
                           onClick={() => toggleFilter(filter.value)}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors whitespace-nowrap shadow-sm ${isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-white text-gray-600 border-gray-200 hover:border-green-300'}`}
+                          className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors whitespace-nowrap shadow-sm ${isActive ? 'bg-green-100 text-green-700 border-green-200' : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 border-gray-200 dark:border-slate-600 hover:border-green-300'}`}
                         >
                           {filter.label}
                         </button>
@@ -393,16 +393,16 @@ export const SourceAI = () => {
                 {(searchState.searchKeywords.length > 0 || searchState.activeFilters.length > 0) && (
                   <div className="flex flex-wrap gap-2 mb-6">
                     {searchState.searchKeywords.map((k, idx) => (
-                      <span key={`key-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-green-200 text-green-700 text-xs font-medium shadow-sm">
+                      <span key={`key-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-slate-700 border border-green-200 text-green-700 text-xs font-medium shadow-sm">
                         "{k}" <button onClick={() => removeKeyword(k)}><X size={12} /></button>
                       </span>
                     ))}
                     {searchState.activeFilters.map((filter, idx) => (
-                      <span key={`filt-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-green-200 text-green-700 text-xs font-medium shadow-sm">
+                      <span key={`filt-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-slate-700 border border-green-200 text-green-700 text-xs font-medium shadow-sm">
                         {filter} <button onClick={() => toggleFilter(filter)}><X size={12} /></button>
                       </span>
                     ))}
-                    <button onClick={clearSearch} className="text-xs text-gray-500 underline hover:text-green-600 ml-2">Clear all</button>
+                    <button onClick={clearSearch} className="text-xs text-gray-500 dark:text-slate-400 underline hover:text-green-600 ml-2">Clear all</button>
                   </div>
                 )}
 
@@ -413,9 +413,9 @@ export const SourceAI = () => {
                   ))}
                   {filteredProfiles.length === 0 && (
                     <div className="text-center py-20">
-                      <div className="bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400"><Search size={32} /></div>
+                      <div className="bg-gray-100 dark:bg-slate-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400"><Search size={32} /></div>
                       <h3 className="text-lg font-medium text-gray-900">No candidates found</h3>
-                      <p className="text-gray-500 text-sm mt-2">Modify your filters to see more results.</p>
+                      <p className="text-gray-500 dark:text-slate-400 dark:text-slate-400 text-sm mt-2">Modify your filters to see more results.</p>
                     </div>
                   )}
                 </div>
@@ -427,19 +427,19 @@ export const SourceAI = () => {
 
       {/* Chat Sidebar (Relative Sibling) */}
       <aside
-        className={`${isChatOpen ? 'w-[400px] border-l' : 'w-0 border-l-0'} bg-white border-gray-200 transition-all duration-300 ease-in-out flex flex-col shrink-0 overflow-hidden shadow-xl z-20`}
+        className={`${isChatOpen ? 'w-[400px] border-l' : 'w-0 border-l-0'} bg-white dark:bg-slate-700 border-gray-200 dark:border-slate-600 transition-all duration-300 ease-in-out flex flex-col shrink-0 overflow-hidden shadow-xl z-20`}
       >
-        <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
+        <div className="p-4 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700 flex justify-between items-center bg-gray-50/80">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white shadow-sm"><Sparkles size={16} /></div>
             <div>
-              <h3 className="font-bold text-gray-800 text-sm">Source Assistant</h3>
+              <h3 className="font-bold text-gray-800 dark:text-slate-200 text-sm">Source Assistant</h3>
               <p className="text-[10px] text-green-600 font-medium">Helping you find matches</p>
             </div>
           </div>
-          <button onClick={() => setIsChatOpen(false)} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+          <button onClick={() => setIsChatOpen(false)} className="text-gray-400 dark:text-slate-500 hover:text-gray-600"><X size={18} /></button>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-slate-700 space-y-4">
           {searchState.chatMessages.length === 0 && (
             <div className="text-center mt-10 opacity-60 px-4">
               <p className="text-sm text-gray-500">I can help you find candidates for this campaign. Try searching for specific skills or experience.</p>
@@ -450,9 +450,9 @@ export const SourceAI = () => {
           ))}
           <div ref={chatEndRef} />
         </div>
-        <div className="p-4 bg-white border-t border-gray-100">
+        <div className="p-4 bg-white dark:bg-slate-700 border-t border-gray-100">
           <form onSubmit={handleChatInput} className="relative">
-            <input name="chatInput" type="text" placeholder="Ask the assistant..." className="w-full bg-gray-100 text-sm rounded-xl pl-4 pr-12 py-3 focus:bg-white focus:ring-2 focus:ring-green-100 outline-none transition-all" />
+            <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600" name="chatInput" type="text" placeholder="Ask the assistant..." className="w-full bg-gray-100 dark:bg-slate-700 text-sm rounded-xl pl-4 pr-12 py-3 focus:bg-white dark:bg-slate-700 focus:ring- dark:focus:ring-2 focus:ring- dark:focus:ring-green-100 outline-none transition-all" />
             <button type="submit" className="absolute right-2 top-2 p-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"><Send size={16} /></button>
           </form>
         </div>

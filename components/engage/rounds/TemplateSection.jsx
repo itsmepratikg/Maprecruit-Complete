@@ -22,18 +22,18 @@ export const TemplateSection = ({ label, type, selectedId, onSelect, color = "in
   const Icon = type === 'EMAIL' ? Mail : MessageSquare;
 
   return (
-    <div className={`border border-slate-200 rounded-lg overflow-hidden bg-white hover:border-${color}-300 transition-colors`}>
-      <div className="p-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+    <div className={`border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-700 hover:border-${color}-300 transition-colors`}>
+      <div className="p-3 bg-slate-50 dark:bg-slate-700 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className={`p-1.5 rounded bg-${color}-100 text-${color}-600`}>
             <Icon size={14} />
           </div>
-          <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">{label}</span>
+          <span className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide">{label}</span>
         </div>
         {selectedId && (
           <button
             onClick={(e) => { e.stopPropagation(); onPreview && onPreview(selectedId); }}
-            className="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1 transition-colors"
+            className="text-xs text-slate-400 hover:text-slate-600 dark:text-slate-300 flex items-center gap-1 transition-colors"
           >
             <Eye size={12} /> Preview
           </button>
@@ -62,7 +62,7 @@ export const TemplateSection = ({ label, type, selectedId, onSelect, color = "in
           <div className="flex flex-col gap-3">
             <div className="relative">
               <select
-                className="w-full text-sm border border-slate-300 rounded-md py-2 pl-3 pr-8 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none bg-white cursor-pointer"
+                className="w-full text-sm border border-slate-300 rounded-md py-2 pl-3 pr-8 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none bg-white dark:bg-slate-700 cursor-pointer"
                 onChange={(e) => onSelect(e.target.value)}
                 value=""
               >
@@ -78,7 +78,7 @@ export const TemplateSection = ({ label, type, selectedId, onSelect, color = "in
               <span className="text-xs text-slate-400">or</span>
             </div>
 
-            <button className="flex items-center justify-center gap-2 w-full py-2 border border-dashed border-slate-300 rounded-md text-slate-500 text-xs font-medium hover:bg-slate-50 hover:text-indigo-600 transition-colors">
+            <button className="flex items-center justify-center gap-2 w-full py-2 border border-dashed border-slate-300 rounded-md text-slate-500 text-xs font-medium hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-indigo-600 transition-colors">
               <Plus size={14} /> Create New Template
             </button>
           </div>

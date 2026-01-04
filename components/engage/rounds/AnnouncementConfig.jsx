@@ -12,19 +12,19 @@ const APP_METHODS = ['Active Sourcing', 'Passive Sourcing'];
 
 // Dummy Preview Component - Exported for Layout use
 export const TemplatePreviewPanel = ({ onClose }) => (
-    <div className="h-full flex flex-col bg-slate-50 border-l border-slate-200">
-        <div className="h-[57px] flex items-center justify-between px-6 border-b border-slate-200 bg-white shrink-0">
-            <h3 className="font-bold text-slate-700 text-sm flex items-center gap-2">
+    <div className="h-full flex flex-col bg-slate-50 dark:bg-slate-700 border-l border-slate-200">
+        <div className="h-[57px] flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 shrink-0">
+            <h3 className="font-bold text-slate-700 dark:text-slate-200 text-sm flex items-center gap-2">
                 <FileText size={16} className="text-indigo-600" /> Template Preview
             </h3>
-            <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
+            <button onClick={onClose} className="p-1.5 hover:bg-slate-100 dark:bg-slate-700 rounded-full text-slate-400 hover:text-slate-600 dark:text-slate-300 transition-colors">
                 <X size={18} />
             </button>
         </div>
         <div className="flex-1 overflow-y-auto p-6 bg-slate-100/50 custom-scrollbar">
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mx-auto max-w-sm">
+            <div className="bg-white dark:bg-slate-700 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden mx-auto max-w-sm">
                 {/* Email Header */}
-                <div className="bg-slate-50 p-4 border-b border-slate-100">
+                <div className="bg-slate-50 dark:bg-slate-700 p-4 border-b border-slate-100">
                     <div className="flex items-center gap-3 mb-3">
                         <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 border border-indigo-200">
                             <User size={16} />
@@ -37,7 +37,7 @@ export const TemplatePreviewPanel = ({ onClose }) => (
                     </div>
                     <div className="space-y-2">
                         <div className="h-3 bg-slate-300 rounded w-3/4"></div>
-                        <div className="h-2 bg-slate-100 rounded w-full"></div>
+                        <div className="h-2 bg-slate-100 dark:bg-slate-700 rounded w-full"></div>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@ export const TemplatePreviewPanel = ({ onClose }) => (
                     </div>
 
                     <div className="py-2">
-                        <div className="h-32 bg-slate-50 border-2 border-dashed border-slate-200 rounded-lg flex flex-col items-center justify-center text-slate-400 gap-2">
+                        <div className="h-32 bg-slate-50 dark:bg-slate-700 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg flex flex-col items-center justify-center text-slate-400 gap-2">
                             <FileText size={24} className="opacity-50" />
                             <span className="text-xs font-medium">Dynamic Content Area</span>
                         </div>
@@ -98,14 +98,14 @@ const ConditionBuilder = ({ condition, onChange, onDelete, channelType, onPrevie
     const isComplete = hasAppTypes || hasAppMethods;
 
     return (
-        <div className={`border rounded-lg bg-white shadow-sm transition-all ${isExpanded ? 'border-indigo-200 ring-1 ring-indigo-50' : 'border-slate-200 hover:border-indigo-300'}`}>
+        <div className={`border rounded-lg bg-white dark:bg-slate-700 shadow-sm transition-all ${isExpanded ? 'border-indigo-200 ring-1 ring-indigo-50' : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300'}`}>
             {/* Header / Summary */}
             <div
                 className="flex items-center justify-between p-3 cursor-pointer bg-slate-50/50 rounded-t-lg select-none"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
                 <div className="flex items-center gap-3 overflow-hidden">
-                    <div className={`p-1.5 rounded bg-white border shadow-sm ${isComplete ? 'text-indigo-600 border-indigo-100' : 'text-slate-400 border-slate-200'}`}>
+                    <div className={`p-1.5 rounded bg-white dark:bg-slate-700 border shadow-sm ${isComplete ? 'text-indigo-600 border-indigo-100' : 'text-slate-400 border-slate-200'}`}>
                         <GitBranch size={14} />
                     </div>
 
@@ -114,15 +114,15 @@ const ConditionBuilder = ({ condition, onChange, onDelete, channelType, onPrevie
                             <span className="font-bold text-slate-500 uppercase mr-1">If</span>
 
                             {condition.appTypes?.map((t) => (
-                                <span key={t} className="px-2 py-0.5 bg-white border border-slate-200 rounded text-slate-700 font-medium shadow-sm">{t}</span>
+                                <span key={t} className="px-2 py-0.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded text-slate-700 dark:text-slate-200 font-medium shadow-sm">{t}</span>
                             ))}
 
                             {hasAppTypes && hasAppMethods && (
-                                <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-1.5 rounded">{condition.operator || 'AND'}</span>
+                                <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-700 px-1.5 rounded">{condition.operator || 'AND'}</span>
                             )}
 
                             {condition.appMethods?.map((m) => (
-                                <span key={m} className="px-2 py-0.5 bg-white border border-slate-200 rounded text-slate-700 font-medium shadow-sm">{m}</span>
+                                <span key={m} className="px-2 py-0.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded text-slate-700 dark:text-slate-200 font-medium shadow-sm">{m}</span>
                             ))}
 
                             <span className="text-slate-300 mx-1">→</span>
@@ -164,12 +164,12 @@ const ConditionBuilder = ({ condition, onChange, onDelete, channelType, onPrevie
 
             {/* Expanded Body */}
             {isExpanded && (
-                <div className="p-4 border-t border-slate-100 animate-in slide-in-from-top-1 duration-200">
+                <div className="p-4 border-t border-slate-100 dark:border-slate-700 animate-in slide-in-from-top-1 duration-200">
                     <div className="mb-4">
                         <div className="space-y-3">
                             {/* Application Type */}
-                            <div className="bg-slate-50 p-3 rounded border border-slate-200">
-                                <span className="text-xs font-semibold text-slate-700 block mb-2">Application Type</span>
+                            <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded border border-slate-200">
+                                <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 block mb-2">Application Type</span>
                                 <div className="flex flex-wrap gap-2">
                                     {APP_TYPES.map(type => {
                                         const isSelected = condition.appTypes?.includes(type);
@@ -177,7 +177,7 @@ const ConditionBuilder = ({ condition, onChange, onDelete, channelType, onPrevie
                                             <button
                                                 key={type}
                                                 onClick={() => toggleSelection('appTypes', type)}
-                                                className={`px-3 py-1.5 rounded text-xs font-medium border transition-all flex items-center gap-2 ${isSelected ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100'}`}
+                                                className={`px-3 py-1.5 rounded text-xs font-medium border transition-all flex items-center gap-2 ${isSelected ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 hover:bg-slate-100'}`}
                                             >
                                                 {isSelected ? <CheckSquare size={12} /> : <Square size={12} />}
                                                 {type}
@@ -191,15 +191,15 @@ const ConditionBuilder = ({ condition, onChange, onDelete, channelType, onPrevie
                             <div className="flex justify-center -my-1.5 relative z-10">
                                 <button
                                     onClick={toggleOperator}
-                                    className="bg-white border border-slate-300 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-colors uppercase"
+                                    className="bg-white dark:bg-slate-700 border border-slate-300 text-slate-600 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-colors uppercase"
                                 >
                                     {condition.operator || 'AND'}
                                 </button>
                             </div>
 
                             {/* Application Method */}
-                            <div className="bg-slate-50 p-3 rounded border border-slate-200">
-                                <span className="text-xs font-semibold text-slate-700 block mb-2">Application Method</span>
+                            <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded border border-slate-200">
+                                <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 block mb-2">Application Method</span>
                                 <div className="flex flex-wrap gap-2">
                                     {APP_METHODS.map(method => {
                                         const isSelected = condition.appMethods?.includes(method);
@@ -207,7 +207,7 @@ const ConditionBuilder = ({ condition, onChange, onDelete, channelType, onPrevie
                                             <button
                                                 key={method}
                                                 onClick={() => toggleSelection('appMethods', method)}
-                                                className={`px-3 py-1.5 rounded text-xs font-medium border transition-all flex items-center gap-2 ${isSelected ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100'}`}
+                                                className={`px-3 py-1.5 rounded text-xs font-medium border transition-all flex items-center gap-2 ${isSelected ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 hover:bg-slate-100'}`}
                                             >
                                                 {isSelected ? <CheckSquare size={12} /> : <Square size={12} />}
                                                 {method}
@@ -253,14 +253,14 @@ const FollowupSection = ({ config, onChange, type, onPreview }) => {
         <div className="relative pt-6">
             {/* Visual Connector Line */}
             <div className="absolute left-8 top-0 h-6 w-0.5 bg-slate-200"></div>
-            <div className="absolute left-6 top-6 h-4 w-4 rounded-full bg-slate-100 border-2 border-slate-300 flex items-center justify-center z-10">
+            <div className="absolute left-6 top-6 h-4 w-4 rounded-full bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 flex items-center justify-center z-10">
                 <ArrowDown size={10} className="text-slate-400" />
             </div>
 
-            <div className={`ml-0 md:ml-0 bg-white border rounded-xl p-5 transition-all ${isEnabled ? `border-${color}-200 shadow-sm` : 'border-slate-200'}`}>
+            <div className={`ml-0 md:ml-0 bg-white dark:bg-slate-700 border rounded-xl p-5 transition-all ${isEnabled ? `border-${color}-200 shadow-sm` : 'border-slate-200'}`}>
                 <div className="flex justify-between items-start mb-4">
                     <div>
-                        <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
                             <Repeat size={16} className={isEnabled ? `text-${color}-500` : "text-slate-400"} />
                             Follow-up Automation
                         </h3>
@@ -273,7 +273,7 @@ const FollowupSection = ({ config, onChange, type, onPreview }) => {
                             checked={isEnabled}
                             onChange={(e) => handleChange(enabledKey, e.target.checked)}
                         />
-                        <div className={`w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all ${type === 'EMAIL' ? 'peer-checked:bg-orange-500' : 'peer-checked:bg-pink-500'}`}></div>
+                        <div className={`w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-slate-700 after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all ${type === 'EMAIL' ? 'peer-checked:bg-orange-500' : 'peer-checked:bg-pink-500'}`}></div>
                     </label>
                 </div>
 
@@ -281,7 +281,7 @@ const FollowupSection = ({ config, onChange, type, onPreview }) => {
                     <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
                         <div className="flex flex-col md:flex-row gap-4">
                             {/* Timing Config */}
-                            <div className="flex-1 bg-slate-50 p-3 rounded-lg border border-slate-200 flex flex-col gap-2">
+                            <div className="flex-1 bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col gap-2">
                                 <label className="text-xs font-bold text-slate-500 uppercase flex items-center gap-1"><Clock size={12} /> Wait Time</label>
                                 <div className="flex gap-2">
                                     <input
@@ -304,7 +304,7 @@ const FollowupSection = ({ config, onChange, type, onPreview }) => {
                             </div>
 
                             {/* Frequency Config */}
-                            <div className="flex-1 bg-slate-50 p-3 rounded-lg border border-slate-200 flex flex-col gap-2">
+                            <div className="flex-1 bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 flex flex-col gap-2">
                                 <label className="text-xs font-bold text-slate-500 uppercase flex items-center gap-1"><Repeat size={12} /> Repeat Count</label>
                                 <div className="flex items-center gap-2">
                                     <input
@@ -381,7 +381,7 @@ const ChannelTab = ({ type, config, onChange, onPreview }) => {
     return (
         <div className="space-y-6 animate-in fade-in duration-300">
             {/* Master Toggle */}
-            <div className={`p-4 rounded-xl border flex justify-between items-center transition-all ${isEnabled ? `bg-${color}-50 border-${color}-200` : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`p-4 rounded-xl border flex justify-between items-center transition-all ${isEnabled ? `bg-${color}-50 border-${color}-200` : 'bg-slate-50 dark:bg-slate-700 border-slate-200'}`}>
                 <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-full ${isEnabled ? `bg-${color}-100 text-${color}-600` : 'bg-slate-200 text-slate-400'}`}>
                         <Icon size={20} />
@@ -393,23 +393,23 @@ const ChannelTab = ({ type, config, onChange, onPreview }) => {
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" className="sr-only peer" checked={isEnabled} onChange={handleToggle} />
-                    <div className={`w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all ${isEmail ? 'peer-checked:bg-indigo-600' : 'peer-checked:bg-purple-600'}`}></div>
+                    <div className={`w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-slate-700 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all ${isEmail ? 'peer-checked:bg-indigo-600' : 'peer-checked:bg-purple-600'}`}></div>
                 </label>
             </div>
 
             {isEnabled && (
-                <div className="space-y-8 pl-4 border-l-2 border-slate-100 ml-6">
+                <div className="space-y-8 pl-4 border-l-2 border-slate-100 dark:border-slate-700 ml-6">
                     {/* Conditional Logic Toggle */}
                     <div className="flex justify-between items-center">
                         <div>
-                            <h4 className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                            <h4 className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
                                 <Split size={16} className={`text-${color}-600`} /> Personalization
                             </h4>
                             <p className="text-xs text-slate-500">Send different templates based on candidate source?</p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" className="sr-only peer" checked={isConditional} onChange={handleConditionalToggle} />
-                            <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-600"></div>
+                            <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-slate-700 after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-600"></div>
                         </label>
                     </div>
 
@@ -426,7 +426,7 @@ const ChannelTab = ({ type, config, onChange, onPreview }) => {
                             </div>
 
                             {conditions.length === 0 ? (
-                                <div className="text-center py-6 border-2 border-dashed border-slate-200 rounded-lg bg-white">
+                                <div className="text-center py-6 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg bg-white">
                                     <p className="text-xs text-slate-400">No conditions added yet.</p>
                                 </div>
                             ) : (
@@ -447,7 +447,7 @@ const ChannelTab = ({ type, config, onChange, onPreview }) => {
                             <div className="mt-6 pt-4 border-t border-slate-200">
                                 <div className="flex items-center justify-between mb-2">
                                     <label className="text-sm font-bold text-slate-700">Default Template</label>
-                                    <span className="text-[10px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded">Fallback</span>
+                                    <span className="text-[10px] bg-slate-200 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded">Fallback</span>
                                 </div>
                                 <p className="text-xs text-slate-500 mb-3">Sent to everyone else who doesn't match the above conditions.</p>
                                 <TemplateSection
@@ -464,7 +464,7 @@ const ChannelTab = ({ type, config, onChange, onPreview }) => {
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <label className="text-sm font-bold text-slate-700">Message Template</label>
-                                <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded border border-slate-200">Standard</span>
+                                <span className="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-500 px-2 py-0.5 rounded border border-slate-200">Standard</span>
                             </div>
                             <TemplateSection
                                 label="Select Template"
@@ -491,16 +491,16 @@ export const AnnouncementConfig = ({ config, onChange, onPreview }) => {
     return (
         <div className="h-full flex flex-col relative overflow-hidden bg-white">
             {/* Tabs Header */}
-            <div className="flex items-center gap-2 border-b border-slate-200 px-6 pt-3 shrink-0 h-[57px]">
+            <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 px-6 pt-3 shrink-0 h-[57px]">
                 <button
                     onClick={() => setActiveTab('EMAIL')}
-                    className={`flex items-center gap-2 px-4 pb-3 pt-2 text-sm font-bold border-b-2 transition-colors -mb-[1px] ${activeTab === 'EMAIL' ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}`}
+                    className={`flex items-center gap-2 px-4 pb-3 pt-2 text-sm font-bold border-b-2 transition-colors -mb-[1px] ${activeTab === 'EMAIL' ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-200 hover:border-slate-300'}`}
                 >
                     <Mail size={16} /> Email Channel
                 </button>
                 <button
                     onClick={() => setActiveTab('SMS')}
-                    className={`flex items-center gap-2 px-4 pb-3 pt-2 text-sm font-bold border-b-2 transition-colors -mb-[1px] ${activeTab === 'SMS' ? 'border-purple-600 text-purple-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'}`}
+                    className={`flex items-center gap-2 px-4 pb-3 pt-2 text-sm font-bold border-b-2 transition-colors -mb-[1px] ${activeTab === 'SMS' ? 'border-purple-600 text-purple-700' : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-200 hover:border-slate-300'}`}
                 >
                     <MessageSquare size={16} /> SMS Channel
                 </button>

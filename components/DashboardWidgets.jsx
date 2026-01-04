@@ -42,7 +42,7 @@ const EMAIL_DATA = [
 export const WelcomeHeader = () => (
    <div className="bg-gradient-to-br from-indigo-900 to-indigo-800 rounded-xl p-6 text-white flex flex-col h-full relative overflow-hidden shadow-lg border border-indigo-700/50">
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white dark:bg-slate-700 opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500 opacity-20 rounded-full blur-2xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
 
       <div className="z-10 flex-1">
@@ -58,7 +58,7 @@ export const WelcomeHeader = () => (
          </p>
 
          <div className="flex items-center gap-4 mb-6">
-            <div className="w-14 h-14 rounded-xl bg-white p-0.5 shadow-lg ring-2 ring-indigo-700/50">
+            <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-700 p-0.5 shadow-lg ring-2 ring-indigo-700/50">
                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" className="w-full h-full object-cover rounded-lg" alt="User" />
             </div>
             <div>
@@ -87,10 +87,10 @@ export const WelcomeHeader = () => (
 );
 
 export const MetricCard = ({ title, value, subValue, icon: Icon, colorClass, iconBg }) => (
-   <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm flex items-center justify-between hover:shadow-md transition-shadow h-full">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-4 shadow-sm flex items-center justify-between hover:shadow-md transition-shadow h-full">
       <div>
          <div className={`text-2xl font-bold ${colorClass}`}>{value}</div>
-         <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider mt-1">{title}</div>
+         <div className="text-[10px] text-gray-400 dark:text-slate-500 font-medium uppercase tracking-wider mt-1">{title}</div>
       </div>
       <div className={`p-3 rounded-xl ${iconBg}`}>
          <Icon size={24} className={colorClass} />
@@ -99,18 +99,18 @@ export const MetricCard = ({ title, value, subValue, icon: Icon, colorClass, ico
 );
 
 export const AlertsWidget = () => (
-   <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm flex items-center justify-between h-full">
-      <div className="flex items-center gap-6 flex-1 justify-center border-r border-gray-100 pr-6">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-4 shadow-sm flex items-center justify-between h-full">
+      <div className="flex items-center gap-6 flex-1 justify-center border-r border-gray-100 dark:border-slate-700 dark:border-slate-700 pr-6">
          <img src="https://cdni.iconscout.com/illustration/premium/thumb/business-failure-illustration-download-in-svg-png-gif-file-formats--bankruptcy-market-crash-pack-people-illustrations-3791244.png" className="w-16 h-16 object-contain opacity-80" alt="Alert" />
          <div className="text-center">
             <span className="block text-3xl font-bold text-red-500">0</span>
-            <span className="text-xs text-gray-500">Campaigns have high Opt-Out percentage</span>
+            <span className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400">Campaigns have high Opt-Out percentage</span>
          </div>
       </div>
       <div className="flex items-center gap-6 flex-1 justify-center pl-6 relative">
          <div className="text-center">
             <span className="block text-3xl font-bold text-red-500">0</span>
-            <span className="text-xs text-gray-500 block max-w-[150px] mx-auto">Have unsubscribed or not reachable in the last 24 hours</span>
+            <span className="text-xs text-gray-500 dark:text-slate-400 dark:text-slate-400 block max-w-[150px] mx-auto">Have unsubscribed or not reachable in the last 24 hours</span>
          </div>
          <div className="absolute top-0 right-0 flex flex-col gap-1">
             <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
@@ -122,13 +122,13 @@ export const AlertsWidget = () => (
 );
 
 export const TrendGraph = () => (
-   <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm h-full flex flex-col">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-6 shadow-sm h-full flex flex-col">
       <div className="flex justify-between items-start mb-6">
          <div>
-            <h3 className="text-gray-800 font-bold text-base">Profiles / Applies Trends</h3>
-            <p className="text-xs text-gray-400">1,000</p>
+            <h3 className="text-gray-800 dark:text-slate-200 font-bold text-base">Profiles / Applies Trends</h3>
+            <p className="text-xs text-gray-400 dark:text-slate-500">1,000</p>
          </div>
-         <select className="text-xs border border-gray-200 rounded px-2 py-1 bg-white text-gray-600 outline-none">
+         <select className="text-xs border border-gray-200 dark:border-slate-600 rounded px-2 py-1 bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 outline-none">
             <option>Last 7 days</option>
          </select>
       </div>
@@ -177,27 +177,27 @@ export const TrendGraph = () => (
                style={{ height: '100%', minHeight: '200px', width: '100%' }}
             />
          </div>
-         <div className="w-32 flex flex-col justify-center gap-6 text-right border-l border-gray-50 pl-4">
+         <div className="w-32 flex flex-col justify-center gap-6 text-right border-l border-gray-50 dark:border-slate-700 pl-4">
             <div>
                <div className="flex items-center justify-end gap-1 text-red-500 text-xs font-bold mb-1">
                   <span>↓ 87%</span>
-                  <span className="text-2xl text-gray-700">2,922</span>
+                  <span className="text-2xl text-gray-700 dark:text-slate-200">2,922</span>
                </div>
-               <p className="text-[10px] text-gray-400 uppercase tracking-wide">New Profiles</p>
+               <p className="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wide">New Profiles</p>
             </div>
             <div>
                <div className="flex items-center justify-end gap-1 text-red-500 text-xs font-bold mb-1">
                   <span>↓ 41%</span>
-                  <span className="text-2xl text-gray-700">1,874</span>
+                  <span className="text-2xl text-gray-700 dark:text-slate-200">1,874</span>
                </div>
-               <p className="text-[10px] text-gray-400 uppercase tracking-wide">New Applies</p>
+               <p className="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wide">New Applies</p>
             </div>
             <div>
                <div className="flex items-center justify-end gap-1 text-red-500 text-xs font-bold mb-1">
                   <span>↓ 100%</span>
-                  <span className="text-2xl text-gray-700">0</span>
+                  <span className="text-2xl text-gray-700 dark:text-slate-200">0</span>
                </div>
-               <p className="text-[10px] text-gray-400 uppercase tracking-wide">New Campaigns</p>
+               <p className="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-wide">New Campaigns</p>
             </div>
          </div>
       </div>
@@ -205,16 +205,16 @@ export const TrendGraph = () => (
 );
 
 export const SourceDistributionChart = () => (
-   <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm h-full flex flex-col">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-6 shadow-sm h-full flex flex-col">
       <div className="flex justify-between items-center mb-4">
-         <h3 className="text-gray-800 font-bold text-base">New Profile Source Distribution</h3>
+         <h3 className="text-gray-800 dark:text-slate-200 font-bold text-base">New Profile Source Distribution</h3>
          <div className="flex gap-2">
-            <select className="text-xs border border-gray-200 rounded px-2 py-1 bg-white text-gray-600 outline-none">
+            <select className="text-xs border border-gray-200 dark:border-slate-600 rounded px-2 py-1 bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 outline-none">
                <option>Last 7 days</option>
             </select>
-            <div className="flex bg-gray-100 rounded p-0.5">
-               <button className="px-2 py-0.5 text-[10px] bg-white shadow-sm rounded text-gray-700 font-medium">Profiles</button>
-               <button className="px-2 py-0.5 text-[10px] text-gray-500 hover:text-gray-700">Applies</button>
+            <div className="flex bg-gray-100 dark:bg-slate-700 rounded p-0.5">
+               <button className="px-2 py-0.5 text-[10px] bg-white dark:bg-slate-700 dark:bg-slate-600 shadow-sm rounded text-gray-700 dark:text-slate-200 font-medium">Profiles</button>
+               <button className="px-2 py-0.5 text-[10px] text-gray-500 dark:text-slate-400 dark:text-slate-400 hover:text-gray-700 dark:text-slate-200 dark:hover:text-slate-200">Applies</button>
             </div>
          </div>
       </div>
@@ -249,9 +249,9 @@ export const SourceDistributionChart = () => (
 );
 
 export const EmptyWidget = ({ title, sub }) => (
-   <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm h-full flex flex-col relative overflow-hidden group">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-6 shadow-sm h-full flex flex-col relative overflow-hidden group">
       <div className="flex justify-between items-center mb-6 z-10 relative">
-         <h3 className="text-gray-800 font-bold text-sm flex items-center gap-2">
+         <h3 className="text-gray-800 dark:text-slate-200 font-bold text-sm flex items-center gap-2">
             {title}
             {title === 'Upcoming Interviews' && <span className="text-red-500 text-xs cursor-pointer">x</span>}
          </h3>
@@ -267,10 +267,10 @@ export const EmptyWidget = ({ title, sub }) => (
                <span className="text-gray-300 text-4xl">📭</span>
             )}
          </div>
-         <p className="text-xs text-gray-400">{title.includes('Interviews') ? 'No Upcoming Interviews' : 'No Data Found'}</p>
+         <p className="text-xs text-gray-400 dark:text-slate-500">{title.includes('Interviews') ? 'No Upcoming Interviews' : 'No Data Found'}</p>
       </div>
       {title.includes('Portal') && (
-         <div className="border-t border-gray-100 pt-4 mt-auto flex justify-between text-[10px] text-gray-500 w-full z-10">
+         <div className="border-t border-gray-100 dark:border-slate-700 dark:border-slate-700 pt-4 mt-auto flex justify-between text-[10px] text-gray-500 dark:text-slate-400 dark:text-slate-400 w-full z-10">
             <div className="text-center"><span className="block text-blue-600 font-bold text-lg">0</span> Searches</div>
             <div className="text-center"><span className="block text-blue-600 font-bold text-lg">0</span> Downloads</div>
             <div className="text-center"><span className="block text-blue-600 font-bold text-lg">0</span> Contacted</div>
@@ -281,28 +281,28 @@ export const EmptyWidget = ({ title, sub }) => (
 );
 
 export const EmailDeliveryReport = () => (
-   <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm h-full flex flex-col">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-6 shadow-sm h-full flex flex-col">
       <div className="flex justify-between items-center mb-6">
-         <h3 className="text-gray-800 font-bold text-sm">Mass Email Delivery Report</h3>
-         <select className="text-xs border border-gray-200 rounded px-2 py-1 bg-white text-gray-600 outline-none">
+         <h3 className="text-gray-800 dark:text-slate-200 font-bold text-sm">Mass Email Delivery Report</h3>
+         <select className="text-xs border border-gray-200 dark:border-slate-600 rounded px-2 py-1 bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 outline-none">
             <option>Last 7 days</option>
          </select>
       </div>
       <div className="flex-1 flex gap-4">
-         <div className="w-32 flex flex-col justify-center gap-4 border-r border-gray-50 pr-4">
+         <div className="w-32 flex flex-col justify-center gap-4 border-r border-gray-50 dark:border-slate-700 pr-4">
             <div className="text-center">
                <span className="block text-xl font-bold text-blue-600">0</span>
-               <span className="text-[10px] text-gray-400">Total Mails</span>
+               <span className="text-[10px] text-gray-400 dark:text-slate-500">Total Mails</span>
             </div>
             <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-center">
-               <div><span className="block font-bold text-green-600">0</span><span className="text-[9px] text-gray-400">Delivered</span></div>
-               <div><span className="block font-bold text-red-500">0%</span><span className="text-[9px] text-gray-400">Bounced</span></div>
-               <div><span className="block font-bold text-green-600">0</span><span className="text-[9px] text-gray-400">Viewed</span></div>
-               <div><span className="block font-bold text-red-500">0%</span><span className="text-[9px] text-gray-400">Opt-out</span></div>
+               <div><span className="block font-bold text-green-600">0</span><span className="text-[9px] text-gray-400 dark:text-slate-500">Delivered</span></div>
+               <div><span className="block font-bold text-red-500">0%</span><span className="text-[9px] text-gray-400 dark:text-slate-500">Bounced</span></div>
+               <div><span className="block font-bold text-green-600">0</span><span className="text-[9px] text-gray-400 dark:text-slate-500">Viewed</span></div>
+               <div><span className="block font-bold text-red-500">0%</span><span className="text-[9px] text-gray-400 dark:text-slate-500">Opt-out</span></div>
             </div>
             <div className="text-center">
                <span className="block font-bold text-green-600">0</span>
-               <span className="text-[10px] text-gray-400">Replied</span>
+               <span className="text-[10px] text-gray-400 dark:text-slate-500">Replied</span>
             </div>
          </div>
          <div className="flex-1 min-w-0">
@@ -348,14 +348,14 @@ export const EmailDeliveryReport = () => (
 );
 
 export const PreScreeningProgress = () => (
-   <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm h-full relative overflow-hidden">
+   <div className="bg-white dark:bg-slate-700 rounded-xl border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-6 shadow-sm h-full relative overflow-hidden">
       <div className="flex justify-between items-center mb-8">
-         <h3 className="text-gray-800 font-bold text-sm flex items-center gap-2">
-            <AlertCircle size={14} className="text-gray-400" /> Pre-Screening Progress Report
+         <h3 className="text-gray-800 dark:text-slate-200 font-bold text-sm flex items-center gap-2">
+            <AlertCircle size={14} className="text-gray-400 dark:text-slate-500" /> Pre-Screening Progress Report
          </h3>
-         <div className="flex bg-gray-100 rounded p-0.5">
-            <button className="px-3 py-1 text-[10px] bg-white shadow-sm rounded text-gray-700 font-medium">Pre-Screening</button>
-            <button className="px-3 py-1 text-[10px] text-gray-500 hover:text-gray-700">Interview</button>
+         <div className="flex bg-gray-100 dark:bg-slate-700 rounded p-0.5">
+            <button className="px-3 py-1 text-[10px] bg-white dark:bg-slate-700 dark:bg-slate-600 shadow-sm rounded text-gray-700 dark:text-slate-200 font-medium">Pre-Screening</button>
+            <button className="px-3 py-1 text-[10px] text-gray-500 dark:text-slate-400 dark:text-slate-400 hover:text-gray-700 dark:text-slate-200 dark:hover:text-slate-200">Interview</button>
          </div>
       </div>
 

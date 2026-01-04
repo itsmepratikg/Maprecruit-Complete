@@ -69,14 +69,14 @@ export const filterProfilesEngine = (profiles, activeFilters, advancedParams = {
 // --- SUB-COMPONENTS FOR SEARCH ---
 
 export const ProfileCard = ({ profile, onNavigate }) => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row gap-4 group relative">
+  <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 dark:border-slate-700 p-5 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row gap-4 group relative">
     <div className="absolute top-4 right-4 flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
       <Sparkles size={12} />
       {profile.matchScore}% Match
     </div>
 
     <div className="flex-shrink-0">
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-500 font-bold text-xl border-2 border-white shadow-sm">
+      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-500 dark:text-slate-400 font-bold text-xl border-2 border-white shadow-sm">
         {profile.avatar}
       </div>
     </div>
@@ -87,7 +87,7 @@ export const ProfileCard = ({ profile, onNavigate }) => (
           <h3 onClick={onNavigate} className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors cursor-pointer">
             {profile.name}
           </h3>
-          <p className="text-gray-600 font-medium">{profile.title}</p>
+          <p className="text-gray-600 dark:text-slate-300 dark:text-slate-600 dark:text-slate-300 font-medium">{profile.title}</p>
         </div>
       </div>
 
@@ -112,14 +112,14 @@ export const ProfileCard = ({ profile, onNavigate }) => (
 
       <div className="mt-4 flex flex-wrap gap-2">
         {profile.skills?.map((skill, idx) => (
-          <span key={idx} className="px-2 py-1 bg-gray-50 text-gray-600 text-xs rounded-md border border-gray-200">
+          <span key={idx} className="px-2 py-1 bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-slate-300 text-xs rounded-md border border-gray-200">
             {skill}
           </span>
         ))}
       </div>
     </div>
 
-    <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-4 mt-4 md:mt-0 gap-2">
+    <div className="flex md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-100 dark:border-slate-700 dark:border-slate-700 pt-4 md:pt-0 md:pl-4 mt-4 md:mt-0 gap-2">
       <button className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors">
         <ThumbsUp size={18} />
       </button>
@@ -158,23 +158,23 @@ export const LandingDashboard = ({ onSearch, onModifySearch }) => {
   }, [sortOption]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-12 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="w-full max-w-4xl mx-auto mt-12 bg-white dark:bg-slate-700 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 dark:border-slate-700 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex border-b border-gray-100">
         <button
           onClick={() => toggleTab('recent_visits')}
-          className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors border-b-2 ${activeTab === 'recent_visits' ? 'text-green-600 border-green-600 bg-green-50/50' : 'text-gray-500 border-transparent hover:bg-gray-50'}`}
+          className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors border-b-2 ${activeTab === 'recent_visits' ? 'text-green-600 border-green-600 bg-green-50/50' : 'text-gray-500 dark:text-slate-400 border-transparent hover:bg-gray-50'}`}
         >
           <Eye size={16} /> Recently Visited Profiles
         </button>
         <button
           onClick={() => toggleTab('recent_searches')}
-          className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors border-b-2 ${activeTab === 'recent_searches' ? 'text-green-600 border-green-600 bg-green-50/50' : 'text-gray-500 border-transparent hover:bg-gray-50'}`}
+          className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors border-b-2 ${activeTab === 'recent_searches' ? 'text-green-600 border-green-600 bg-green-50/50' : 'text-gray-500 dark:text-slate-400 border-transparent hover:bg-gray-50'}`}
         >
           <History size={16} /> Recent Searches
         </button>
         <button
           onClick={() => toggleTab('saved_searches')}
-          className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors border-b-2 ${activeTab === 'saved_searches' ? 'text-green-600 border-green-600 bg-green-50/50' : 'text-gray-500 border-transparent hover:bg-gray-50'}`}
+          className={`flex-1 py-4 text-sm font-medium flex items-center justify-center gap-2 transition-colors border-b-2 ${activeTab === 'saved_searches' ? 'text-green-600 border-green-600 bg-green-50/50' : 'text-gray-500 dark:text-slate-400 border-transparent hover:bg-gray-50'}`}
         >
           <Bookmark size={16} /> Saved Searches
         </button>
@@ -185,13 +185,13 @@ export const LandingDashboard = ({ onSearch, onModifySearch }) => {
           {activeTab === 'recent_visits' && (
             <div className="space-y-3">
               {RECENT_VISITS.map(visit => (
-                <div key={visit.id} className="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-shadow group cursor-pointer">
+                <div key={visit.id} className="flex items-center justify-between p-4 bg-white dark:bg-slate-700 border border-gray-100 dark:border-slate-700 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow group cursor-pointer">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold text-sm">
+                    <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-gray-500 dark:text-slate-400 font-bold text-sm">
                       <User size={18} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-gray-800 group-hover:text-green-600 transition-colors">{visit.name}</h4>
+                      <h4 className="text-sm font-bold text-gray-800 dark:text-slate-200 group-hover:text-green-600 transition-colors">{visit.name}</h4>
                       <p className="text-xs text-gray-500">{visit.role}</p>
                     </div>
                   </div>
@@ -204,7 +204,7 @@ export const LandingDashboard = ({ onSearch, onModifySearch }) => {
           {activeTab === 'recent_searches' && (
             <div className="space-y-3">
               {RECENT_SEARCHES.map(search => (
-                <div key={search.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:shadow-md transition-shadow bg-white">
+                <div key={search.id} className="flex items-center justify-between p-3 border border-gray-100 dark:border-slate-700 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-slate-700">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center text-white shadow-sm">
                       <Search size={18} />
@@ -246,7 +246,7 @@ export const LandingDashboard = ({ onSearch, onModifySearch }) => {
                   <div className="relative">
                     <button
                       onClick={() => setIsSortOpen(!isSortOpen)}
-                      className="flex items-center gap-1 px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-50"
+                      className="flex items-center gap-1 px-3 py-1.5 border border-gray-200 dark:border-slate-600 rounded-lg text-xs font-medium text-gray-600 dark:text-slate-300 hover:bg-gray-50"
                     >
                       <ArrowUpDown size={14} /> Sort: {sortOption === 'name' ? 'Name' : 'Created Date'}
                     </button>
@@ -254,7 +254,7 @@ export const LandingDashboard = ({ onSearch, onModifySearch }) => {
                     {isSortOpen && (
                       <>
                         <div className="fixed inset-0 z-10" onClick={() => setIsSortOpen(false)}></div>
-                        <div className="absolute top-full left-0 mt-1 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-20 overflow-hidden">
+                        <div className="absolute top-full left-0 mt-1 w-36 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg shadow-lg z-20 overflow-hidden">
                           <button
                             onClick={() => { setSortOption('name'); setIsSortOpen(false); }}
                             className={`w-full text-left px-4 py-2 text-xs hover:bg-green-50 hover:text-green-700 ${sortOption === 'name' ? 'bg-green-50 text-green-700 font-medium' : 'text-gray-600'}`}
@@ -273,15 +273,15 @@ export const LandingDashboard = ({ onSearch, onModifySearch }) => {
                   </div>
 
                   <div className="relative">
-                    <input type="text" placeholder="Filter by name..." className="pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg text-xs w-48 outline-none focus:border-green-500 bg-white" />
+                    <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600" type="text" placeholder="Filter by name..." className="pl-8 pr-3 py-1.5 border border-gray-200 dark:border-slate-600 rounded-lg text-xs w-48 outline-none focus:border-green-500 bg-white" />
                     <Search size={12} className="absolute left-2.5 top-2 text-gray-400" />
                   </div>
                 </div>
-                <button className="text-xs text-gray-500 hover:text-green-600 font-medium">Clear Filters</button>
+                <button className="text-xs text-gray-500 dark:text-slate-400 hover:text-green-600 font-medium">Clear Filters</button>
               </div>
 
               {sortedSavedSearches.map(saved => (
-                <div key={saved.id} className="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow bg-white group">
+                <div key={saved.id} className="flex items-center justify-between p-4 border border-gray-100 dark:border-slate-700 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-slate-700 group">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center text-white shadow-sm">
                       <Search size={18} />
@@ -335,12 +335,12 @@ export const FilterGroup = ({ label, options, activeFilters, onToggle }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="border-b border-gray-100 py-4 last:border-0">
+    <div className="border-b border-gray-100 dark:border-slate-700 dark:border-slate-700 py-4 last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full text-left mb-2 group"
       >
-        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-green-600 transition-colors">
+        <span className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider group-hover:text-green-600 transition-colors">
           {label}
         </span>
         {isOpen ? <ChevronUp size={14} className="text-gray-400" /> : <ChevronDown size={14} className="text-gray-400" />}
@@ -351,13 +351,13 @@ export const FilterGroup = ({ label, options, activeFilters, onToggle }) => {
           {options.map(opt => {
             const isActive = activeFilters.includes(opt);
             return (
-              <label key={opt} className={`flex items-center justify-between text-sm cursor-pointer p-1.5 rounded transition-colors ${isActive ? 'bg-green-50 text-green-900' : 'text-gray-600 hover:bg-gray-50'}`}>
+              <label key={opt} className={`flex items-center justify-between text-sm cursor-pointer p-1.5 rounded transition-colors ${isActive ? 'bg-green-50 text-green-900' : 'text-gray-600 dark:text-slate-300 hover:bg-gray-50'}`}>
                 <div className="flex items-center gap-2">
-                  <input
+                  <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
                     type="checkbox"
                     checked={isActive}
                     onChange={() => onToggle(opt)}
-                    className="rounded border-gray-300 text-green-600 focus:ring-green-500 w-4 h-4 bg-white"
+                    className="rounded border-gray-300 text-green-600 focus:ring- dark:focus:ring-green-500 w-4 h-4 bg-white"
                   />
                   <span className="truncate max-w-[280px]">{opt}</span>
                 </div>
@@ -375,12 +375,12 @@ export const FilterPopup = ({ isOpen, onClose, activeFilters, onToggle, onReset 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
-        <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-          <h2 className="font-semibold text-gray-800 flex items-center gap-2">
+      <div className="bg-white dark:bg-slate-700 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
+        <div className="p-5 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700 flex justify-between items-center bg-gray-50/50">
+          <h2 className="font-semibold text-gray-800 dark:text-slate-200 flex items-center gap-2">
             <SlidersHorizontal size={18} className="text-green-600" /> Filter Candidates
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+          <button onClick={onClose} className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-300 transition-colors p-1 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 rounded-full">
             <X size={20} />
           </button>
         </div>
@@ -397,10 +397,10 @@ export const FilterPopup = ({ isOpen, onClose, activeFilters, onToggle, onReset 
           ))}
         </div>
 
-        <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex justify-between gap-3 items-center">
+        <div className="p-4 border-t border-gray-100 dark:border-slate-700 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-700 flex justify-between gap-3 items-center">
           <button
             onClick={onReset}
-            className="text-sm text-gray-500 hover:text-red-500 font-medium px-2 py-1 rounded transition-colors"
+            className="text-sm text-gray-500 dark:text-slate-400 hover:text-red-500 font-medium px-2 py-1 rounded transition-colors"
           >
             Reset All
           </button>
@@ -605,7 +605,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
   // RENDER INITIAL LANDING
   if (searchState.view === 'initial') {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-700 flex flex-col items-center justify-center p-4">
         <AdvancedSearchModal
           isOpen={isAdvancedOpen}
           onClose={() => setIsAdvancedOpen(false)}
@@ -621,7 +621,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
               <div className="bg-green-600 text-white p-2 rounded-lg">
                 <Search size={32} />
               </div>
-              <span className="text-3xl font-bold text-gray-800 tracking-tight">MapRecruit</span>
+              <span className="text-3xl font-bold text-gray-800 dark:text-slate-200 tracking-tight">MapRecruit</span>
             </div>
           </div>
 
@@ -634,24 +634,24 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
               <button
                 type="button"
                 onClick={() => setIsAiEnabled(!isAiEnabled)}
-                className={`p-2 rounded-lg transition-colors z-10 ${isAiEnabled ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600'}`}
+                className={`p-2 rounded-lg transition-colors z-10 ${isAiEnabled ? 'bg-green-100 text-green-600' : 'bg-gray-100 dark:bg-slate-700 text-gray-400 hover:bg-gray-200 hover:text-gray-600'}`}
                 title={isAiEnabled ? "AI Search Enabled" : "Traditional Search"}
               >
                 <Sparkles size={18} className={isAiEnabled ? "fill-green-600" : ""} />
               </button>
             </div>
-            <input
+            <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
               type="text"
               value={searchState.inputValue}
               // @ts-ignore
               onChange={(e) => setSearchState({ ...searchState, inputValue: e.target.value })}
               placeholder={placeholder}
-              className="w-full pl-12 pr-28 py-4 rounded-2xl border-2 border-gray-200 focus:border-green-500 focus:ring-4 focus:ring-green-50 outline-none text-lg shadow-lg shadow-gray-100 transition-all placeholder:text-gray-400 bg-white"
+              className="w-full pl-12 pr-28 py-4 rounded-2xl border-2 border-gray-200 dark:border-slate-600 focus:border-green-500 focus:ring- dark:focus:ring-4 focus:ring- dark:focus:ring-green-50 outline-none text-lg shadow-lg shadow-gray-100 transition-all placeholder:text-gray-400 bg-white"
             />
             <div className="absolute right-3 top-2.5 flex items-center gap-2">
               {searchState.inputValue && (
                 // @ts-ignore
-                <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 hover:text-gray-600 p-2">
+                <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-300 p-2">
                   <XCircle size={20} />
                 </button>
               )}
@@ -680,7 +680,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
 
   // RENDER RESULTS VIEW
   return (
-    <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
+    <div className="h-screen bg-gray-50 dark:bg-slate-700 flex flex-col overflow-hidden">
 
       <FilterPopup
         isOpen={isFilterPopupOpen}
@@ -698,13 +698,13 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
         onSearch={handleAdvancedSearch}
       />
 
-      <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 lg:px-6 shadow-sm z-20 flex-shrink-0">
+      <header className="bg-white dark:bg-slate-700 border-b border-gray-200 dark:border-slate-600 h-16 flex items-center justify-between px-4 lg:px-6 shadow-sm z-20 flex-shrink-0">
         <div className="flex items-center gap-6 flex-1">
           <div className="flex items-center gap-2 cursor-pointer mr-4" onClick={clearSearch}>
             <div className="bg-green-600 text-white p-1.5 rounded-md">
               <Search size={20} />
             </div>
-            <span className="text-xl font-bold text-gray-800 hidden md:block">MapRecruit</span>
+            <span className="text-xl font-bold text-gray-800 dark:text-slate-200 hidden md:block">MapRecruit</span>
           </div>
 
           <div className="flex items-center gap-2 w-full max-w-2xl">
@@ -712,19 +712,19 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
               <div className="absolute left-3 top-2.5 text-gray-400">
                 <Search size={16} />
               </div>
-              <input
+              <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
                 type="text"
                 value={searchState.inputValue}
                 // @ts-ignore
                 onChange={(e) => setSearchState({ ...searchState, inputValue: e.target.value })}
-                className="w-full bg-gray-100 text-sm rounded-lg pl-9 pr-20 py-2.5 focus:bg-white focus:ring-2 focus:ring-green-100 outline-none border border-transparent focus:border-green-300 transition-all"
+                className="w-full bg-gray-100 dark:bg-slate-700 text-sm rounded-lg pl-9 pr-20 py-2.5 focus:bg-white dark:bg-slate-700 focus:ring- dark:focus:ring-2 focus:ring- dark:focus:ring-green-100 outline-none border border-transparent focus:border-green-300 transition-all"
                 placeholder="Add another keyword..."
               />
 
               <div className="absolute right-2 top-1.5 flex items-center gap-1">
                 {searchState.inputValue && (
                   // @ts-ignore
-                  <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 hover:text-gray-600 p-1">
+                  <button type="button" onClick={() => setSearchState({ ...searchState, inputValue: '' })} className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:text-slate-300 p-1">
                     <X size={16} />
                   </button>
                 )}
@@ -749,7 +749,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
         </div>
 
         <div className="flex items-center gap-3">
-          <button onClick={() => setIsChatOpen(!isChatOpen)} className={`p-2 rounded-lg text-gray-600 hover:bg-gray-100 lg:hidden ${isChatOpen ? 'bg-green-50 text-green-700' : ''}`}>
+          <button onClick={() => setIsChatOpen(!isChatOpen)} className={`p-2 rounded-lg text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 lg:hidden ${isChatOpen ? 'bg-green-50 text-green-700' : ''}`}>
             <MessageSquare size={20} />
           </button>
           <div className="w-8 h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold text-sm">JD</div>
@@ -766,7 +766,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
                     <h2 className="text-2xl font-bold text-gray-900">Search Results</h2>
                     <button
                       onClick={() => setIsFilterPopupOpen(true)}
-                      className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-green-700 transition-colors bg-white shadow-sm"
+                      className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-300 text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 hover:text-green-700 transition-colors bg-white dark:bg-slate-700 shadow-sm"
                       title="Filter Results"
                     >
                       <Filter size={16} />
@@ -776,7 +776,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
                     </button>
                   </div>
 
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-gray-500 dark:text-slate-400 dark:text-slate-400 text-sm">
                     Showing <span className="font-bold text-gray-900">{filteredProfiles.length}</span> candidates
                     {(searchState.activeFilters.length > 0 || searchState.searchKeywords.length > 0) ? <span> matching your criteria</span> : <span> available</span>}
                   </p>
@@ -794,7 +794,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
                         px-3 py-1.5 rounded-full text-xs font-medium border transition-colors whitespace-nowrap shadow-sm
                         ${isActive
                           ? 'bg-green-100 text-green-700 border-green-200 ring-1 ring-green-300'
-                          : 'bg-white text-gray-600 border-gray-200 hover:border-green-300 hover:text-green-600'
+                          : 'bg-white dark:bg-slate-700 text-gray-600 dark:text-slate-300 border-gray-200 dark:border-slate-600 hover:border-green-300 hover:text-green-600'
                         }
                       `}
                     >
@@ -809,7 +809,7 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
               <div className="flex flex-wrap gap-2 mb-6 animate-in fade-in slide-in-from-top-2">
 
                 {searchState.searchKeywords.map((k, idx) => (
-                  <span key={`key-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-green-200 text-green-700 text-xs font-medium shadow-sm">
+                  <span key={`key-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-slate-700 border border-green-200 text-green-700 text-xs font-medium shadow-sm">
                     "{k}"
                     <button onClick={() => removeKeyword(k)} className="hover:bg-green-100 rounded-full p-0.5"><X size={12} /></button>
                   </span>
@@ -818,14 +818,14 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
                 {searchState.activeFilters.map((filter, idx) => {
                   const label = typeof filter === 'string' ? filter : "Unknown Filter";
                   return (
-                    <span key={`filt-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-green-200 text-green-700 text-xs font-medium shadow-sm">
+                    <span key={`filt-${idx}`} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white dark:bg-slate-700 border border-green-200 text-green-700 text-xs font-medium shadow-sm">
                       {label}
                       <button onClick={() => toggleFilter(filter)} className="hover:bg-green-100 rounded-full p-0.5"><X size={12} /></button>
                     </span>
                   );
                 })}
 
-                <button onClick={clearSearch} className="text-xs text-gray-500 underline hover:text-green-600 ml-2">Clear all</button>
+                <button onClick={clearSearch} className="text-xs text-gray-500 dark:text-slate-400 underline hover:text-green-600 ml-2">Clear all</button>
               </div>
             )}
 
@@ -835,12 +835,12 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
               ))}
 
               {filteredProfiles.length === 0 && (
-                <div className="text-center py-20 bg-white rounded-xl border-2 border-dashed border-gray-200">
-                  <div className="bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center py-20 bg-white dark:bg-slate-700 rounded-xl border-2 border-dashed border-gray-200">
+                  <div className="bg-gray-50 dark:bg-slate-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <User size={32} className="text-gray-400" />
                   </div>
                   <h3 className="text-lg font-medium text-gray-900">No matching profiles</h3>
-                  <p className="text-gray-500 text-sm max-w-xs mx-auto mt-2">
+                  <p className="text-gray-500 dark:text-slate-400 dark:text-slate-400 text-sm max-w-xs mx-auto mt-2">
                     Try removing some filters or adjusting your keywords.
                   </p>
                   <button onClick={clearSearch} className="mt-4 text-green-600 font-medium text-sm hover:underline">
@@ -852,8 +852,8 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
           </div>
         </main>
 
-        <aside className={`${isChatOpen ? 'w-80 md:w-96 translate-x-0' : 'w-0 translate-x-full lg:w-0'} bg-white border-l border-gray-200 transition-all duration-300 ease-in-out flex flex-col z-10 absolute inset-y-0 right-0 lg:relative`}>
-          <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+        <aside className={`${isChatOpen ? 'w-80 md:w-96 translate-x-0' : 'w-0 translate-x-full lg:w-0'} bg-white dark:bg-slate-700 border-l border-gray-200 dark:border-slate-600 transition-all duration-300 ease-in-out flex flex-col z-10 absolute inset-y-0 right-0 lg:relative`}>
+          <div className="p-4 border-b border-gray-100 dark:border-slate-700 dark:border-slate-700 flex justify-between items-center bg-gray-50/50">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white shadow-sm">
@@ -862,14 +862,14 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
                 <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
               </div>
               <div>
-                <h3 className="font-bold text-gray-800 text-sm">Talent Assistant</h3>
+                <h3 className="font-bold text-gray-800 dark:text-slate-200 text-sm">Talent Assistant</h3>
                 <p className="text-xs text-green-600 font-medium">Online • Fine-tuning results</p>
               </div>
             </div>
             <button onClick={() => setIsChatOpen(false)} className="lg:hidden text-gray-400"><X size={18} /></button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-slate-700 space-y-4">
             {searchState.chatMessages.length === 0 && (
               <div className="text-center mt-10 opacity-60">
                 <p className="text-sm text-gray-500">I'm here to help you refine your search. Ask me anything about the candidates.</p>
@@ -881,13 +881,13 @@ export const TalentSearchEngine = ({ searchState, setSearchState, onNavigateToPr
             <div ref={chatEndRef} />
           </div>
 
-          <div className="p-4 bg-white border-t border-gray-100">
+          <div className="p-4 bg-white dark:bg-slate-700 border-t border-gray-100">
             <form onSubmit={handleChatInput} className="relative">
-              <input
+              <input className="dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
                 name="chatInput"
                 type="text"
                 placeholder="Type to refine (e.g. 'Only seniors')"
-                className="w-full bg-gray-100 text-sm rounded-xl pl-4 pr-12 py-3 focus:bg-white focus:ring-2 focus:ring-green-100 outline-none transition-all"
+                className="w-full bg-gray-100 dark:bg-slate-700 text-sm rounded-xl pl-4 pr-12 py-3 focus:bg-white dark:bg-slate-700 focus:ring- dark:focus:ring-2 focus:ring- dark:focus:ring-green-100 outline-none transition-all"
               />
               <button type="submit" className="absolute right-2 top-2 p-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                 <Send size={16} />
