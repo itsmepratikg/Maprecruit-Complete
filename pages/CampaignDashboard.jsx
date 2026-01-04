@@ -8,7 +8,7 @@ import {
    AlertCircle, FileText
 } from 'lucide-react';
 import ReactECharts from 'echarts-for-react';
-import { PANEL_MEMBERS, CAMPAIGN_ACTIVITIES } from '../data.js';
+import { PANEL_MEMBERS, CAMPAIGN_ACTIVITIES, GLOBAL_CAMPAIGNS } from '../data.js';
 import { CampaignSourceAI } from '../components/CampaignSourceAI.jsx';
 import { EngageWorkflow } from '../components/EngageWorkflow.jsx';
 import { MatchWorkflow } from '../components/MatchWorkflow.jsx';
@@ -402,7 +402,7 @@ const KPIMetricsWidget = () => (
                         }
                      ]
                   }}
-                  style={{ height: '100%', width: '100%' }}
+                  style={{ height: '100%', minHeight: '200px', width: '100%' }}
                />
             </div>
 
@@ -565,9 +565,91 @@ const ActivitiesWidget = () => (
 
 // --- MAIN PAGE COMPONENT ---
 
-export const CampaignDashboard = ({ campaign, activeTab }) => {
+// --- MAIN PAGE COMPONENT ---
+import { useParams, useNavigate } from 'react-router-dom';
+
+export const CampaignDashboard = ({ campaign: propCampaign, activeTab: propActiveTab }) => {
+   const { id } = useParams();
+   const navigate = useNavigate();
+
+   // If campaign is passed via props (e.g. wrapper), use it. 
+   // Otherwise find by ID from URL. 
+   // Currently GLOBAL_CAMPAIGNS is in scope from import.
+   const campaignId = id ? parseInt(id) : (propCampaign ? propCampaign.id : null);
+   const campaign = propCampaign || GLOBAL_CAMPAIGNS.find(c => c.id === campaignId);
+
+   // State
    const [isScrolled, setIsScrolled] = useState(false);
    const [intelligenceSubView, setIntelligenceSubView] = useState('OVERVIEW');
+
+   // If accessed via URL, we default 'activeTab' to Intelligence if not provided via props
+   // But wait, App.jsx passes nothing for Route component. 
+   // So we need internal state for activeTab OR handle it via sub-routes?
+   // For now, let's keep internal state since Sidebar is outside and we removed 'activeTab' prop passing from App.jsx for the Route.
+   // Actually, the new App.jsx layout for Sidebar still has `campaignTab` state but it isn't passed to `CampaignDashboard` route element!
+   // Only the sidebar knows about the tab. The `CampaignDashboard` component renders everything including the content.
+   // This is a disconnect. The Sidebar controls the view of the dashboard content?
+   // In the previous Code: `CampaignDashboard` took `activeTab` as prop.
+   // Now: It's a Route. The sidebar is outside. 
+   // If Sidebar changes `campaignTab` state in `App.jsx`, `App.jsx` re-renders.
+   // But `CampaignDashboard` is rendered by `<Route>`?
+   // Wait, `App.jsx` has `<Route path="/campaign/:id" element={<CampaignDashboard />} />`.
+   // It does NOT pass props.
+   // So `CampaignDashboard` needs to manage its own tabs OR read them from Context/Props.
+   // BUT, `AppLevel` Sidebar needs to match.
+   // The User asked for URL based routing.
+   // Ideally: `/campaign/:id/intelligence`, `/campaign/:id/source`, etc.
+   // For this step, I will make `CampaignDashboard` mostly self-contained or read from a simplistic internal default 
+   // because `App.jsx` sidebar implementation I just kept does NOT sync with this component via props anymore.
+   // THIS IS A CRITICAL DISCONNECT. The Sidebar in `App.jsx` has buttons that change `campaignTab` state in `App.jsx`.
+   // But this state is NOT passed to the `CampaignDashboard` rendered by the Route.
+   // To fix this without complex Context right now:
+   // I will temporarily make `CampaignDashboard` handle its own tabs if I can, OR
+   // I should have passed the state to the element in `App.jsx`.
+   // Let's modify `App.jsx` to pass the state? No, `element` prop takes a Node.
+   // `<Route path="/campaign/:id" element={<CampaignDashboard activeTab={campaignTab} />} />`
+   // This is valid! `App.jsx` re-renders, updates the prop passed to `CampaignDashboard`.
+
+   // So, I should update `App.jsx` again to pass `activeTab={campaignTab}` to the Route element.
+   // AND `ref` or `setCampaign` callback? 
+   // The sidebar controls `campaignTab`.
+   // `CampaignDashboard` reads it.
+   // This works for "Sidebar controls View".
+
+   // So my previous edit to App.jsx was slightly incomplete: 
+   // `<Route path="/campaign/:id" element={<CampaignDashboard />} />`
+   // It should be `<Route path="/campaign/:id" element={<CampaignDashboard activeTab={campaignTab} />} />`
+   // But wait, `campaignTab` is in `App.jsx`.
+
+   // I will First Fixing `App.jsx` to pass the prop.
+   // Then fix `CampaignDashboard.jsx` to handle the `id` param AND the `activeTab` prop (which might be null if not passed, but will be passed).
+
+   // Use fallback to internal state if prop not provided?
+   // Let's stick to modifying `CampaignDashboard` first to handle `useParams`.
+
+   // Also handle "Not Found".
+
+   if (!campaign) {
+      return (
+         <div className="flex flex-col items-center justify-center h-full">
+            <h2 className="text-xl font-bold text-gray-700">Campaign Not Found</h2>
+            <button onClick={() => navigate('/activecampaigns')} className="mt-4 text-indigo-600 hover:underline">Back to List</button>
+         </div>
+      );
+   }
+
+   // We need to sync the "Selected Campaign" back to app state if we landed here directly?
+   // The Sidebar needs `selectedCampaign` to show the name/ID.
+   // In `App.jsx`, `selectedCampaign` is state.
+   // If we refresh `/campaign/1`, `selectedCampaign` is null!
+   // Sidebar will show generic or empty.
+   // This is why Context or URL reading in Sidebar is better.
+   // In my `App.jsx` refactor, I changed Sidebar to read ID from URL.
+   // But it doesn't have the Name.
+   // That's acceptable for now (I used "Campaign {id}").
+
+   // So, `CampaignDashboard` just needs to render based on `campaign`.
+
    const scrollContainerRef = useRef(null);
 
    useEffect(() => {
@@ -582,32 +664,33 @@ export const CampaignDashboard = ({ campaign, activeTab }) => {
    }, []);
 
    // Check if activeTab starts with 'Source AI' (e.g., 'Source AI:ATTACH')
-   const isSourceAI = activeTab.startsWith('Source AI');
+   const safeTab = propActiveTab || 'Intelligence';
+   const isSourceAI = safeTab.startsWith('Source AI');
    // Extract specific view if present, default to 'ATTACH'
-   const sourceView = isSourceAI ? (activeTab.split(':')[1] || 'ATTACH') : 'ATTACH';
+   const sourceView = isSourceAI ? (safeTab.split(':')[1] || 'ATTACH') : 'ATTACH';
 
    // Check if activeTab starts with 'Engage AI'
-   const isEngageAI = activeTab.startsWith('Engage AI');
-   const engageView = isEngageAI ? (activeTab.split(':')[1] || 'BUILDER') : 'BUILDER';
+   const isEngageAI = safeTab.startsWith('Engage AI');
+   const engageView = isEngageAI ? (safeTab.split(':')[1] || 'BUILDER') : 'BUILDER';
 
    return (
       <div className="flex flex-col h-full bg-slate-50 overflow-hidden animate-in fade-in duration-300">
          <CampaignHeader campaign={campaign} isScrolled={isScrolled} />
 
-         <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI || isEngageAI || activeTab === 'Match AI' ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
-            {activeTab === 'Sharing' ? (
+         <div ref={scrollContainerRef} className={`flex-1 ${isSourceAI || isEngageAI || safeTab === 'Match AI' ? 'overflow-hidden' : 'overflow-y-auto p-4 lg:p-6 custom-scrollbar'}`}>
+            {safeTab === 'Sharing' ? (
                <div className="max-w-6xl mx-auto">
                   <CampaignSettingsView />
                </div>
             ) : isSourceAI ? (
                <CampaignSourceAI hideSidebar={true} activeView={sourceView} />
-            ) : activeTab === 'Match AI' ? (
+            ) : safeTab === 'Match AI' ? (
                <MatchWorkflow />
             ) : isEngageAI ? (
                <EngageWorkflow activeView={engageView} />
-            ) : activeTab === 'Recommended Profiles' ? (
+            ) : safeTab === 'Recommended Profiles' ? (
                <RecommendedProfilesView />
-            ) : activeTab === 'Intelligence' ? (
+            ) : safeTab === 'Intelligence' ? (
                <>
                   {/* Toggle Sub-nav */}
                   <div className="flex items-center gap-4 mb-6 border-b border-gray-200">
@@ -644,7 +727,7 @@ export const CampaignDashboard = ({ campaign, activeTab }) => {
                </>
             ) : (
                <div className="p-8 text-center text-gray-500">
-                  View for {activeTab} is coming soon.
+                  View for {safeTab} is coming soon.
                </div>
             )}
          </div>

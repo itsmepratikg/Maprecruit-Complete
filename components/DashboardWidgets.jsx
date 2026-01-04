@@ -174,7 +174,7 @@ export const TrendGraph = () => (
                      }
                   ]
                }}
-               style={{ height: '100%', width: '100%' }}
+               style={{ height: '100%', minHeight: '200px', width: '100%' }}
             />
          </div>
          <div className="w-32 flex flex-col justify-center gap-6 text-right border-l border-gray-50 pl-4">
@@ -242,7 +242,7 @@ export const SourceDistributionChart = () => (
                   }
                ]
             }}
-            style={{ height: '100%', width: '100%' }}
+            style={{ height: '100%', minHeight: '200px', width: '100%' }}
          />
       </div>
    </div>
@@ -340,7 +340,7 @@ export const EmailDeliveryReport = () => (
                      }
                   ]
                }}
-               style={{ height: '100%', width: '100%' }}
+               style={{ height: '100%', minHeight: '150px', width: '100%' }}
             />
          </div>
       </div>

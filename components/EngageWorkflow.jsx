@@ -10,7 +10,7 @@ import { INITIAL_NODES_GRAPH, INITIAL_EDGES_GRAPH } from './engage/demoData.js';
 import { START_NODE_WIDTH, START_NODE_HEIGHT, BUBBLE_SIZE, CARD_WIDTH, CARD_HEIGHT } from './engage/constants.js';
 import { NodeCard, BezierEdge } from './engage/CanvasNodes.jsx';
 import { AutomationPlaceholderModal, NodeConfigurationModal } from './engage/ConfigModals.jsx';
-import { CandidateTracking, InterviewRoom } from './engage/Views.jsx';
+import { CandidateTracking, InterviewRoom, PanelView } from './engage/Views.jsx';
 import { NetworkGraphModal } from './NetworkGraphModal.jsx';
 
 // --- MODALS ---
@@ -721,8 +721,11 @@ export const EngageWorkflow = ({ activeView = 'BUILDER' }) => {
             {/* Content Area */}
             <div className="flex-1 overflow-hidden relative">
                 {activeView === 'BUILDER' && <WorkflowBuilder onDirtyChange={setIsWorkflowDirty} onShowAnalytics={handleShowAnalytics} />}
-                {activeView === 'TRACKING' && <CandidateTracking />}
+
+                {activeView === 'CANDIDATES' && <CandidateTracking />}
+                {activeView === 'PANEL' && <PanelView />}
                 {activeView === 'ROOM' && <InterviewRoom />}
+
             </div>
         </div>
     );
