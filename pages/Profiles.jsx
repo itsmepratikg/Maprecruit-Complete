@@ -1,0 +1,40 @@
+
+import React, { useState } from 'react';
+import { FolderOpen, Tag as TagIcon } from 'lucide-react';
+import { EmptyView } from '../components/Common.jsx';
+import { TalentSearchEngine } from '../components/TalentSearchEngine.jsx';
+
+const FoldersView = () => (
+  <EmptyView
+    title="Candidate Folders"
+    message="Organize candidates into folders for better management."
+    icon={FolderOpen}
+  />
+);
+
+const TagsView = () => (
+  <EmptyView
+    title="Tags Management"
+    message="Manage tags to categorize candidates effectively."
+    icon={TagIcon}
+  />
+);
+
+export const Profiles = ({ onNavigateToProfile, view }) => {
+  const [searchState, setSearchState] = useState({
+    view: 'initial',
+    inputValue: '',
+    activeFilters: [],
+    searchKeywords: [],
+    advancedParams: {},
+    chatMessages: []
+  });
+
+  return (
+    <div className="flex-1 overflow-hidden h-full flex flex-col">
+      {view === 'SEARCH' && <TalentSearchEngine searchState={searchState} setSearchState={setSearchState} onNavigateToProfile={onNavigateToProfile} />}
+      {view === 'FOLDERS' && <FoldersView />}
+      {view === 'TAGS' && <TagsView />}
+    </div>
+  );
+};

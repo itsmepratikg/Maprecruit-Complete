@@ -1,0 +1,1107 @@
+{
+    "status": "true",
+    "result": {
+        "activitiesData": [
+            {
+                "_id": "69520c74c1ad8b9007042a2b",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:07:00.768Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Skills Details</span>",
+                    "requisitionActivity": "<span>Updated Skills Details</span>",
+                    "campaignActivity": "<span>Updated Skills Details</span>",
+                    "userActivities": "<span>Updated Skills Details</span>",
+                    "commonActivity": "<span>Updated Skills Details</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520c16f00e4226f5042a9b",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:05:26.094Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Skills Details</span>",
+                    "requisitionActivity": "<span>Updated Skills Details</span>",
+                    "campaignActivity": "<span>Updated Skills Details</span>",
+                    "userActivities": "<span>Updated Skills Details</span>",
+                    "commonActivity": "<span>Updated Skills Details</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520b96f00e4226f5042a94",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:03:18.846Z",
+                "userName": "MR dev-team",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "requisitionActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "campaignActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "userActivities": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "commonActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520b8dc1ad8b9007042a1f",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:03:09.481Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Skills Details</span>",
+                    "requisitionActivity": "<span>Updated Skills Details</span>",
+                    "campaignActivity": "<span>Updated Skills Details</span>",
+                    "userActivities": "<span>Updated Skills Details</span>",
+                    "commonActivity": "<span>Updated Skills Details</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520b8bc1ad8b9007042a1d",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:03:07.033Z",
+                "userName": "MR dev-team",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "requisitionActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "campaignActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "userActivities": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "commonActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520b7dc1ad8b9007042a1b",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:02:53.790Z",
+                "userName": "MR dev-team",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "requisitionActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "campaignActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "userActivities": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "commonActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520b75f00e4226f5042a92",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-29T05:02:45.910Z",
+                "userName": "MR dev-team",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "requisitionActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "campaignActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "userActivities": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>",
+                    "commonActivity": "<span>Updated Name from Pratik Gaurav to Pratik Gaurav</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69520808f6648f2a1e315bcf",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-29T04:48:08.594Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693696b395bfcea522303666' target='_blank'>warehouse operator</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693696b395bfcea522303666' target='_blank'>warehouse operator</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign warehouse operator</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693696b395bfcea522303666' target='_blank'>warehouse operator</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693696b395bfcea522303666' target='_blank'>warehouse operator</a></span>"
+                },
+                "metaData": {
+                    "pageID": "695207e7943229c15d56041e"
+                }
+            },
+            {
+                "_id": "69520767c1ad8b90070429ef",
+                "activityType": "Resume Uploaded",
+                "code": "",
+                "activityAt": "2025-12-29T04:45:27.027Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-upload\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Resume Uploaded to Pratik Gaurav Profile</span>",
+                    "requisitionActivity": "<span>Resume Uploaded to Pratik Gaurav Profile</span>",
+                    "campaignActivity": "<span>Resume Uploaded to <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's </a> Profile</span>",
+                    "userActivities": "<span>Resume Uploaded to <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's </a> Profile</span>",
+                    "commonActivity": "<span>Resume Uploaded to <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's </a> Profile</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "694b908ec47a58f184084244",
+                "activityType": "Candidate Requested",
+                "code": "",
+                "activityAt": "2025-12-24T07:04:46.035Z",
+                "userName": "",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-user-clock\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Pratik Gaurav is requesting a meeting between 24-12-2025 to 31-01-2026</span>",
+                    "requisitionActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  is requesting a meeting between 24-12-2025 to 31-01-2026</span>",
+                    "campaignActivity": "",
+                    "userActivities": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  is requesting a meeting between 24-12-2025 to 31-01-2026</span>",
+                    "commonActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  is requesting a meeting between 24-12-2025 to 31-01-2026</span>"
+                },
+                "metaData": {
+                    "startDate": "24-12-2025",
+                    "endDate": "31-01-2026"
+                }
+            },
+            {
+                "_id": "6945454a0063d9c61b0fbaa2",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-19T12:30:02.874Z",
+                "userName": "rajeswari dongari",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69453921710bafba20237de6' target='_blank'>test 1k profiles</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69453921710bafba20237de6' target='_blank'>test 1k profiles</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign test 1k profiles</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69453921710bafba20237de6' target='_blank'>test 1k profiles</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69453921710bafba20237de6' target='_blank'>test 1k profiles</a></span>"
+                },
+                "metaData": {
+                    "pageID": "694539960f3854a241ef36ad"
+                }
+            },
+            {
+                "_id": "6944e96a0a85fa9d2ac2f8c0",
+                "activityType": "Interview Feedback",
+                "code": "",
+                "activityAt": "2025-12-19T05:58:02.601Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Feedback given for Pratik Gaurav for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> </span>",
+                    "requisitionActivity": "<span> Feedback given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> </span>",
+                    "campaignActivity": "<span> Feedback given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign Call Center Job Description</span>",
+                    "userActivities": "<span> Feedback given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> </span>",
+                    "commonActivity": "<span> Feedback given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> </span>"
+                },
+                "metaData": {
+                    "comment": "",
+                    "rating": 0,
+                    "feedBackFor": "round"
+                }
+            },
+            {
+                "_id": "6943ec9b58d2d41f24c2f47d",
+                "activityType": "Post Survey Email",
+                "code": "",
+                "activityAt": "2025-12-18T11:59:23.622Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-square-poll-vertical\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Post Survey Email Sent for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec9b58d2d41f24c2f47d></i>",
+                    "requisitionActivity": "<span> Post Survey Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec9b58d2d41f24c2f47d></i>",
+                    "campaignActivity": "<span> Post Survey Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec9b58d2d41f24c2f47d></i>",
+                    "userActivities": "<span> Post Survey Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span>",
+                    "commonActivity": "<span> Post Survey Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6943ec950a85fa9d2ac2f565",
+                "activityType": "Scheduled Survey Round",
+                "code": "",
+                "activityAt": "2025-12-18T11:59:17.750Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-square-poll-vertical\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Scheduled Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec950a85fa9d2ac2f565></i>",
+                    "requisitionActivity": "<span> Scheduled Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec950a85fa9d2ac2f565></i>",
+                    "campaignActivity": "<span> Scheduled Survey Round for <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec950a85fa9d2ac2f565></i>",
+                    "userActivities": "<span> Scheduled Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> to <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Pratik Gaurav</a></span>",
+                    "commonActivity": "<span> Scheduled Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6943ec9058d2d41f24c2f477",
+                "activityType": "Completed Survey Round",
+                "code": "",
+                "activityAt": "2025-12-18T11:59:12.247Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-square-poll-vertical\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Candidate  Completed Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "requisitionActivity": "<span> Candidate  Completed Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "campaignActivity": "<span> Candidate  Completed Survey Round for Call Center Job Description</span>",
+                    "userActivities": "<span> Candidate  Completed Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "commonActivity": "<span> Candidate Completed Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {
+                    "startDate": "",
+                    "endDate": ""
+                }
+            },
+            {
+                "_id": "6943ec8958d2d41f24c2f475",
+                "activityType": "Started Survey Round",
+                "code": "",
+                "activityAt": "2025-12-18T11:59:05.657Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-square-poll-vertical\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Candidate  Started Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "requisitionActivity": "<span> Candidate  Started Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "campaignActivity": "<span> Candidate  Started Survey Round for Call Center Job Description</span>",
+                    "userActivities": "<span> Candidate  Started Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "commonActivity": "<span> Candidate Started Survey Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {
+                    "startDate": "",
+                    "endDate": ""
+                }
+            },
+            {
+                "_id": "6943ec890a85fa9d2ac2f563",
+                "activityType": "Completed Screening Round",
+                "code": "",
+                "activityAt": "2025-12-18T11:59:05.560Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Candidate  Completed Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "requisitionActivity": "<span> Candidate  Completed Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "campaignActivity": "<span> Candidate  Completed Assessment Round for Call Center Job Description</span>",
+                    "userActivities": "<span> Candidate  Completed Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "commonActivity": "<span> Candidate Completed Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {
+                    "startDate": "",
+                    "endDate": ""
+                }
+            },
+            {
+                "_id": "6943ec4d58d2d41f24c2f471",
+                "activityType": "Started Screening Round",
+                "code": "",
+                "activityAt": "2025-12-18T11:58:05.069Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Candidate  Started Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "requisitionActivity": "<span> Candidate  Started Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "campaignActivity": "<span> Candidate  Started Assessment Round for Call Center Job Description</span>",
+                    "userActivities": "<span> Candidate  Started Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "commonActivity": "<span> Candidate Started Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {
+                    "startDate": "",
+                    "endDate": ""
+                }
+            },
+            {
+                "_id": "6943ec460a85fa9d2ac2f55d",
+                "activityType": "Scheduled Screening Round",
+                "code": "",
+                "activityAt": "2025-12-18T11:57:58.888Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Scheduled Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec460a85fa9d2ac2f55d></i>",
+                    "requisitionActivity": "<span> Scheduled Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec460a85fa9d2ac2f55d></i>",
+                    "campaignActivity": "<span> Scheduled Assessment Round for <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=6943ec460a85fa9d2ac2f55d></i>",
+                    "userActivities": "<span> Scheduled Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> to <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=678802b344b68e1a8c7a40eb' target='_blank'>Pratik Gaurav</a></span>",
+                    "commonActivity": "<span> Scheduled Assessment Round for <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6943ebd6ffc1d3477b0fb839",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-18T11:56:06.484Z",
+                "userName": "Bryan Campbell",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Call Center Job Description</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/678802b344b68e1a8c7a40eb' target='_blank'>Call Center Job Description</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "694232920a85fa9d2ac2edd3",
+                "activityType": "Interview Feedback",
+                "code": "",
+                "activityAt": "2025-12-17T04:33:22.423Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Rating and Comment given for Pratik Gaurav for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "requisitionActivity": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "campaignActivity": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign Ingot Quality Technician</span>",
+                    "userActivities": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "commonActivity": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  for campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>"
+                },
+                "metaData": {
+                    "comment": "overall feedback",
+                    "feedBackFor": "overall",
+                    "status": "Pending",
+                    "rating": 4.5
+                }
+            },
+            {
+                "_id": "6942328458d2d41f24c2ec67",
+                "activityType": "Interview Feedback",
+                "code": "",
+                "activityAt": "2025-12-17T04:33:08.728Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Rating and Comment given for Pratik Gaurav in round Assessment (1) of campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "requisitionActivity": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  in round Assessment (1) of campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "campaignActivity": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  in round Assessment (1) of campaign Ingot Quality Technician</span>",
+                    "userActivities": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  in round Assessment (1) of campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "commonActivity": "<span> Rating and Comment given for  <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  in round Assessment (1) of campaign  <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>"
+                },
+                "metaData": {
+                    "comment": "Round Response",
+                    "rating": 3.5,
+                    "feedBackFor": "round"
+                }
+            },
+            {
+                "_id": "694232260a85fa9d2ac2edcb",
+                "activityType": "Profile Merged",
+                "code": "",
+                "activityAt": "2025-12-17T04:31:34.189Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-exclamation-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span><a href='/profile/690d82b126a7044c6fc6c04f' target='_blank'>Pratik Gaurav's Profile</a> Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "requisitionActivity": "",
+                    "campaignActivity": "",
+                    "userActivities": "<span><a href='/profile/690d82b126a7044c6fc6c04f' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "commonActivity": "<span><a href='/profile/690d82b126a7044c6fc6c04f' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6941323f58d2d41f24c2eb7b",
+                "activityType": "Candidate Requested",
+                "code": "",
+                "activityAt": "2025-12-16T10:19:43.829Z",
+                "userName": "",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-user-clock\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Pratik Gaurav proposed slot availability for  <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "requisitionActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  proposed slot availability for  <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "campaignActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  proposed slot availability for Ingot Quality Technician</span>",
+                    "userActivities": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  proposed slot availability for  <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "commonActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a>  proposed slot availability for  <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>"
+                },
+                "metaData": {
+                    "startDate": "16/12/2025",
+                    "endDate": "26/12/2025"
+                }
+            },
+            {
+                "_id": "694131603717bf47f021fbf1",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-16T10:16:00.845Z",
+                "userName": "Bot",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "Profile Edited by Bot",
+                    "requisitionActivity": "Profile Edited by Bot",
+                    "campaignActivity": "Profile Edited by Bot",
+                    "userActivities": "Profile Edited by Bot",
+                    "commonActivity": "Profile Edited by Bot"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "694131300a85fa9d2ac2ecb3",
+                "activityType": "Post Screening Email",
+                "code": "",
+                "activityAt": "2025-12-16T10:15:12.026Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Post Screening Email Sent for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=694131300a85fa9d2ac2ecb3></i>",
+                    "requisitionActivity": "<span> Post Screening Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=694131300a85fa9d2ac2ecb3></i>",
+                    "campaignActivity": "<span> Post Screening Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=694131300a85fa9d2ac2ecb3></i>",
+                    "userActivities": "<span> Post Screening Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span>",
+                    "commonActivity": "<span> Post Screening Email Sent for <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "694131200a85fa9d2ac2ecb1",
+                "activityType": "Completed Screening Round",
+                "code": "",
+                "activityAt": "2025-12-16T10:14:56.768Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Candidate  Completed Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "requisitionActivity": "<span> Candidate  Completed Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "campaignActivity": "<span> Candidate  Completed Assessment (1) Round for Ingot Quality Technician</span>",
+                    "userActivities": "<span> Candidate  Completed Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "commonActivity": "<span> Candidate Completed Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>"
+                },
+                "metaData": {
+                    "startDate": "",
+                    "endDate": ""
+                }
+            },
+            {
+                "_id": "694129cd0a85fa9d2ac2ec96",
+                "activityType": "Started Screening Round",
+                "code": "",
+                "activityAt": "2025-12-16T09:43:41.510Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Candidate  Started Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "requisitionActivity": "<span> Candidate  Started Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "campaignActivity": "<span> Candidate  Started Assessment (1) Round for Ingot Quality Technician</span>",
+                    "userActivities": "<span> Candidate  Started Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "commonActivity": "<span> Candidate Started Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>"
+                },
+                "metaData": {
+                    "startDate": "",
+                    "endDate": ""
+                }
+            },
+            {
+                "_id": "694129630a85fa9d2ac2ec92",
+                "activityType": "Scheduled Screening Round",
+                "code": "",
+                "activityAt": "2025-12-16T09:41:55.372Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-clipboard-list\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Scheduled Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=694129630a85fa9d2ac2ec92></i>",
+                    "requisitionActivity": "<span> Scheduled Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=694129630a85fa9d2ac2ec92></i>",
+                    "campaignActivity": "<span> Scheduled Assessment (1) Round for <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Pratik Gaurav</a></span> <i class='fas fa-envelope emailTemplate' style='cursor: pointer;' dataId=694129630a85fa9d2ac2ec92></i>",
+                    "userActivities": "<span> Scheduled Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> to <a href='/profile/linkedcampaigns/690983bcb7f941d7bdaf0a27?cid=6931992db394b307b3b087df' target='_blank'>Pratik Gaurav</a></span>",
+                    "commonActivity": "<span> Scheduled Assessment (1) Round for <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69412869d81f71e11ad94a7e",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-16T09:37:44.998Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Ingot Quality Technician</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6931992db394b307b3b087df' target='_blank'>Ingot Quality Technician</a></span>"
+                },
+                "metaData": {
+                    "pageID": "69412836032674c4329559e5"
+                }
+            },
+            {
+                "_id": "693bc0df1306e7bef44df268",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-12T07:14:39.358Z",
+                "userName": "QA Team Admin",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/692922fc67d80b239e4e3ab0' target='_blank'>truck driver</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/692922fc67d80b239e4e3ab0' target='_blank'>truck driver</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign truck driver</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/692922fc67d80b239e4e3ab0' target='_blank'>truck driver</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/692922fc67d80b239e4e3ab0' target='_blank'>truck driver</a></span>"
+                },
+                "metaData": {
+                    "pageID": "693bac53d502b816b2cae3c0"
+                }
+            },
+            {
+                "_id": "693969d32918fcbf5f3785f6",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-10T12:38:42.998Z",
+                "userName": "QA Team Admin",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693155d5f2242275bd7148e3' target='_blank'>voice call test 1</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693155d5f2242275bd7148e3' target='_blank'>voice call test 1</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign voice call test 1</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693155d5f2242275bd7148e3' target='_blank'>voice call test 1</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/693155d5f2242275bd7148e3' target='_blank'>voice call test 1</a></span>"
+                },
+                "metaData": {
+                    "pageID": "6939509c3636ad597a3d48d9"
+                }
+            },
+            {
+                "_id": "693962f45a51212bfcef40e2",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-10T12:09:24.290Z",
+                "userName": "QA Team Admin",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69292315e875b71058253412' target='_blank'>truck driver</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69292315e875b71058253412' target='_blank'>truck driver</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign truck driver</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69292315e875b71058253412' target='_blank'>truck driver</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/69292315e875b71058253412' target='_blank'>truck driver</a></span>"
+                },
+                "metaData": {
+                    "pageID": "69394d723e2c9ea30f0849cf"
+                }
+            },
+            {
+                "_id": "6939039572937ed6c699ad65",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-10T05:22:29.017Z",
+                "userName": "Candidate",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Professional Experience Details</span>",
+                    "requisitionActivity": "<span>Updated Professional Experience Details</span>",
+                    "campaignActivity": "<span>Updated Professional Experience Details</span>",
+                    "userActivities": "<span>Updated Professional Experience Details</span>",
+                    "commonActivity": "<span>Updated Professional Experience Details</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6939034e72937ed6c699ad61",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-12-10T05:21:18.847Z",
+                "userName": "Candidate",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Skills Details</span>",
+                    "requisitionActivity": "<span>Updated Skills Details</span>",
+                    "campaignActivity": "<span>Updated Skills Details</span>",
+                    "userActivities": "<span>Updated Skills Details</span>",
+                    "commonActivity": "<span>Updated Skills Details</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6937a4af72937ed6c699a9f1",
+                "activityType": "Profile Downloaded",
+                "code": "",
+                "activityAt": "2025-12-09T04:25:19.779Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-download\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Downloaded </span>",
+                    "requisitionActivity": "<span> Profile Downloaded </span>",
+                    "campaignActivity": "<span> Profile Downloaded </span>",
+                    "userActivities": "<span> Profile Downloaded </span>",
+                    "commonActivity": "<span> Profile Downloaded </span>"
+                },
+                "metaData": {
+                    "pageID": "6937a48e8214d58a46d787c8"
+                }
+            },
+            {
+                "_id": "6936caea81d30187c1c5589a",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-12-08T12:56:10.695Z",
+                "userName": "Bryan Campbell",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6915cf8c26bd5d74fe99dc7b' target='_blank'>Ingot Quality Technician</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6915cf8c26bd5d74fe99dc7b' target='_blank'>Ingot Quality Technician</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Ingot Quality Technician</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6915cf8c26bd5d74fe99dc7b' target='_blank'>Ingot Quality Technician</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6915cf8c26bd5d74fe99dc7b' target='_blank'>Ingot Quality Technician</a></span>"
+                },
+                "metaData": {
+                    "pageID": "6936caa15526516daf5ebb5c"
+                }
+            },
+            {
+                "_id": "6911e63020b61e9c8559d46c",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-11-10T13:18:39.963Z",
+                "userName": "QA Team Admin",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Phones from +12272567890 to empty</span>",
+                    "requisitionActivity": "<span>Updated Phones from +12272567890 to empty</span>",
+                    "campaignActivity": "<span>Updated Phones from +12272567890 to empty</span>",
+                    "userActivities": "<span>Updated Phones from +12272567890 to empty</span>",
+                    "commonActivity": "<span>Updated Phones from +12272567890 to empty</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6911e62320b61e9c8559d46a",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-11-10T13:18:27.636Z",
+                "userName": "QA Team Admin",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Updated Phones from +917004029399 to +12272567890</span>",
+                    "requisitionActivity": "<span>Updated Phones from +917004029399 to +12272567890</span>",
+                    "campaignActivity": "<span>Updated Phones from +917004029399 to +12272567890</span>",
+                    "userActivities": "<span>Updated Phones from +917004029399 to +12272567890</span>",
+                    "commonActivity": "<span>Updated Phones from +917004029399 to +12272567890</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690de1433ce5b78ef64c5706",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-07T12:08:35.944Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6904a1b1fc63a531b40f27ba' target='_blank'>Job Posting 10.31 7:45am</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6904a1b1fc63a531b40f27ba' target='_blank'>Job Posting 10.31 7:45am</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Job Posting 10.31 7:45am</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6904a1b1fc63a531b40f27ba' target='_blank'>Job Posting 10.31 7:45am</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/6904a1b1fc63a531b40f27ba' target='_blank'>Job Posting 10.31 7:45am</a></span>"
+                },
+                "metaData": {
+                    "pageID": "690ddbd0e011997dabb1ae92"
+                }
+            },
+            {
+                "_id": "690d88e120b61e9c8559cec9",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-07T05:51:29.028Z",
+                "userName": "Jagadeesh Ginjupalli",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/667d30e5004ab28fd4bd3af4' target='_blank'>Forklift Driver</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/667d30e5004ab28fd4bd3af4' target='_blank'>Forklift Driver</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Forklift Driver</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/667d30e5004ab28fd4bd3af4' target='_blank'>Forklift Driver</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/667d30e5004ab28fd4bd3af4' target='_blank'>Forklift Driver</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d875fabf56a0f5c59cde5",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-07T05:45:03.553Z",
+                "userName": "Bryan Campbell",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/62c5a8c7250281f99ac58215' target='_blank'>3rd shift forklift</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/62c5a8c7250281f99ac58215' target='_blank'>3rd shift forklift</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign 3rd shift forklift</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/62c5a8c7250281f99ac58215' target='_blank'>3rd shift forklift</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/62c5a8c7250281f99ac58215' target='_blank'>3rd shift forklift</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d874ade742ed166151a6e",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-11-07T05:44:42.801Z",
+                "userName": "Bot",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "Profile Edited by Bot",
+                    "requisitionActivity": "Profile Edited by Bot",
+                    "campaignActivity": "Profile Edited by Bot",
+                    "userActivities": "Profile Edited by Bot",
+                    "commonActivity": "Profile Edited by Bot"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d82e12b61310b3f2cebec",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-07T05:25:53.644Z",
+                "userName": "Bryan Campbell",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Test JO 11.05 9:34a</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d82bc20b61e9c8559cc41",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-07T05:25:16.488Z",
+                "userName": "Bryan Campbell",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Test JO 11.05 9:34a</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d82b27c48ffa7252cebeb",
+                "activityType": "Profile Uploaded",
+                "code": "",
+                "activityAt": "2025-11-07T05:25:06.701Z",
+                "userName": "Bryan Campbell",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-upload\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a> </span>",
+                    "requisitionActivity": "<span> Profile Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>",
+                    "campaignActivity": "<span><a href='/profile/690d82b126a7044c6fc6c04f' target='_blank'>Pratik Gaurav's profile</a> uploaded to campaign Test JO 11.05 9:34a</span>",
+                    "userActivities": "<span>Pratik Gaurav Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/690b60b2ee0e3af66c119ac3' target='_blank'>Test JO 11.05 9:34a</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d8298abf56a0f5c59cafe",
+                "activityType": "Profile Edited",
+                "code": "",
+                "activityAt": "2025-11-07T05:24:40.217Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-edit\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Opted-out from email communication </span>",
+                    "requisitionActivity": "<span>Opted-out from email communication </span>",
+                    "campaignActivity": "<span>Opted-out from email communication </span>",
+                    "userActivities": "<span>Opted-out from email communication </span>",
+                    "commonActivity": "<span>Opted-out from email communication </span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690d8248abf56a0f5c59cafa",
+                "activityType": "Profile Merged",
+                "code": "",
+                "activityAt": "2025-11-07T05:23:20.657Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-exclamation-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav's Profile</a> Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "requisitionActivity": "",
+                    "campaignActivity": "",
+                    "userActivities": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "commonActivity": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690ca710abf56a0f5c59ca4a",
+                "activityType": "Reject Profile",
+                "code": "",
+                "activityAt": "2025-11-06T13:48:00.737Z",
+                "userName": "Pratik",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-user-times\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Pratik Gaurav has been rejected for the job Maint Tech</span>",
+                    "requisitionActivity": "<span>Pratik Gaurav has been rejected for the job Maint Tech</span>",
+                    "campaignActivity": "<span>Pratik Gaurav has been rejected for the job Maint Tech</span>",
+                    "userActivities": "<span>Pratik Gaurav has been rejected for the job Maint Tech</span>",
+                    "commonActivity": "<span>Pratik Gaurav has been rejected for the job Maint Tech</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690983c432c8a9faa35c4d2c",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-04T04:40:36.164Z",
+                "userName": "MVP - View Only User",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a> </span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a> </span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a> </span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a> </span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690983c1abf56a0f5c59be8d",
+                "activityType": "Profile Merged",
+                "code": "",
+                "activityAt": "2025-11-04T04:40:33.601Z",
+                "userName": "MVP - View Only User",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-exclamation-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's Profile</a> Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "requisitionActivity": "",
+                    "campaignActivity": "",
+                    "userActivities": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "commonActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690983c120b61e9c8559be89",
+                "activityType": "Profile Merged",
+                "code": "",
+                "activityAt": "2025-11-04T04:40:33.586Z",
+                "userName": "MVP - View Only User",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-exclamation-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's Profile</a> Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "requisitionActivity": "",
+                    "campaignActivity": "",
+                    "userActivities": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>",
+                    "commonActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's Profile</a>Profile Merged into <a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's Profile</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690983bfabf56a0f5c59be8b",
+                "activityType": "Email Opt-Out",
+                "code": "",
+                "activityAt": "2025-11-04T04:40:31.550Z",
+                "userName": "Candidate",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-times-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Pratik Gaurav has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "requisitionActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "campaignActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "userActivities": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "commonActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "690983be32c8a9faa35c4d2a",
+                "activityType": "Profile Uploaded",
+                "code": "",
+                "activityAt": "2025-11-04T04:40:30.380Z",
+                "userName": "MVP - View Only User",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-upload\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Uploaded in folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a> </span>",
+                    "requisitionActivity": "<span> Profile Uploaded in folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a></span>",
+                    "campaignActivity": "<span><a href='/profile/690983bcb7f941d7bdaf0a27' target='_blank'>Pratik Gaurav's profile</a> uploaded in folder Default Folder</span>",
+                    "userActivities": "<span>Pratik Gaurav Uploaded in folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Uploaded in folder <a href='/folder/63d760a9aec60c5e1494a9ea' target='_blank'>Default Folder</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6909834920b61e9c8559be86",
+                "activityType": "Email Opt-Out",
+                "code": "",
+                "activityAt": "2025-11-04T04:38:33.447Z",
+                "userName": "Candidate",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-times-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Pratik Gaurav has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "requisitionActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "campaignActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "userActivities": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "commonActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6909833720b61e9c8559be84",
+                "activityType": "Profile Linked",
+                "code": "",
+                "activityAt": "2025-11-04T04:38:15.859Z",
+                "userName": "MVP - View Only User",
+                "version": "V4",
+                "activityIcon": "<i class=\"fa fa-paperclip\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a> </span>",
+                    "requisitionActivity": "<span> Profile Linked to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a></span>",
+                    "campaignActivity": "<span>Pratik Gaurav Linked to campaign Maint Tech</span>",
+                    "userActivities": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Linked to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "69098337c497c58534f7da0f",
+                "activityType": "Profile Uploaded",
+                "code": "",
+                "activityAt": "2025-11-04T04:38:15.128Z",
+                "userName": "MVP - View Only User",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-upload\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span> Profile Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a> </span>",
+                    "requisitionActivity": "<span> Profile Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a></span>",
+                    "campaignActivity": "<span><a href='/profile/690983347dfb7c885b43c9ff' target='_blank'>Pratik Gaurav's profile</a> uploaded to campaign Maint Tech</span>",
+                    "userActivities": "<span>Pratik Gaurav Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a></span>",
+                    "commonActivity": "<span>Pratik Gaurav Uploaded to campaign <a href='/showcampaign/sourceai/jobdescription/68f7cdae322c76d7b59f221a' target='_blank'>Maint Tech</a></span>"
+                },
+                "metaData": {}
+            },
+            {
+                "_id": "6905e107bc31f4fc6841897d",
+                "activityType": "Email Opt-Out",
+                "code": "",
+                "activityAt": "2025-11-01T10:29:27.391Z",
+                "userName": "Candidate",
+                "version": "V4",
+                "activityIcon": "<i class=\"fas fa-times-circle\"></i>",
+                "interviewResults": "",
+                "activity": {
+                    "profileActivity": "<span>Pratik Gaurav has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "requisitionActivity": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "campaignActivity": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "userActivities": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>",
+                    "commonActivity": "<span><a href='/profile/6905e106b49254943b91d1d7' target='_blank'>Pratik Gaurav</a> has unsubscribed further Email communications from TRC Talent Solutions QA</span>"
+                },
+                "metaData": {}
+            }
+        ],
+        "activitiesCount": 58
+    }
+}

@@ -1,0 +1,585 @@
+{
+    "status": true,
+    "result": {
+        "campaigns": [
+            {
+                "_id": "6931992db394b307b3b087df",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6916d147a05f57a943bbc6b3",
+                "title": "Ingot Quality Technician",
+                "passcode": "40000741",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "Ingot Quality Technician"
+                        },
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "locations": [
+                            {
+                                "text": "White,GA 30184,USA"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "055 - QCells",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 0.3
+                },
+                "interviewID": "694128681fbbd672bb9a2751",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-12-17T13:22:39.110Z",
+                    "searchID": "",
+                    "page": "",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000001",
+                        "jt_vector_match_time": "0:00:00.000016"
+                    }
+                },
+                "feedBack": {
+                    "rating": 4.5,
+                    "comment": "overall feedback",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "2025-12-17T04:33:22.035Z",
+                    "commentedAt": "2025-12-17T04:33:22.037Z",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": true,
+                    "reviewedBy": "614d569f77f21325cdbd314a",
+                    "reviewedAt": "2025-12-17T04:33:22.037Z"
+                },
+                "createdAt": "2025-12-16T09:37:44.331Z"
+            },
+            {
+                "_id": "6904a1b1fc63a531b40f27ba",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "Job Posting 10.31 7:45am",
+                "passcode": "40000720",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "jobTitle": {
+                            "text": "ELECTRICAL MAINTENANCE TECHNICIAN"
+                        },
+                        "locations": [
+                            {
+                                "text": "Walnut Grove,GA 30052,USA"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Talent Solutions",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 0.1
+                },
+                "interviewID": "690de143f19afdf0b75e971e",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-11-13T14:38:41.846Z",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000001",
+                        "jt_vector_match_time": "0:00:00.000027"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-11-07T12:08:35.071Z"
+            },
+            {
+                "_id": "69453921710bafba20237de6",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "test 1k profiles",
+                "passcode": "4350393",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "java developer"
+                        },
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "locations": [
+                            {
+                                "text": "U.S. Rte 66,Albuquerque,NM"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Talent Solutions",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 3.8
+                },
+                "interviewID": "69453d638236deed68b73bc6",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-12-19T12:30:07.380Z",
+                    "searchID": "",
+                    "page": "",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000002",
+                        "jt_vector_match_time": "0:00:00.000019"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-12-19T11:56:19.667Z"
+            },
+            {
+                "_id": "693696b395bfcea522303666",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "warehouse operator",
+                "passcode": "82415025",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "warehourse packer"
+                        },
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "locations": [
+                            {
+                                "text": "Atlantic City,NJ"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Talent Solutions",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 5
+                },
+                "interviewID": "695208083aa7699da94c5d64",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-12-30T07:48:14.433Z",
+                    "searchID": "",
+                    "page": "",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000001",
+                        "jt_vector_match_time": "0:00:00.000047"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-12-29T04:48:08.290Z"
+            },
+            {
+                "_id": "690b60b2ee0e3af66c119ac3",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "62d10535074e604a7ab72184",
+                "title": "Test JO 11.05 9:34a",
+                "passcode": "40000726",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "jobTitle": {
+                            "text": "Accountant"
+                        },
+                        "locations": [
+                            {
+                                "text": "Johns Creek,GA 30097,USA"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "134 - SMYRNA",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 0.2
+                },
+                "interviewID": "690d82e150127bb52a6a11ad",
+                "ApplicationType": "Active Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-11-18T14:41:01.953Z",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000001",
+                        "jt_vector_match_time": "0:00:00.000018"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-11-07T05:25:53.159Z"
+            },
+            {
+                "_id": "667d30e5004ab28fd4bd3af4",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "667d190c0192513aea252e0c",
+                "title": "Forklift Driver",
+                "passcode": "231894",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "Forklift Driver"
+                        },
+                        "company": {
+                            "text": "TRC Testing Staffing"
+                        },
+                        "locations": [
+                            {
+                                "text": "Indianapolis,IN,USA."
+                            }
+                        ]
+                    }
+                },
+                "clientName": "Testing Trc",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 0
+                },
+                "interviewID": "690d88e00a4268545e7fd9e8",
+                "ApplicationType": "Active Sourcing",
+                "metaData": {
+                    "mriCalculated": false,
+                    "mriCalculatedDate": ""
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-11-07T05:51:28.824Z"
+            },
+            {
+                "_id": "62c5a8c7250281f99ac58215",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "3rd shift forklift",
+                "passcode": "40000019",
+                "status": "Active",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "Forklift Op"
+                        },
+                        "company": {
+                            "text": "TRC Staffing QA"
+                        },
+                        "locations": [
+                            {
+                                "text": "Lawrenceville,GA 30044,USA"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Staffing",
+                "sortbystatus": 1,
+                "MRI": {
+                    "score": 0
+                },
+                "interviewID": "690d875fd977f5066029f21e",
+                "ApplicationType": "Active Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-12-04T14:17:22.385Z",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000002",
+                        "jt_vector_match_time": "0:00:00.000019"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-11-07T05:45:03.366Z"
+            },
+            {
+                "_id": "692922fc67d80b239e4e3ab0",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "truck driver",
+                "passcode": "60483378",
+                "status": "Closed",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "truck driver"
+                        },
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "locations": [
+                            {
+                                "text": "Hyannis, Barnstable, MA 02601"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Talent Solutions",
+                "sortbystatus": 2,
+                "MRI": {
+                    "score": 0
+                },
+                "interviewID": "693bace0ff4a180351728138",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-12-12T07:14:44.189Z",
+                    "searchID": "",
+                    "page": "",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000002",
+                        "jt_vector_match_time": "0:00:00.000064"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-12-12T05:49:20.411Z"
+            },
+            {
+                "_id": "68f7cdae322c76d7b59f221a",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "Maint Tech",
+                "passcode": "40000713",
+                "status": "Closed",
+                "job": {
+                    "details": {
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "jobTitle": {
+                            "text": "ELECTRICAL MAINTENANCE TECHNICIAN"
+                        },
+                        "locations": [
+                            {
+                                "text": "Walnut Grove,GA 30052,USA"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Talent Solutions",
+                "sortbystatus": 2,
+                "MRI": {
+                    "score": 0.1
+                },
+                "interviewID": "690983375842aa52f9b491c5",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-11-04T18:36:14.812Z",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000002",
+                        "jt_vector_match_time": "0:00:00.000025"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Rejected",
+                    "shortlisted": false,
+                    "rejected": true,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-11-04T04:38:15.812Z"
+            },
+            {
+                "_id": "69292315e875b71058253412",
+                "companyID": "6112806bc9147f673d28c6eb",
+                "clientID": "6112806bc9147f673d28c6ec",
+                "title": "truck driver",
+                "passcode": "84876314",
+                "status": "Closed",
+                "job": {
+                    "details": {
+                        "jobTitle": {
+                            "text": "truck driver"
+                        },
+                        "company": {
+                            "text": "TRC Talent Solutions QA"
+                        },
+                        "locations": [
+                            {
+                                "text": "Hyannis,Barnstable,MA 02601"
+                            }
+                        ]
+                    }
+                },
+                "clientName": "TRC Talent Solutions",
+                "sortbystatus": 2,
+                "MRI": {
+                    "score": 0
+                },
+                "interviewID": "69394e069b9b36f15ad69b81",
+                "ApplicationType": "Passive Sourcing",
+                "metaData": {
+                    "mriCalculated": true,
+                    "mriCalculatedDate": "2025-12-10T12:09:26.164Z",
+                    "searchID": "",
+                    "page": "",
+                    "process_steps": {
+                        "resume_entities": 0,
+                        "campaign_skill_vector_entities": 0,
+                        "campaign_jt_vector_entities": 1,
+                        "skill_vector_match_time": "0:00:00.000001",
+                        "jt_vector_match_time": "0:00:00.000021"
+                    }
+                },
+                "feedBack": {
+                    "rating": 0,
+                    "comment": "",
+                    "status": "Pending",
+                    "shortlisted": false,
+                    "rejected": false,
+                    "ratedAt": "",
+                    "commentedAt": "",
+                    "statusChangedAt": "",
+                    "shortlistedAt": "",
+                    "reviewed": false,
+                    "reviewedBy": ""
+                },
+                "createdAt": "2025-12-10T10:40:06.222Z"
+            }
+        ],
+        "count": 13,
+        "activeCampaigns": [
+            {
+                "_id": "62c5a8c7250281f99ac58215"
+            },
+            {
+                "_id": "667d30e5004ab28fd4bd3af4"
+            },
+            {
+                "_id": "6904a1b1fc63a531b40f27ba"
+            },
+            {
+                "_id": "690b60b2ee0e3af66c119ac3"
+            },
+            {
+                "_id": "6931992db394b307b3b087df"
+            },
+            {
+                "_id": "693696b395bfcea522303666"
+            },
+            {
+                "_id": "69453921710bafba20237de6"
+            }
+        ]
+    }
+}
