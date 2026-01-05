@@ -1,6 +1,4 @@
 
-
-
 // Coordinates calibrated for: Card Center Y = 380.
 // Card Y = 300. Start Y = 348. Bubble Y = 360.
 // Horizontal Spacing: Card (280) + Gap (80) + Bubble (40) + Gap (80) = Next Card.

@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import { FolderOpen, Tag as TagIcon } from 'lucide-react';
-import { EmptyView } from '../components/Common.jsx';
-import { TalentSearchEngine } from '../components/TalentSearchEngine.jsx';
+import { EmptyView } from '../components/Common';
+import { TalentSearchEngine } from '../components/TalentSearchEngine';
 
 const FoldersView = () => (
   <EmptyView

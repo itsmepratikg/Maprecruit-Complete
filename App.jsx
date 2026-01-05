@@ -1,259 +1,372 @@
 
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
-  Users, Home as HomeIcon, Briefcase, BarChart2, MessageCircle, HelpCircle, ChevronRight,
-  ChevronLeft, FileText, Activity, Folder, ThumbsUp, Copy, CheckCircle, Brain, Search, GitBranch, Share2,
-  UserPlus, Building2, LogOut, Settings, Lock, UserCog, Phone, User, X, Link, Upload, Loader2, Mail, MapPin, Moon, Sun
+  LayoutDashboard, Users, Briefcase, BarChart2,
+  Settings, LogOut, UserPlus, Building2, CheckCircle,
+  User, Phone, UserCog, Lock, Menu, X, ChevronRight, Moon, Sun,
+  Brain, Search, GitBranch, MessageCircle, ThumbsUp, ChevronLeft,
+  FileText, Activity, Video, Copy, ClipboardList, FolderOpen,
+  Palette, PlusCircle
 } from 'lucide-react';
-import { Home } from './pages/Home.jsx';
-import { Campaigns } from './pages/Campaigns.jsx';
-import { Profiles } from './pages/Profiles.jsx';
-import { Metrics } from './pages/Metrics.jsx';
-import { CandidateProfile } from './pages/CandidateProfile.jsx';
-import { CampaignDashboard } from './pages/CampaignDashboard.jsx';
-import { CANDIDATE } from './data.js';
-import { INITIAL_NODES_GRAPH } from './components/engage/demoData.js';
-import { ToastProvider, useToast } from './components/Toast.jsx';
+import { ToastProvider, useToast } from './components/Toast';
+import { Home } from './pages/Home';
+import { Profiles } from './pages/Profiles';
+import { Campaigns } from './pages/Campaigns';
+import { Metrics } from './pages/Metrics';
+import { CandidateProfile } from './pages/CandidateProfile';
+import { CampaignDashboard } from './pages/CampaignDashboard';
+import { CreateProfileModal } from './components/CreateProfileModal';
 
-// --- MODALS ---
+// --- Theme Helper Functions ---
 
-const CreateProfileModal = ({ isOpen, onClose }) => {
-  const { addToast } = useToast();
-  const [activeTab, setActiveTab] = useState('upload');
-  const [isDragging, setIsDragging] = useState(false);
-  const [uploading, setUploading] = useState(false);
+const hexToRgb = (hex) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : { r: 0, g: 0, b: 0 };
+}
 
-  // Form State
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    title: '',
-    company: '',
-    location: '',
-    source: 'Direct',
-    skills: ''
+const rgbToHex = (r, g, b) => {
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+}
+
+// Mix two colors with a weight (0-100)
+// weight 0 = color1, weight 100 = color2
+const mixColors = (color1, color2, weight) => {
+  const w = weight / 100;
+  return {
+    r: Math.round(color1.r * (1 - w) + color2.r * w),
+    g: Math.round(color1.g * (1 - w) + color2.g * w),
+    b: Math.round(color1.b * (1 - w) + color2.b * w)
+  };
+}
+
+const generatePalette = (baseHex) => {
+  const base = hexToRgb(baseHex);
+  const white = { r: 255, g: 255, b: 255 };
+  const black = { r: 0, g: 0, b: 0 };
+
+  // Improved mixing strategy for better "accent" visibility on light shades
+  return {
+    50: rgbToHex(mixColors(base, white, 95).r, mixColors(base, white, 95).g, mixColors(base, white, 95).b),
+    100: rgbToHex(mixColors(base, white, 85).r, mixColors(base, white, 85).g, mixColors(base, white, 85).b), // Slightly darker for visibility
+    200: rgbToHex(mixColors(base, white, 70).r, mixColors(base, white, 70).g, mixColors(base, white, 70).b),
+    300: rgbToHex(mixColors(base, white, 50).r, mixColors(base, white, 50).g, mixColors(base, white, 50).b),
+    400: rgbToHex(mixColors(base, white, 30).r, mixColors(base, white, 30).g, mixColors(base, white, 30).b),
+    500: baseHex, // Base
+    600: rgbToHex(mixColors(base, black, 10).r, mixColors(base, black, 10).g, mixColors(base, black, 10).b),
+    700: rgbToHex(mixColors(base, black, 30).r, mixColors(base, black, 30).g, mixColors(base, black, 30).b),
+    800: rgbToHex(mixColors(base, black, 50).r, mixColors(base, black, 50).g, mixColors(base, black, 50).b),
+    900: rgbToHex(mixColors(base, black, 70).r, mixColors(base, black, 70).g, mixColors(base, black, 70).b),
+    950: rgbToHex(mixColors(base, black, 80).r, mixColors(base, black, 80).g, mixColors(base, black, 80).b),
+  };
+}
+
+const applyTheme = (baseHex) => {
+  const palette = generatePalette(baseHex);
+  const root = document.documentElement;
+
+  Object.entries(palette).forEach(([key, value]) => {
+    root.style.setProperty(`--color-primary-${key}`, value);
   });
+}
 
-  if (!isOpen) return null;
+// --- Components ---
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
+const ThemeSettingsModal = ({ isOpen, onClose }) => {
+  const [color, setColor] = useState('#10b981'); // Default Emerald
+  const [rgb, setRgb] = useState({ r: 16, g: 185, b: 129 });
+  const { addToast } = useToast();
+
+  const PREDEFINED_COLORS = [
+    { name: 'Emerald', hex: '#10b981' },
+    { name: 'Blue', hex: '#3b82f6' },
+    { name: 'Purple', hex: '#8b5cf6' },
+    { name: 'Red', hex: '#ef4444' },
+    { name: 'Orange', hex: '#f97316' },
+    { name: 'Pink', hex: '#ec4899' },
+    { name: 'Teal', hex: '#14b8a6' },
+    { name: 'Indigo', hex: '#6366f1' },
+  ];
+
+  const handleHexChange = (e) => {
+    const val = e.target.value;
+    setColor(val);
+    const newRgb = hexToRgb(val);
+    if (newRgb) setRgb(newRgb);
   };
 
-  const handleDragLeave = () => {
-    setIsDragging(false);
+  const handleRgbChange = (key, val) => {
+    const num = parseInt(val) || 0;
+    const newRgb = { ...rgb, [key]: Math.min(255, Math.max(0, num)) };
+    setRgb(newRgb);
+    setColor(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    simulateUpload(e.dataTransfer.files[0]?.name);
-  };
-
-  const simulateUpload = (fileName) => {
-    setUploading(true);
-    setTimeout(() => {
-      setUploading(false);
-      // Simulate parsing
-      setFormData({
-        firstName: 'Alex',
-        lastName: 'Morgan',
-        email: 'alex.morgan@example.com',
-        phone: '+1 (555) 012-3456',
-        title: 'Senior Software Engineer',
-        company: 'TechFlow Inc.',
-        location: 'San Francisco, CA',
-        source: 'Upload',
-        skills: 'React, TypeScript, Node.js'
-      });
-      setActiveTab('manual'); // Switch to review
-      addToast("Resume parsed successfully! Please review details.", "success");
-    }, 2000);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addToast(`Profile created for ${formData.firstName} ${formData.lastName}`, 'success');
+  const handleApply = () => {
+    applyTheme(color);
+    addToast('Theme updated successfully!', 'success');
     onClose();
   };
 
+  if (!isOpen) return null;
+
+  // Generate preview color for active state (approximation of 100 shade)
+  const activeBgPreview = rgbToHex(mixColors(hexToRgb(color), { r: 255, g: 255, b: 255 }, 85).r, mixColors(hexToRgb(color), { r: 255, g: 255, b: 255 }, 85).g, mixColors(hexToRgb(color), { r: 255, g: 255, b: 255 }, 85).b);
+  const activeTextPreview = rgbToHex(mixColors(hexToRgb(color), { r: 0, g: 0, b: 0 }, 50).r, mixColors(hexToRgb(color), { r: 0, g: 0, b: 0 }, 50).g, mixColors(hexToRgb(color), { r: 0, g: 0, b: 0 }, 50).b);
+
   return (
     <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-white dark:bg-slate-700 rounded-xl shadow-2xl w-full max-w-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
-        <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50/50">
-          <h2 className="text-lg font-bold text-slate-800">Create Profile</h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:bg-slate-700 rounded-full text-slate-400 hover:text-slate-600 dark:text-slate-300 transition-colors">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 border border-slate-200 dark:border-slate-700">
+        <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
+          <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <Palette size={20} className="text-primary-600 dark:text-primary-400" /> Theme Settings
+          </h2>
+          <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
             <X size={20} />
           </button>
         </div>
 
-        <div className="p-6">
-          <div className="flex gap-4 mb-6 border-b border-slate-100 dark:border-slate-700 pb-1">
-            <button
-              onClick={() => setActiveTab('upload')}
-              className={`pb-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'upload' ? 'border-emerald-500 text-emerald-700' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
-            >
-              Upload Resume
-            </button>
-            <button
-              onClick={() => setActiveTab('manual')}
-              className={`pb-3 text-sm font-medium transition-colors border-b-2 ${activeTab === 'manual' ? 'border-emerald-500 text-emerald-700' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
-            >
-              Manual Entry
-            </button>
+        <div className="p-6 space-y-6">
+          {/* Color Preview & Picker */}
+          <div className="flex gap-4">
+            <div className="relative w-24 h-24 rounded-lg shadow-inner overflow-hidden border border-slate-200 dark:border-slate-600 shrink-0">
+              <input
+                type="color"
+                value={color}
+                onChange={handleHexChange}
+                className="absolute inset-0 w-[150%] h-[150%] -top-[25%] -left-[25%] cursor-pointer p-0 border-0"
+              />
+            </div>
+            <div className="flex-1 space-y-3">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">HEX Code</label>
+                <div className="flex items-center border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden bg-white dark:bg-slate-700">
+                  <span className="pl-3 text-slate-400 text-sm">#</span>
+                  <input
+                    type="text"
+                    value={color.replace('#', '')}
+                    onChange={(e) => handleHexChange({ target: { value: '#' + e.target.value } })}
+                    className="w-full px-2 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 outline-none bg-transparent"
+                    maxLength={6}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">RGB</label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={rgb.r}
+                    onChange={(e) => handleRgbChange('r', e.target.value)}
+                    className="w-full px-2 py-1.5 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-center font-mono dark:bg-slate-700 dark:text-slate-200"
+                    placeholder="R"
+                  />
+                  <input
+                    type="number"
+                    value={rgb.g}
+                    onChange={(e) => handleRgbChange('g', e.target.value)}
+                    className="w-full px-2 py-1.5 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-center font-mono dark:bg-slate-700 dark:text-slate-200"
+                    placeholder="G"
+                  />
+                  <input
+                    type="number"
+                    value={rgb.b}
+                    onChange={(e) => handleRgbChange('b', e.target.value)}
+                    className="w-full px-2 py-1.5 border border-slate-200 dark:border-slate-600 rounded-lg text-sm text-center font-mono dark:bg-slate-700 dark:text-slate-200"
+                    placeholder="B"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
-          {activeTab === 'upload' ? (
-            <div
-              className={`border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center text-center transition-all ${isDragging ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 dark:border-slate-700 hover:border-emerald-300 hover:bg-slate-50'}`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-            >
-              {uploading ? (
-                <div className="flex flex-col items-center">
-                  <Loader2 size={48} className="text-emerald-500 animate-spin mb-4" />
-                  <p className="text-slate-600 dark:text-slate-300 font-medium">Parsing resume...</p>
-                </div>
-              ) : (
-                <>
-                  <div className="w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4 text-slate-400">
-                    <Upload size={32} />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-2">Drop resume here</h3>
-                  <p className="text-sm text-slate-500 mb-6">Supported formats: PDF, DOCX, TXT</p>
-                  <button className="px-4 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 shadow-sm">
-                    Browse Files
-                  </button>
-                </>
-              )}
+          {/* Predefined Palettes */}
+          <div>
+            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">Predefined Colors</label>
+            <div className="flex flex-wrap gap-3">
+              {PREDEFINED_COLORS.map(c => (
+                <button
+                  key={c.name}
+                  onClick={() => { setColor(c.hex); setRgb(hexToRgb(c.hex)); }}
+                  className={`w-8 h-8 rounded-full shadow-sm border-2 transition-transform hover:scale-110 ${color.toLowerCase() === c.hex.toLowerCase() ? 'border-slate-900 dark:border-white ring-2 ring-offset-2 ring-slate-200 dark:ring-slate-700' : 'border-transparent'}`}
+                  style={{ backgroundColor: c.hex }}
+                  title={c.name}
+                />
+              ))}
             </div>
-          ) : (
-            <form id="create-profile-form" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-500 uppercase">First Name *</label>
-                <div className="relative">
-                  <User size={16} className="absolute left-3 top-2.5 text-slate-400" />
-                  <input
-                    required
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                    placeholder="John"
-                  />
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-500 uppercase">Last Name *</label>
-                <input
-                  required
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                  placeholder="Doe"
-                />
-              </div>
+          </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-500 uppercase">Email *</label>
-                <div className="relative">
-                  <Mail size={16} className="absolute left-3 top-2.5 text-slate-400" />
-                  <input
-                    required
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                    placeholder="john@example.com"
-                  />
-                </div>
+          {/* Preview Block */}
+          <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Theme Preview</p>
+            <div className="flex gap-3 items-center flex-wrap">
+              <button className="px-4 py-2 rounded-lg text-white text-sm font-bold shadow-sm" style={{ backgroundColor: color }}>
+                Primary Button
+              </button>
+              <div
+                className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-bold"
+                style={{ backgroundColor: activeBgPreview, color: activeTextPreview }}
+              >
+                <CheckCircle size={16} /> Selected
               </div>
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-500 uppercase">Phone</label>
-                <div className="relative">
-                  <Phone size={16} className="absolute left-3 top-2.5 text-slate-400" />
-                  <input
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                    placeholder="+1 (555) 000-0000"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5 md:col-span-2">
-                <label className="text-xs font-bold text-slate-500 uppercase">Job Title</label>
-                <div className="relative">
-                  <Briefcase size={16} className="absolute left-3 top-2.5 text-slate-400" />
-                  <input
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                    placeholder="e.g. Software Engineer"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-500 uppercase">Current Company</label>
-                <input
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                  placeholder="Current Employer"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-500 uppercase">Location</label>
-                <div className="relative">
-                  <MapPin size={16} className="absolute left-3 top-2.5 text-slate-400" />
-                  <input
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-                    placeholder="City, State"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5 md:col-span-2">
-                <label className="text-xs font-bold text-slate-500 uppercase">Skills (Comma separated)</label>
-                <textarea
-                  value={formData.skills}
-                  onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none h-20 resize-none"
-                  placeholder="Java, Python, Leadership, etc."
-                />
-              </div>
-            </form>
-          )}
+              <button className="px-4 py-2 rounded-lg border text-sm font-medium" style={{ borderColor: color, color: color }}>
+                Outline
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 flex justify-end gap-3">
-          <button onClick={onClose} className="px-4 py-2 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 rounded-lg transition-colors text-sm">Cancel</button>
-          {activeTab === 'manual' ? (
-            <button form="create-profile-form" type="submit" className="px-6 py-2 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-sm transition-colors text-sm flex items-center gap-2">
-              <CheckCircle size={16} /> Create Profile
-            </button>
-          ) : (
-            <button onClick={() => setActiveTab('manual')} className="px-6 py-2 bg-slate-200 text-slate-600 dark:text-slate-300 font-bold rounded-lg hover:bg-slate-300 transition-colors text-sm">
-              Skip Upload
-            </button>
-          )}
+        <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 flex justify-end gap-3">
+          <button onClick={onClose} className="px-4 py-2 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors text-sm">Cancel</button>
+          <button onClick={handleApply} className="px-6 py-2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold rounded-lg hover:opacity-90 transition-colors text-sm shadow-sm">
+            Apply Theme
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default function App() {
-  const [candidateTab, setCandidateTab] = useState('profile');
-  const [isCreateProfileOpen, setIsCreateProfileOpen] = useState(false);
-  const [profilesView, setProfilesView] = useState('SEARCH');
+// Sidebar Footer Component
+const SidebarFooter = ({ setIsCreateProfileOpen, darkMode, setDarkMode, setIsThemeSettingsOpen }) => (
+  <div className="p-2 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 mt-auto space-y-1 shrink-0 transition-colors">
+    {/* Create Profile */}
+    <button
+      onClick={() => setIsCreateProfileOpen(true)}
+      className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md transition-colors group"
+    >
+      <UserPlus size={18} className="text-slate-400 dark:text-slate-500 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+      <span className="text-sm font-medium">Create</span>
+    </button>
+
+    {/* Switch Client */}
+    <div className="relative group/client">
+      <button className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md transition-colors group">
+        <Building2 size={18} className="text-slate-400 dark:text-slate-500 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+        <span className="text-sm font-medium truncate">TRC Talent Solutions</span>
+      </button>
+
+      {/* Client List Popover */}
+      <div className="absolute left-full bottom-0 ml-2 w-64 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl hidden group-hover/client:block p-1 z-50 animate-in fade-in zoom-in-95 duration-200">
+        <div className="px-3 py-2 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider bg-slate-50 dark:bg-slate-900 rounded-t mb-1">Switch Client</div>
+        <button className="w-full text-left px-3 py-2 text-sm text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-700 rounded flex items-center justify-between font-medium">
+          TRC Talent Solutions <CheckCircle size={14} className="text-primary-600 dark:text-primary-400" />
+        </button>
+        <button className="w-full text-left px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+          Amazon Warehouse Operations
+        </button>
+        <button className="w-full text-left px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+          Google Staffing Services
+        </button>
+        <button className="w-full text-left px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+          Microsoft HR Tech
+        </button>
+      </div>
+    </div>
+
+    {/* User Account */}
+    <div className="relative group/account pt-2">
+      <button className="w-full flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md transition-colors">
+        <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-300 dark:border-slate-600 shrink-0">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-full h-full object-cover" />
+        </div>
+        <div className="text-left flex-1 min-w-0">
+          <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">Pratik</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 truncate">My Account</p>
+        </div>
+      </button>
+
+      {/* Account Popover */}
+      <div className="absolute left-full bottom-0 ml-4 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl hidden group-hover/account:block z-50 animate-in fade-in zoom-in-95 duration-200">
+        {/* Triangle */}
+        <div className="absolute bottom-6 -left-2 w-4 h-4 bg-white dark:bg-slate-800 transform rotate-45 border-l border-b border-slate-200 dark:border-slate-700"></div>
+
+        <div className="p-5 border-b border-slate-100 dark:border-slate-700 flex flex-col items-center text-center bg-white dark:bg-slate-800 rounded-t-lg relative">
+          <div className="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border-4 border-white dark:border-slate-600 shadow-md mb-3">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-full h-full object-cover" />
+          </div>
+          <h4 className="font-bold text-slate-800 dark:text-slate-100 text-lg">Pratik</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">pratik.gaurav@trcdemo.com</p>
+
+          <div className="w-full border-t border-slate-100 dark:border-slate-700 pt-3 space-y-2">
+            <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 px-2">
+              <User size={16} className="text-slate-400 dark:text-slate-500" />
+              <span className="font-medium">Product Admin</span>
+            </div>
+            <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 px-2">
+              <Phone size={16} className="text-slate-400 dark:text-slate-500" />
+              <span className="font-mono text-xs">+917004029399</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="py-2 bg-white dark:bg-slate-800 rounded-b-lg">
+          <div className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer group/item">
+            <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 group-hover/item:text-primary-600 dark:group-hover/item:text-primary-400 transition-colors">
+              <User size={16} />
+              <span className="font-medium">My Account</span>
+            </div>
+            <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors cursor-help">?</div>
+          </div>
+
+          {/* Dark Mode Toggle */}
+          <div
+            onClick={() => setDarkMode(!darkMode)}
+            className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer group/item"
+          >
+            <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 group-hover/item:text-primary-600 dark:group-hover/item:text-primary-400 transition-colors">
+              {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+              <span className="font-medium">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+            </div>
+            <div className={`w-8 h-4 rounded-full relative transition-colors ${darkMode ? 'bg-primary-600' : 'bg-slate-300'}`}>
+              <div className={`absolute top-0.5 left-0.5 w-3 h-3 bg-white dark:bg-slate-800 rounded-full transition-transform ${darkMode ? 'translate-x-4' : 'translate-x-0'}`}></div>
+            </div>
+          </div>
+
+          <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            <Settings size={16} /> Admin Settings
+          </button>
+          <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            <UserCog size={16} /> Product Admin Settings
+          </button>
+          <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium">
+            <Lock size={16} /> Change Password
+          </button>
+          <button
+            onClick={() => setIsThemeSettingsOpen(true)}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium"
+          >
+            <Palette size={16} /> Themes
+          </button>
+          <div className="border-t border-slate-100 dark:border-slate-700 my-1"></div>
+          <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors font-medium">
+            <LogOut size={16} /> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const PROFILE_TABS = [
+  { id: 'profile', label: 'Profile', icon: User },
+  { id: 'resume', label: 'Resume', icon: FileText },
+  { id: 'activity', label: 'Activity', icon: Activity },
+  { id: 'chat', label: 'Chat', icon: MessageCircle },
+  { id: 'campaigns', label: 'Campaigns', icon: Briefcase },
+  { id: 'folders', label: 'Folders', icon: FolderOpen },
+  { id: 'interviews', label: 'Interviews', icon: Video },
+  { id: 'recommended', label: 'Recommended', icon: ThumbsUp },
+  { id: 'similar', label: 'Similar', icon: Copy },
+];
+
+const App = () => {
+  const [activeView, setActiveView] = useState('DASHBOARD');
+
+  // Dark Mode State
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') === 'dark' ||
@@ -272,380 +385,247 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // React Router Hooks
-  const location = useLocation();
-  const navigate = useNavigate();
+  // Navigation State
+  const [selectedCandidateId, setSelectedCandidateId] = useState(null);
+  const [activeProfileTab, setActiveProfileTab] = useState('profile');
 
-  // Campaign Context Navigation Helper (Moved from state to URL param logic in sub-components, 
-  // but Sidebar need to know context. For simplicity, we'll keep sidebar mostly static 
-  // or use location.pathname to determine sidebar state).
+  const [selectedCampaign, setSelectedCampaign] = useState(null);
+  const [activeCampaignTab, setActiveCampaignTab] = useState('Intelligence');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isCreateProfileOpen, setIsCreateProfileOpen] = useState(false);
+  const [isThemeSettingsOpen, setIsThemeSettingsOpen] = useState(false);
 
-  const [isSourceHovered, setIsSourceHovered] = useState(false);
-
-  const [isEngageHovered, setIsEngageHovered] = useState(false);
-  const [campaignTab, setCampaignTab] = useState('Intelligence');
-
-  // Candidate Navigation Item Helper
-  const NavItem = ({ id, icon: Icon, label, activeTab, setActiveTab, onClick }) => (
-    <button
-      onClick={(e) => {
-        if (onClick) onClick(e);
-        else setActiveTab(id);
-      }}
-      className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-all text-sm ${activeTab === id ? 'bg-white dark:bg-slate-700 shadow-sm text-emerald-700 dark:text-emerald-400 font-medium translate-x-1' : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white dark:hover:text-white'}`}
-    >
-      <Icon size={16} /> {label}
-    </button>
-  );
-
-  const SubNavItem = ({ id, label, activeTab, setActiveTab, onClick }) => (
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        if (onClick) onClick();
-        else setActiveTab(id);
-      }}
-      className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-md transition-all text-xs ${activeTab === id ? 'text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-900/30' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-200 dark:hover:text-slate-200 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700'}`}
-    >
-      <span className={`w-1.5 h-1.5 rounded-full ${activeTab === id ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
-      {label}
-    </button>
-  );
-
-  const SidebarFooter = ({ setIsCreateProfileOpen }) => (
-    <div className="p-2 border-t border-slate-200 dark:border-slate-700 dark:border-slate-700 bg-white dark:bg-slate-700 mt-auto space-y-1 shrink-0">
-      {/* Create Profile */}
-      <button
-        onClick={() => setIsCreateProfileOpen(true)}
-        className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 rounded-md transition-colors group"
-      >
-        <UserPlus size={18} className="text-slate-400 group-hover:text-emerald-600" />
-        <span className="text-sm font-medium">Create Profile</span>
-      </button>
-
-      {/* Switch Client */}
-      <div className="relative group/client">
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 rounded-md transition-colors group">
-          <Building2 size={18} className="text-slate-400 group-hover:text-emerald-600" />
-          <span className="text-sm font-medium truncate">TRC Talent Solutions</span>
-        </button>
-
-        {/* Client List Popover */}
-        <div className="absolute left-full bottom-0 ml-2 w-64 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-700 rounded-lg shadow-xl hidden group-hover/client:block p-1 z-50 animate-in fade-in zoom-in-95 duration-200">
-          <div className="px-3 py-2 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider bg-slate-50 dark:bg-slate-700 rounded-t mb-1">Switch Client</div>
-          <button className="w-full text-left px-3 py-2 text-sm text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-700 rounded flex items-center justify-between font-medium">
-            TRC Talent Solutions <CheckCircle size={14} className="text-emerald-600" />
-          </button>
-          <button className="w-full text-left px-3 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 rounded hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-            Amazon Warehouse Operations
-          </button>
-          <button className="w-full text-left px-3 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 rounded hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-            Google Staffing Services
-          </button>
-          <button className="w-full text-left px-3 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 rounded hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
-            Microsoft HR Tech
-          </button>
-        </div>
-      </div>
-
-      {/* User Account */}
-      <div className="relative group/account pt-2">
-        <button className="w-full flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 rounded-md transition-colors">
-          <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-300 shrink-0">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-full h-full object-cover" />
-          </div>
-          <div className="text-left flex-1 min-w-0">
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">Pratik</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 truncate">My Account</p>
-          </div>
-        </button>
-
-        {/* Account Popover */}
-        <div className="absolute left-full bottom-0 ml-4 w-72 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-700 rounded-lg shadow-xl hidden group-hover/account:block z-50 animate-in fade-in zoom-in-95 duration-200">
-          {/* Triangle */}
-          <div className="absolute bottom-6 -left-2 w-4 h-4 bg-white dark:bg-slate-700 transform rotate-45 border-l border-b border-slate-200 dark:border-slate-700 dark:border-slate-700"></div>
-
-          <div className="p-5 border-b border-slate-100 dark:border-slate-700 dark:border-slate-700 flex flex-col items-center text-center bg-white dark:bg-slate-700 rounded-t-lg relative">
-            <div className="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border-4 border-white dark:border-slate-600 shadow-md mb-3">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" className="w-full h-full object-cover" />
-            </div>
-            <h4 className="font-bold text-slate-800 dark:text-slate-200 text-lg">Pratik</h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">pratik.gaurav@trcdemo.com</p>
-
-            <div className="w-full border-t border-slate-100 dark:border-slate-700 dark:border-slate-700 pt-3 space-y-2">
-              <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 px-2">
-                <User size={16} className="text-slate-400 dark:text-slate-500" />
-                <span className="font-medium">Product Admin</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 px-2">
-                <Phone size={16} className="text-slate-400 dark:text-slate-500" />
-                <span className="font-mono text-xs">+917004029399</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="py-2 bg-white dark:bg-slate-700 rounded-b-lg">
-            <div className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 cursor-pointer group/item">
-              <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 group-hover/item:text-emerald-600 dark:group-hover/item:text-emerald-400 transition-colors">
-                <User size={16} />
-                <span className="font-medium">My Account</span>
-              </div>
-              <div className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500 flex items-center justify-center text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-help">?</div>
-            </div>
-
-            <div
-              onClick={() => setDarkMode(!darkMode)}
-              className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 cursor-pointer group/item"
-            >
-              <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300 group-hover/item:text-emerald-600 dark:group-hover/item:text-emerald-400 transition-colors">
-                {darkMode ? <Sun size={16} /> : <Moon size={16} />}
-                <span className="font-medium">{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
-              </div>
-              <div className={`w-8 h-4 rounded-full relative transition-colors ${darkMode ? 'bg-emerald-600' : 'bg-slate-300'}`}>
-                <div className={`absolute top-0.5 left-0.5 w-3 h-3 bg-white dark:bg-slate-700 rounded-full transition-transform ${darkMode ? 'translate-x-4' : 'translate-x-0'}`}></div>
-              </div>
-            </div>
-
-            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-emerald-600 transition-colors font-medium">
-              <Settings size={16} /> Admin Settings
-            </button>
-            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-emerald-600 transition-colors font-medium">
-              <UserCog size={16} /> Product Admin Settings
-            </button>
-            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-emerald-600 transition-colors font-medium">
-              <Lock size={16} /> Change Password
-            </button>
-            <div className="border-t border-slate-100 dark:border-slate-700 my-1"></div>
-            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium">
-              <LogOut size={16} /> Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderSidebar = () => {
-    // 1. Candidate Context Sidebar
-    if (location.pathname.startsWith('/candidate/')) {
-      return (
-        <div className="flex-1 relative overflow-hidden flex flex-col h-full bg-slate-50/50">
-          <div className="p-4 pb-2">
-            <button
-              onClick={() => navigate('/profiles')}
-              className="flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-emerald-600 mb-4 px-1 group transition-colors"
-            >
-              <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Search
-            </button>
-            <div className="flex items-center gap-3 mb-2 px-1">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold border-2 border-white shadow-sm shrink-0">TM</div>
-              <div className="leading-tight min-w-0">
-                <p className="font-bold text-slate-800 dark:text-slate-200 text-sm truncate">{CANDIDATE.name}</p>
-                <p className="text-[10px] text-emerald-600 font-medium uppercase truncate flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>{CANDIDATE.availability}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4 space-y-6">
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">General</p>
-              <div className="space-y-0.5">
-                <NavItem id="profile" icon={Users} label="Profile Details" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="resume" icon={FileText} label="Resume" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="activity" icon={Activity} label="Activity" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="chat" icon={MessageCircle} label="Talent Chat" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-              </div>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">Matching</p>
-              <div className="space-y-0.5">
-                <NavItem id="campaigns" icon={Briefcase} label="Linked Campaigns" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="folders" icon={Folder} label="Linked Folders" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="interviews" icon={MessageCircle} label="Interviews" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="recommended" icon={ThumbsUp} label="Recommended" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-              </div>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">System</p>
-              <div className="space-y-0.5">
-                <NavItem id="duplicate" icon={Copy} label="Duplicate Profile" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-                <NavItem id="similar" icon={Users} label="Similar Profiles" activeTab={candidateTab} setActiveTab={setCandidateTab} />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    // 2. Campaign Dashboard Context Sidebar
-    if (location.pathname.startsWith('/campaign/')) {
-      // We'd ideally need the campaign object here to show name/ID in sidebar.
-      // For now, we will use a placeholder or rely on context if we had one.
-      // Skipping dynamic name for this iteration to keep it simple, or using param?
-      // Let's assume we can't easily get the name without fetching. 
-      // We will keep the layout but maybe "Loading..." or just "Campaign".
-      // Actually, we can pass state via navigate if we come from list, but direct link wouldn't have it.
-      // Better to have CampaignDashboard fetch IT and update a context?
-      // For this refactor, I will just hardcode "Campaign View" or keep generic.
-      // Wait, the original code used `selectedCampaign` state.
-      // I will rely on the `CampaignDashboard` to render the content, sidebar might be slightly less informative 
-      // regarding the specific campaign name unless we lift state up or use a Context.
-      // I will leave the sidebar "Campaign Tools" generic for now as per instructions to just route.
-      // OR, I can use a global Context for "Current Campaign" set by the page.
-      // Let's stick to the structure but remove `selectedCampaign.name` dependency in sidebar for now 
-      // or mock it.
-      const campaignId = location.pathname.split('/').pop();
-
-      return (
-        <div className="flex-1 relative overflow-hidden flex flex-col h-full bg-slate-50/50">
-          <div className="p-4 pb-2">
-            <button
-              onClick={() => navigate('/activecampaigns')}
-              className="flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-emerald-600 mb-4 px-1 group transition-colors"
-            >
-              <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to List
-            </button>
-            <div className="flex items-center gap-3 mb-4 px-1">
-              <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-sm shrink-0">
-                <Briefcase size={20} />
-              </div>
-              <div className="leading-tight min-w-0">
-                <p className="font-bold text-slate-800 dark:text-slate-200 text-xs truncate">Campaign {campaignId}</p>
-                <p className="text-[10px] text-slate-500 font-mono mt-0.5">ID: {campaignId}</p>
-              </div>
-            </div>
-          </div>
-          {/* ... Sidebar content ... (Simplified for brevity, keeping structure) */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4 space-y-6">
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">Campaign Tools</p>
-              {/* Note: Active tab state logic here is tricky without props drilling or context. 
-                  For now, we'll just show the menu. Real app would sync this with URL params/hash */}
-              <div className="space-y-0.5">
-                <NavItem id="Intelligence" icon={Brain} label="Intelligence" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-
-                <div className="relative" onMouseEnter={() => setIsSourceHovered(true)} onMouseLeave={() => setIsSourceHovered(false)}>
-                  <NavItem id="Source AI" icon={Search} label="Source AI" activeTab={campaignTab} onClick={() => setCampaignTab('Source AI')} />
-                  {(isSourceHovered || campaignTab.startsWith('Source AI')) && (
-                    <div className="ml-9 mt-1 space-y-1 border-l-2 border-slate-100 dark:border-slate-700 pl-2 mb-2 animate-in slide-in-from-top-1 duration-200">
-                      <SubNavItem id="Source AI:ATTACH" label="Attach People" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                      <SubNavItem id="Source AI:ATTACHED" label="Attached People" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                      <SubNavItem id="Source AI:INTEGRATIONS" label="Integrations" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                      <SubNavItem id="Source AI:JD" label="Job Description" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                    </div>
-                  )}
-                </div>
-
-                <NavItem id="Match AI" icon={GitBranch} label="Match AI" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-
-                <div className="relative" onMouseEnter={() => setIsEngageHovered(true)} onMouseLeave={() => setIsEngageHovered(false)}>
-                  <NavItem id="Engage AI" icon={MessageCircle} label="Engage AI" activeTab={campaignTab} onClick={() => setCampaignTab('Engage AI')} />
-                  {(isEngageHovered || campaignTab.startsWith('Engage AI')) && (
-                    <div className="ml-9 mt-1 space-y-1 border-l-2 border-slate-100 dark:border-slate-700 pl-2 mb-2 animate-in slide-in-from-top-1 duration-200">
-                      <SubNavItem id="Engage AI:BUILDER" label="Workflow Builder" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                      <SubNavItem id="Engage AI:CANDIDATES" label="Candidate List" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                      <SubNavItem id="Engage AI:PANEL" label="Interview Panel" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-                    </div>
-                  )}
-                </div>
-
-                <NavItem id="Sharing" icon={Share2} label="Sharing & Settings" activeTab={campaignTab} setActiveTab={setCampaignTab} />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    // 3. Default Global Sidebar
-    return (
-      <div className="flex-1 overflow-y-auto p-4 space-y-1">
-        <button
-          onClick={() => navigate('/dashboard')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all ${location.pathname === '/dashboard' ? 'bg-emerald-50 text-emerald-700 font-medium' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50'}`}
-        >
-          <HomeIcon size={18} /> Home
-        </button>
-        <button
-          onClick={() => navigate('/activecampaigns')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all ${location.pathname === '/activecampaigns' ? 'bg-emerald-50 text-emerald-700 font-medium' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50'}`}
-        >
-          <Briefcase size={18} /> Campaigns
-        </button>
-
-        {/* Profiles Group */}
-        <div className="group relative">
-          <button
-            onClick={() => { navigate('/profiles'); setProfilesView('SEARCH'); }}
-            className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md transition-all group ${location.pathname === '/profiles' ? 'bg-emerald-50 text-emerald-700 font-medium' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50'}`}
-          >
-            <div className="flex items-center gap-3"><Users size={18} /> Profiles</div>
-            <ChevronRight size={16} className="text-slate-400 group-hover:rotate-90 transition-transform" />
-          </button>
-          <div className="hidden group-hover:block ml-9 space-y-1 mt-1 animate-in slide-in-from-top-1">
-            <button
-              onClick={(e) => { e.stopPropagation(); navigate('/profiles'); setProfilesView('SEARCH'); }}
-              className={`w-full text-left px-3 py-2 text-sm rounded hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-emerald-600 ${profilesView === 'SEARCH' && location.pathname === '/profiles' ? 'text-emerald-600 font-medium' : 'text-slate-500'}`}
-            >
-              Search Profiles
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); navigate('/profiles'); setProfilesView('FOLDERS'); }}
-              className={`w-full text-left px-3 py-2 text-sm rounded hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-emerald-600 ${profilesView === 'FOLDERS' && location.pathname === '/profiles' ? 'text-emerald-600 font-medium' : 'text-slate-500'}`}
-            >
-              Folders
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); navigate('/profiles'); setProfilesView('TAGS'); }}
-              className={`w-full text-left px-3 py-2 text-sm rounded hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 hover:text-emerald-600 ${profilesView === 'TAGS' && location.pathname === '/profiles' ? 'text-emerald-600 font-medium' : 'text-slate-500'}`}
-            >
-              Tags
-            </button>
-          </div>
-        </div>
-
-        <button
-          onClick={() => navigate('/metrics')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all ${location.pathname === '/metrics' ? 'bg-emerald-50 text-emerald-700 font-medium' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50'}`}
-        >
-          <BarChart2 size={18} /> Metrics
-        </button>
-      </div>
-    );
+  // Sub-navigation handlers
+  const handleNavigateToProfile = () => {
+    setSelectedCandidateId('1');
+    setActiveProfileTab('profile');
   };
+  const handleBackToProfiles = () => setSelectedCandidateId(null);
+
+  const handleNavigateToCampaign = (campaign, tab = 'Intelligence') => {
+    setSelectedCampaign(campaign);
+    setActiveCampaignTab(tab);
+  };
+  const handleBackToCampaigns = () => setSelectedCampaign(null);
+
+  // Using 100 shade for selected background instead of 50 for better visibility
+  const NavItem = ({ view, icon: Icon, label, activeTab, onClick }) => (
+    <button
+      onClick={onClick ? onClick : () => { if (view) setActiveView(view); setSelectedCandidateId(null); setSelectedCampaign(null); }}
+      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${(view && activeView === view && !selectedCampaign && !selectedCandidateId) || activeTab
+        ? 'bg-primary-100 text-primary-900 font-bold shadow-sm'
+        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'
+        }`}
+    >
+      <Icon size={20} className={(view && activeView === view && !selectedCampaign && !selectedCandidateId) || activeTab ? 'text-primary-700' : 'text-slate-400 dark:text-slate-500'} />
+      <span className={!isSidebarOpen ? 'hidden' : 'block'}>{label}</span>
+    </button>
+  );
 
   return (
     <ToastProvider>
-      <div className="flex h-screen bg-slate-50 dark:bg-slate-700 font-sans text-slate-600 dark:text-slate-300 overflow-hidden">
-        <CreateProfileModal isOpen={isCreateProfileOpen} onClose={() => setIsCreateProfileOpen(false)} />
+      <div className={`flex h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-200 transition-colors ${darkMode ? 'dark' : ''}`}>
+        {/* Mobile Sidebar Overlay */}
+        {!isSidebarOpen && (
+          <button onClick={() => setIsSidebarOpen(true)} className="fixed top-4 left-4 z-50 p-2 bg-white dark:bg-slate-800 rounded-md shadow-md lg:hidden border dark:border-slate-700">
+            <Menu size={20} className="dark:text-slate-200" />
+          </button>
+        )}
 
-        {/* SIDEBAR */}
-        <aside className="w-64 bg-white dark:bg-slate-700 border-r border-slate-200 dark:border-slate-700 dark:border-slate-800 flex-shrink-0 flex flex-col z-20">
-          <div className="h-16 flex items-center px-6 border-b border-slate-100 dark:border-slate-700 dark:border-slate-800 shrink-0">
-            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center mr-3"><Users className="text-white" size={18} /></div>
-            <span className="font-bold text-slate-800 dark:text-slate-200 text-lg">Maprecruit.ai</span>
+        {/* Sidebar */}
+        <div className={`fixed inset-y-0 left-0 z-40 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 ${isSidebarOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full lg:w-0 lg:hidden'} flex flex-col shadow-xl`}>
+          <div className="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-700 shrink-0 bg-white dark:bg-slate-900">
+            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white font-bold text-xl mr-3 shadow-sm">M</div>
+            <span className="font-bold text-lg text-slate-800 dark:text-slate-100 tracking-tight">MapRecruit</span>
+            <button onClick={() => setIsSidebarOpen(false)} className="ml-auto lg:hidden text-slate-400"><X size={20} /></button>
           </div>
 
-          {renderSidebar()}
+          <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+            {!selectedCampaign && !selectedCandidateId ? (
+              <>
+                <NavItem view="DASHBOARD" icon={LayoutDashboard} label="Dashboard" />
+                <NavItem view="CAMPAIGNS" icon={Briefcase} label="Campaigns" />
+                <NavItem view="PROFILES" icon={Users} label="Profiles" />
+                <NavItem view="METRICS" icon={BarChart2} label="Metrics" />
+              </>
+            ) : selectedCandidateId ? (
+              <div className="animate-in fade-in slide-in-from-left-4 duration-300">
+                <button
+                  onClick={handleBackToProfiles}
+                  className="w-full flex items-center gap-2 px-3 py-2 mb-4 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  <ChevronLeft size={14} /> Back to Search
+                </button>
 
-          <SidebarFooter setIsCreateProfileOpen={setIsCreateProfileOpen} />
-        </aside>
+                <div className="px-3 mb-6">
+                  <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200 leading-tight">Candidate Profile</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">ID: {selectedCandidateId}</p>
+                </div>
 
-        {/* MAIN CONTENT */}
-        <main className="flex-1 flex flex-col h-screen overflow-hidden bg-white">
-          <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Home />} />
-            <Route path="/activecampaigns" element={<Campaigns onNavigateToCampaign={(campaign) => navigate(`/campaign/${campaign.id}`)} />} />
-            <Route path="/campaign/:id" element={<CampaignDashboard activeTab={campaignTab} />} />
-            <Route path="/profiles" element={<Profiles onNavigateToProfile={() => navigate('/candidate/1')} view={profilesView} />} />
-            <Route path="/candidate/:id" element={<CandidateProfile activeTab={candidateTab} />} />
-            <Route path="/metrics" element={<Metrics />} />
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </main>
+                <div className="space-y-1">
+                  {PROFILE_TABS.map(tab => (
+                    <NavItem
+                      key={tab.id}
+                      icon={tab.icon}
+                      label={tab.label}
+                      activeTab={activeProfileTab === tab.id}
+                      onClick={() => setActiveProfileTab(tab.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="animate-in fade-in slide-in-from-left-4 duration-300">
+                <button
+                  onClick={handleBackToCampaigns}
+                  className="w-full flex items-center gap-2 px-3 py-2 mb-4 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  <ChevronLeft size={14} /> Back to Campaigns
+                </button>
+
+                <div className="px-3 mb-6">
+                  <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200 leading-tight">{selectedCampaign?.name}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">ID: {selectedCampaign?.jobID}</p>
+                </div>
+
+                <div className="space-y-1">
+                  <NavItem
+                    icon={Brain}
+                    label="Intelligence"
+                    activeTab={activeCampaignTab === 'Intelligence'}
+                    onClick={() => setActiveCampaignTab('Intelligence')}
+                  />
+
+                  {/* Source AI Group */}
+                  <div>
+                    <NavItem
+                      icon={Search}
+                      label="Source AI"
+                      activeTab={activeCampaignTab.startsWith('Source AI')}
+                      onClick={() => setActiveCampaignTab('Source AI')}
+                    />
+                    {activeCampaignTab.startsWith('Source AI') && (
+                      <div className="ml-8 mt-1 space-y-1 border-l border-slate-200 dark:border-slate-700 pl-3 animate-in slide-in-from-left-2 duration-200">
+                        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 mt-2 px-2">Sourcing Tools</div>
+                        <button onClick={() => setActiveCampaignTab('Source AI:ATTACH')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between group ${activeCampaignTab === 'Source AI:ATTACH' || activeCampaignTab === 'Source AI' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          <span>Attach People</span>
+                          <PlusCircle size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-primary-600" />
+                        </button>
+                        <button onClick={() => setActiveCampaignTab('Source AI:PROFILES')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between ${activeCampaignTab === 'Source AI:PROFILES' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          <span>Attached Profiles</span>
+                          <span className="bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full">4</span>
+                        </button>
+                        <button onClick={() => setActiveCampaignTab('Source AI:INTEGRATIONS')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${activeCampaignTab === 'Source AI:INTEGRATIONS' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          Integrations
+                        </button>
+
+                        <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 mt-4 px-2">Job Details</div>
+                        <button onClick={() => setActiveCampaignTab('Source AI:JD')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${activeCampaignTab === 'Source AI:JD' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          Job Description
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  <NavItem
+                    icon={GitBranch}
+                    label="Match AI"
+                    activeTab={activeCampaignTab === 'Match AI'}
+                    onClick={() => setActiveCampaignTab('Match AI')}
+                  />
+
+                  {/* Engage AI Group */}
+                  <div>
+                    <NavItem
+                      icon={MessageCircle}
+                      label="Engage AI"
+                      activeTab={activeCampaignTab.startsWith('Engage AI')}
+                      onClick={() => setActiveCampaignTab('Engage AI')}
+                    />
+                    {activeCampaignTab.startsWith('Engage AI') && (
+                      <div className="ml-8 mt-1 space-y-1 border-l border-slate-200 dark:border-slate-700 pl-3 animate-in slide-in-from-left-2 duration-200">
+                        <button onClick={() => setActiveCampaignTab('Engage AI:BUILDER')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${activeCampaignTab === 'Engage AI:BUILDER' || activeCampaignTab === 'Engage AI' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          Workflow Builder
+                        </button>
+                        <button onClick={() => setActiveCampaignTab('Engage AI:ROOM')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${activeCampaignTab === 'Engage AI:ROOM' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          Interview Panel
+                        </button>
+                        <button onClick={() => setActiveCampaignTab('Engage AI:TRACKING')} className={`w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${activeCampaignTab === 'Engage AI:TRACKING' ? 'text-primary-700 dark:text-primary-400 font-medium bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
+                          Candidate List
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  <NavItem
+                    icon={ThumbsUp}
+                    label="Recommended"
+                    activeTab={activeCampaignTab === 'Recommended Profiles'}
+                    onClick={() => setActiveCampaignTab('Recommended Profiles')}
+                  />
+                  <NavItem
+                    icon={Settings}
+                    label="Settings"
+                    activeTab={activeCampaignTab === 'Settings'}
+                    onClick={() => setActiveCampaignTab('Settings')}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          <SidebarFooter setIsCreateProfileOpen={setIsCreateProfileOpen} darkMode={darkMode} setDarkMode={setDarkMode} setIsThemeSettingsOpen={setIsThemeSettingsOpen} />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col h-full overflow-hidden w-full relative bg-slate-50 dark:bg-slate-950 transition-colors">
+          {activeView === 'DASHBOARD' && <Home />}
+
+          {activeView === 'PROFILES' && (
+            selectedCandidateId ? (
+              <div className="h-full flex flex-col">
+                <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center gap-2 shrink-0">
+                  <button onClick={handleBackToProfiles} className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-1 transition-colors">
+                    <ChevronRight size={14} className="rotate-180" /> Back to Search
+                  </button>
+                  <span className="text-slate-300 dark:text-slate-600">|</span>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Candidate Profile</span>
+                </div>
+
+                <CandidateProfile activeTab={activeProfileTab} />
+              </div>
+            ) : (
+              <Profiles onNavigateToProfile={handleNavigateToProfile} view="SEARCH" />
+            )
+          )}
+
+          {activeView === 'CAMPAIGNS' && (
+            selectedCampaign ? (
+              <div className="h-full flex flex-col">
+                <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center gap-2 shrink-0">
+                  <button onClick={handleBackToCampaigns} className="text-sm text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-1 transition-colors">
+                    <ChevronRight size={14} className="rotate-180" /> Back to Campaigns
+                  </button>
+                  <span className="text-slate-300 dark:text-slate-600">|</span>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedCampaign.name}</span>
+                </div>
+                <CampaignDashboard campaign={selectedCampaign} activeTab={activeCampaignTab} />
+              </div>
+            ) : (
+              <Campaigns onNavigateToCampaign={handleNavigateToCampaign} />
+            )
+          )}
+
+          {activeView === 'METRICS' && <Metrics />}
+        </div>
+
+        {/* Create Profile Modal */}
+        <CreateProfileModal isOpen={isCreateProfileOpen} onClose={() => setIsCreateProfileOpen(false)} />
+        {/* Theme Settings Modal */}
+        <ThemeSettingsModal isOpen={isThemeSettingsOpen} onClose={() => setIsThemeSettingsOpen(false)} />
       </div>
     </ToastProvider>
   );
-}
+};
+
+export default App;

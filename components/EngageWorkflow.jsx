@@ -4,14 +4,13 @@ import {
     GitBranch, Users, Video, Layout, ZoomIn, ZoomOut, Undo2, Redo2,
     Link as LinkIcon, Save, AlertTriangle, CheckCircle, X, RotateCcw, RotateCcwSquare, RotateCwSquare
 } from 'lucide-react';
-import { NODE_TYPES } from '../data.js';
-
-import { INITIAL_NODES_GRAPH, INITIAL_EDGES_GRAPH } from './engage/demoData.js';
-import { START_NODE_WIDTH, START_NODE_HEIGHT, BUBBLE_SIZE, CARD_WIDTH, CARD_HEIGHT } from './engage/constants.js';
-import { NodeCard, BezierEdge } from './engage/CanvasNodes.jsx';
-import { AutomationPlaceholderModal, NodeConfigurationModal } from './engage/ConfigModals.jsx';
-import { CandidateTracking, InterviewRoom, PanelView } from './engage/Views.jsx';
-import { NetworkGraphModal } from './NetworkGraphModal.jsx';
+import { NODE_TYPES } from '../data';
+import { INITIAL_NODES_GRAPH, INITIAL_EDGES_GRAPH } from './engage/demoData';
+import { START_NODE_WIDTH, START_NODE_HEIGHT, BUBBLE_SIZE, CARD_WIDTH, CARD_HEIGHT } from './engage/constants';
+import { NodeCard, BezierEdge } from './engage/CanvasNodes';
+import { AutomationPlaceholderModal, NodeConfigurationModal } from './engage/ConfigModals';
+import { CandidateTracking, InterviewRoom } from './engage/Views';
+import { NetworkGraphModal } from './NetworkGraphModal';
 
 // --- MODALS ---
 
@@ -19,17 +18,17 @@ const SaveConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-2xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200">
                 <div className="flex flex-col items-center text-center">
-                    <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4 text-indigo-600">
+                    <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-4 text-indigo-600 dark:text-indigo-400">
                         <Save size={24} />
                     </div>
                     <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Save Workflow?</h3>
-                    <p className="text-sm text-slate-500 mb-6">
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
                         This will overwrite the current active workflow configuration. Undo/Redo history will be cleared.
                     </p>
                     <div className="flex gap-3 w-full">
-                        <button onClick={onClose} className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-700 dark:border-slate-700 rounded-lg text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 transition-colors">Cancel</button>
+                        <button onClick={onClose} className="flex-1 px-4 py-2 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Cancel</button>
                         <button onClick={onConfirm} className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 shadow-sm transition-colors">Confirm Save</button>
                     </div>
                 </div>
@@ -42,22 +41,22 @@ const ValidationErrorsModal = ({ isOpen, onClose, errors }) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200 border-l-4 border-red-500">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200 border-l-4 border-red-500 dark:border-red-600">
                 <div className="flex justify-between items-start mb-4">
                     <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                        <AlertTriangle size={20} className="text-red-500" /> Validation Failed
+                        <AlertTriangle size={20} className="text-red-500 dark:text-red-400" /> Validation Failed
                     </h3>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><X size={20} /></button>
+                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"><X size={20} /></button>
                 </div>
                 <div className="space-y-3 mb-6 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                     {errors.map((err, i) => (
-                        <div key={i} className="flex items-start gap-3 bg-red-50 p-3 rounded-lg text-sm text-red-800 border border-red-100">
+                        <div key={i} className="flex items-start gap-3 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-sm text-red-800 dark:text-red-300 border border-red-100 dark:border-red-800">
                             <span className="mt-0.5">•</span>
                             <span>{err}</span>
                         </div>
                     ))}
                 </div>
-                <button onClick={onClose} className="w-full px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-bold hover:bg-slate-200 transition-colors">
+                <button onClick={onClose} className="w-full px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     Dismiss & Fix
                 </button>
             </div>
@@ -461,7 +460,7 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
     }, []);
 
     const handleMouseDown = (e) => {
-        if (e.target.closest('.node-card')) return;
+        if ((e.target).closest('.node-card')) return;
         setIsDragging(true);
         setStartPan({ x: e.clientX, y: e.clientY });
         if (containerRef.current) {
@@ -556,7 +555,7 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
     };
 
     return (
-        <div className="flex h-full bg-slate-50 dark:bg-slate-700 overflow-hidden relative">
+        <div className="flex h-full bg-slate-50 dark:bg-slate-900 overflow-hidden relative transition-colors">
             <SaveConfirmationModal isOpen={showSaveModal} onClose={() => setShowSaveModal(false)} onConfirm={confirmSave} />
             <ValidationErrorsModal isOpen={validationErrors.length > 0} onClose={() => setValidationErrors([])} errors={validationErrors} />
 
@@ -566,8 +565,8 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
                     onClick={handleSaveRequest}
                     disabled={isSaved}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold shadow-sm transition-all ${isSaved
-                        ? 'bg-slate-100 dark:bg-slate-700 text-slate-400 cursor-not-allowed border border-slate-200'
-                        : 'bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-md'
+                            ? 'bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed border border-slate-200 dark:border-slate-600'
+                            : 'bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-md'
                         }`}
                 >
                     <Save size={16} />
@@ -595,8 +594,8 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
 
             <div
                 ref={containerRef}
-                className={`flex-1 overflow-auto relative ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} bg-slate-50 dark:bg-slate-700 select-none`}
-                style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '24px 24px' }}
+                className={`flex-1 overflow-auto relative ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} bg-slate-50 dark:bg-slate-900 select-none transition-colors`}
+                style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '24px 24px' }} // TODO: Dark mode grid pattern update via CSS class if possible, otherwise inline style logic
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -641,9 +640,9 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
             </div>
 
             {/* Bottom Floating Toolbar */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white dark:bg-slate-700 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 dark:border-slate-700 p-2 flex items-center gap-3 z-20">
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 flex items-center gap-3 z-20">
                 {/* Add Nodes */}
-                <div className="flex items-center gap-1 pr-3 border-r border-slate-200">
+                <div className="flex items-center gap-1 pr-3 border-r border-slate-200 dark:border-slate-700">
                     <span className="text-[10px] font-bold text-slate-400 uppercase mr-2 ml-2">Add Step</span>
                     {Object.keys(NODE_TYPES).map(type => {
                         const config = NODE_TYPES[type];
@@ -652,7 +651,7 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
                             <button
                                 key={type}
                                 onClick={() => handleAddNode(type)}
-                                className="p-2 hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300 hover:text-indigo-600 transition-colors relative group"
+                                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors relative group"
                                 title={`Add ${config.label}`}
                             >
                                 <Icon size={18} />
@@ -663,29 +662,29 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
 
                 {/* Zoom Controls */}
                 <div className="flex items-center gap-1">
-                    <button onClick={() => setZoom(z => Math.max(0.1, z - 0.1))} className="p-1.5 hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 rounded text-slate-500 hover:text-slate-700"><ZoomOut size={16} /></button>
-                    <span className="text-[10px] font-mono text-slate-500 w-8 text-center">{Math.round(zoom * 100)}%</span>
-                    <button onClick={() => setZoom(z => Math.min(3, z + 0.1))} className="p-1.5 hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 rounded text-slate-500 hover:text-slate-700"><ZoomIn size={16} /></button>
-                    <button onClick={() => setZoom(0.85)} className="p-1.5 hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 rounded text-slate-500 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-200 ml-1" title="Reset View"><RotateCcw size={14} className="opacity-50" /></button>
+                    <button onClick={() => setZoom(z => Math.max(0.1, z - 0.1))} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"><ZoomOut size={16} /></button>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-8 text-center">{Math.round(zoom * 100)}%</span>
+                    <button onClick={() => setZoom(z => Math.min(3, z + 0.1))} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"><ZoomIn size={16} /></button>
+                    <button onClick={() => setZoom(0.85)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 ml-1" title="Reset View"><RotateCcw size={14} className="opacity-50" /></button>
 
-                    <div className="w-px h-4 bg-slate-300 mx-2"></div>
+                    <div className="w-px h-4 bg-slate-300 dark:bg-slate-600 mx-2"></div>
 
                     {/* Layout Tools: Toggle Orientation */}
                     <button
                         onClick={handleToggleLayout}
-                        className="p-1.5 hover:bg-indigo-50 text-slate-500 hover:text-indigo-600 rounded transition-colors flex items-center gap-2"
+                        className="p-1.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded transition-colors flex items-center gap-2"
                         title={layoutDirection === 'HORIZONTAL' ? "Switch to Vertical Layout" : "Switch to Horizontal Layout"}
                     >
                         {layoutDirection === 'HORIZONTAL' ? <RotateCwSquare size={16} /> : <RotateCcwSquare size={16} />}
                     </button>
 
-                    <div className="w-px h-4 bg-slate-300 mx-2"></div>
+                    <div className="w-px h-4 bg-slate-300 dark:bg-slate-600 mx-2"></div>
 
                     {/* Undo / Redo */}
                     <button
                         onClick={handleUndo}
                         disabled={isSaved || historyStep === 0}
-                        className={`p-1.5 rounded transition-colors ${isSaved || historyStep === 0 ? 'text-slate-300 dark:text-slate-600 dark:text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 hover:text-slate-800'}`}
+                        className={`p-1.5 rounded transition-colors ${isSaved || historyStep === 0 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-slate-200'}`}
                         title="Undo"
                     >
                         <Undo2 size={16} />
@@ -693,7 +692,7 @@ const WorkflowBuilder = ({ onDirtyChange, onShowAnalytics }) => {
                     <button
                         onClick={handleRedo}
                         disabled={isSaved || historyStep === history.length - 1}
-                        className={`p-1.5 rounded transition-colors ${isSaved || historyStep === history.length - 1 ? 'text-slate-300 dark:text-slate-600 dark:text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-700 hover:text-slate-800'}`}
+                        className={`p-1.5 rounded transition-colors ${isSaved || historyStep === history.length - 1 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-slate-200'}`}
                         title="Redo"
                     >
                         <Redo2 size={16} />
@@ -716,16 +715,13 @@ export const EngageWorkflow = ({ activeView = 'BUILDER' }) => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-white dark:bg-slate-700 relative">
+        <div className="flex flex-col h-full bg-white dark:bg-slate-900 relative">
             <NetworkGraphModal isOpen={isNetworkGraphOpen} onClose={() => setIsNetworkGraphOpen(false)} initialRoundType={analyticsRoundType} />
             {/* Content Area */}
             <div className="flex-1 overflow-hidden relative">
                 {activeView === 'BUILDER' && <WorkflowBuilder onDirtyChange={setIsWorkflowDirty} onShowAnalytics={handleShowAnalytics} />}
-
-                {activeView === 'CANDIDATES' && <CandidateTracking />}
-                {activeView === 'PANEL' && <PanelView />}
+                {activeView === 'TRACKING' && <CandidateTracking />}
                 {activeView === 'ROOM' && <InterviewRoom />}
-
             </div>
         </div>
     );

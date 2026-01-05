@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 const ToastContext = createContext(undefined);
@@ -15,45 +15,58 @@ export const useToast = () => {
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = useCallback((message, type = 'info') => {
-    const id = Date.now();
+  const addToast = (message, type = 'info') => {
+    const id = Math.random().toString(36).substr(2, 9);
     setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3000);
-  }, []);
+  };
 
   const removeToast = (id) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
   };
 
   return (
-    <ToastContext.Provider value={{ addToast }}>
+    <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div className="fixed bottom-4 right-4 z-[100] flex flex-col gap-2">
+      <div className="fixed bottom-4 right-4 z-[200] flex flex-col gap-2">
         {toasts.map((toast) => (
-          <div
-            key={toast.id}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border animate-in slide-in-from-right duration-300 ${toast.type === 'success' ? 'bg-white dark:bg-slate-700 border-emerald-200 text-emerald-800' :
-                toast.type === 'error' ? 'bg-white dark:bg-slate-700 border-red-200 text-red-800' :
-                  'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-800'
-              }`}
-          >
-            {toast.type === 'success' && <CheckCircle size={18} className="text-emerald-500" />}
-            {toast.type === 'error' && <AlertCircle size={18} className="text-red-500" />}
-            {toast.type === 'info' && <Info size={18} className="text-blue-500" />}
-
-            <span className="text-sm font-medium">{toast.message}</span>
-
-            <button
-              onClick={() => removeToast(toast.id)}
-              className="text-slate-400 hover:text-slate-600 dark:text-slate-300 ml-2"
-            >
-              <X size={14} />
-            </button>
-          </div>
+          <ToastItem key={toast.id} toast={toast} onRemove={removeToast} />
         ))}
       </div>
     </ToastContext.Provider>
+  );
+};
+
+const ToastItem = ({ toast, onRemove }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onRemove(toast.id);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [toast.id, onRemove]);
+
+  const icons = {
+    success: <CheckCircle size={20} className="text-emerald-500" />,
+    error: <AlertCircle size={20} className="text-red-500" />,
+    info: <Info size={20} className="text-blue-500" />
+  };
+
+  const bgColors = {
+    success: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800',
+    error: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
+    info: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
+  };
+
+  return (
+    <div className={`flex items-start gap-3 px-4 py-3 rounded-lg shadow-lg border animate-in slide-in-from-right-full duration-300 max-w-sm ${bgColors[toast.type]}`}>
+      <div className="shrink-0 mt-0.5">{icons[toast.type]}</div>
+      <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{toast.message}</p>
+      <button
+        onClick={() => onRemove(toast.id)}
+        className="shrink-0 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+      >
+        <X size={16} />
+      </button>
+    </div>
   );
 };
